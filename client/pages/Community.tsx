@@ -29,6 +29,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { CommunityService, type CommunityPost } from "@/lib/firestore";
 import { db } from "@/lib/firebase";
+import { collection, getDocs } from "firebase/firestore";
 import { formatDistanceToNow } from "date-fns";
 
 export default function Community() {
@@ -71,7 +72,8 @@ export default function Community() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        console.log('Fetching posts for category:', selectedCategory);
+        setError("");
+        console.log('Starting fetch for category:', selectedCategory);
         console.log('Current user:', currentUser ? 'Logged in' : 'Not logged in');
         console.log('User profile:', userProfile);
         console.log('Firestore DB available:', !!db);
@@ -79,12 +81,27 @@ export default function Community() {
         let fetchedPosts;
         
         if (selectedCategory === 'all') {
+          console.log('Fetching all posts...');
           fetchedPosts = await CommunityService.getPosts();
         } else {
+          console.log('Fetching posts for category:', selectedCategory);
           fetchedPosts = await CommunityService.getPosts(selectedCategory);
         }
         
-        console.log('Fetched posts:', fetchedPosts);
+        console.log('Fetched posts result:', fetchedPosts);
+        console.log('Number of posts fetched:', fetchedPosts.length);
+        
+        // Log each post for debugging
+        fetchedPosts.forEach((post, index) => {
+          console.log(`Post ${index + 1}:`, {
+            id: post.id,
+            title: post.title,
+            category: post.category,
+            author: post.authorName,
+            createdAt: post.createdAt
+          });
+        });
+        
         setPosts(fetchedPosts);
         
         // Update category counts
@@ -97,17 +114,44 @@ export default function Community() {
           }
         });
         
+        console.log('Category counts updated:', categoryCounts);
         setLoading(false);
+        
       } catch (err) {
         console.error('Error fetching posts:', err);
-        console.error('Error details:', JSON.stringify(err));
-        setError('Failed to load community posts');
+        console.error('Error details:', {
+          message: err.message,
+          code: err.code,
+          stack: err.stack
+        });
+        
+        // Try one more fallback with direct collection access
+        try {
+          console.log('Attempting direct collection access...');
+          const directQuery = await getDocs(collection(db, 'community_posts'));
+          console.log('Direct query result size:', directQuery.size);
+          
+          const directPosts = directQuery.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          })) as CommunityPost[];
+          
+          console.log('Direct posts:', directPosts);
+          setPosts(directPosts);
+          setError('');
+          
+        } catch (directErr) {
+          console.error('Direct query also failed:', directErr);
+          setError(`Failed to load community posts: ${err.message}`);
+          setPosts([]);
+        }
+        
         setLoading(false);
       }
     };
 
     fetchPosts();
-  }, [selectedCategory]);
+  }, [selectedCategory, currentUser, db]);
   
   // Filter posts based on search query
   const filteredPosts = posts.filter(post => {

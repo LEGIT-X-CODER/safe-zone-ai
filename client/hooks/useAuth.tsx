@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: user.email || '',
         displayName: user.displayName || '',
         photoURL: user.photoURL || undefined,
-        phoneNumber: user.phoneNumber || undefined,
+        phoneNumber: user.phoneNumber || '',
         bio: '',
         location: '',
         ...additionalData
@@ -74,7 +74,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: user.email || '',
         displayName: user.displayName || 'User',
         photoURL: user.photoURL || undefined,
-        phoneNumber: user.phoneNumber || undefined,
+        phoneNumber: user.phoneNumber || '',
         bio: '',
         location: '',
         joinedAt: new Date(),

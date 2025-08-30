@@ -29,7 +29,7 @@ export interface UserProfile {
   email: string;
   displayName: string;
   photoURL?: string;
-  phoneNumber?: string;
+  phoneNumber: string;
   bio?: string;
   location?: string;
   joinedAt: Date | Timestamp;
@@ -151,8 +151,8 @@ export class UserService {
         uid: userData.uid!,
         email: userData.email || '',
         displayName: userData.displayName || '',
-        photoURL: userData.photoURL,
-        phoneNumber: userData.phoneNumber,
+        photoURL: userData.photoURL || undefined,
+        phoneNumber: userData.phoneNumber || '',
         bio: userData.bio || '',
         location: userData.location || '',
         joinedAt: serverTimestamp(),
@@ -431,28 +431,95 @@ export class CommunityService {
   static async getPosts(category?: string, limit_count = 20): Promise<CommunityPost[]> {
     if (!db) throw new Error('Database not available');
 
-    let q = query(
-      collection(db, 'community_posts'),
-      orderBy('isPinned', 'desc'),
-      orderBy('createdAt', 'desc'),
-      limit(limit_count)
-    );
+    try {
+      console.log('Fetching posts for category:', category);
+      let q;
+      
+      if (category && category !== 'all') {
+        // Simple query for category filter to avoid composite index requirement
+        console.log('Using category filter query');
+        q = query(
+          collection(db, 'community_posts'),
+          where('category', '==', category),
+          limit(limit_count)
+        );
+      } else {
+        // For all posts, use simple ordering
+        console.log('Using all posts query');
+        q = query(
+          collection(db, 'community_posts'),
+          orderBy('createdAt', 'desc'),
+          limit(limit_count)
+        );
+      }
 
-    if (category) {
-      q = query(
-        collection(db, 'community_posts'),
-        where('category', '==', category),
-        orderBy('isPinned', 'desc'),
-        orderBy('createdAt', 'desc'),
-        limit(limit_count)
-      );
+      const snapshot = await getDocs(q);
+      console.log('Raw snapshot size:', snapshot.size);
+      
+      let posts = snapshot.docs.map(doc => {
+        const data = doc.data();
+        console.log('Post data:', doc.id, data);
+        return {
+          id: doc.id,
+          ...data
+        } as CommunityPost;
+      });
+      
+      // Manual sorting for category queries since we can't use composite index
+      if (category && category !== 'all') {
+        posts = posts.sort((a, b) => {
+          const aTime = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 
+                      (a.createdAt as any)?.seconds ? (a.createdAt as any).seconds * 1000 : 0;
+          const bTime = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 
+                      (b.createdAt as any)?.seconds ? (b.createdAt as any).seconds * 1000 : 0;
+          return bTime - aTime; // Newest first
+        });
+      }
+      
+      console.log('Returning posts:', posts.length);
+      return posts;
+      
+    } catch (error) {
+      console.error('Error in getPosts:', error);
+      
+      // Fallback: Try to get all posts without any filters
+      try {
+        console.log('Trying fallback query...');
+        const fallbackQuery = query(
+          collection(db, 'community_posts'),
+          limit(limit_count)
+        );
+        
+        const fallbackSnapshot = await getDocs(fallbackQuery);
+        console.log('Fallback snapshot size:', fallbackSnapshot.size);
+        
+        let allPosts = fallbackSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        } as CommunityPost));
+        
+        // Filter manually if category specified
+        if (category && category !== 'all') {
+          allPosts = allPosts.filter(post => post.category === category);
+        }
+        
+        // Sort manually
+        allPosts = allPosts.sort((a, b) => {
+          const aTime = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 
+                      (a.createdAt as any)?.seconds ? (a.createdAt as any).seconds * 1000 : 0;
+          const bTime = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 
+                      (b.createdAt as any)?.seconds ? (b.createdAt as any).seconds * 1000 : 0;
+          return bTime - aTime;
+        });
+        
+        console.log('Fallback returning posts:', allPosts.length);
+        return allPosts;
+        
+      } catch (fallbackError) {
+        console.error('Fallback query also failed:', fallbackError);
+        return [];
+      }
     }
-
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as CommunityPost));
   }
 
   static async incrementViewCount(postId: string): Promise<void> {
