@@ -285,7 +285,7 @@ export default function Features() {
                             className="flex items-center space-x-3"
                           >
                             <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                            <span className="text-gray-700">{item}</span>
+                            <span className="text-gray-200">{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -382,7 +382,7 @@ export default function Features() {
                             className="flex items-center space-x-2"
                           >
                             <Star className="w-4 h-4 text-yellow-500 flex-shrink-0" />
-                            <span className="text-sm text-gray-700">
+                            <span className="text-sm text-gray-200">
                               {benefit}
                             </span>
                           </li>
