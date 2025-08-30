@@ -18,7 +18,13 @@ const NotFound = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div
+        className="min-h-screen bg-cover bg-center flex items-center justify-center px-4"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F3f2ac2ddc7544ae1b748719e2dd93a11?format=webp&width=1600')",
+        }}
+      >
         <Card className="max-w-md w-full shadow-lg">
           <CardContent className="p-8 text-center">
             <div className="w-16 h-16 bg-safezone-blue rounded-full flex items-center justify-center mx-auto mb-6">

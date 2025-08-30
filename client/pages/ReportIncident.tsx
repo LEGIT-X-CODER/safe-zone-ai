@@ -67,13 +67,18 @@ export default function ReportIncident() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form
-    if (!formData.incidentType || !formData.severityLevel || !formData.location || !formData.description) {
+    if (
+      !formData.incidentType ||
+      !formData.severityLevel ||
+      !formData.location ||
+      !formData.description
+    ) {
       alert("Please fill in all required fields");
       return;
     }
-    
+
     setIsSubmitting(true);
 
     // Simulate API call with realistic delay
@@ -83,7 +88,7 @@ export default function ReportIncident() {
     console.log("Incident reported:", formData);
     setIsSubmitted(true);
     setIsSubmitting(false);
-    
+
     // Reset form data
     setFormData({
       incidentType: "",
@@ -108,7 +113,7 @@ export default function ReportIncident() {
         ...prev,
         location: "Getting location...",
       }));
-      
+
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -129,8 +134,8 @@ export default function ReportIncident() {
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 0
-        }
+          maximumAge: 0,
+        },
       );
     } else {
       alert("Geolocation is not supported by this browser.");
@@ -173,9 +178,15 @@ export default function ReportIncident() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-mesh-gradient">
+      <div
+        className="min-h-screen text-white bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')",
+        }}
+      >
         {/* Header Section */}
-        <div className="bg-gradient-purple-pink text-white py-12 relative overflow-hidden">
+        <div className="text-white py-12 relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-8 h-8 text-safezone-blue" />
@@ -364,7 +375,7 @@ export default function ReportIncident() {
                   <div className="pt-6">
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-orange-pink hover:bg-gradient-purple-pink text-white py-3 text-lg font-semibold shadow-glow hover:shadow-glow-pink transition-all duration-300"
+                      className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
                       disabled={
                         isSubmitting ||
                         !formData.incidentType ||
@@ -373,6 +384,9 @@ export default function ReportIncident() {
                         !formData.description
                       }
                     >
+                      {isSubmitting && (
+                        <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
+                      )}
                       {isSubmitting ? "Submitting Report..." : "Submit Report"}
                     </Button>
                     <p className="text-xs text-gray-500 mt-2 text-center">
@@ -387,13 +401,13 @@ export default function ReportIncident() {
         </div>
 
         {/* Additional Info Section */}
-        <div className="bg-white py-16 mt-16">
+        <div className="bg-white/5 text-white py-16 mt-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-white mb-4">
                 Live risk assessment for your location
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 AI-powered risk scores updated in real-time based on multiple
                 data sources
               </p>
@@ -431,9 +445,7 @@ export default function ReportIncident() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-gray-900">
-                        6
-                      </span>
+                      <span className="text-2xl font-bold text-white">6</span>
                     </div>
                   </div>
                   <Badge className="bg-green-50 text-green-600">Low Risk</Badge>
@@ -450,24 +462,24 @@ export default function ReportIncident() {
                     <div className="flex items-center space-x-3">
                       <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                       <div>
-                        <p className="font-medium text-gray-900">Downtown</p>
+                        <p className="font-medium text-white">Downtown</p>
                         <p className="text-sm text-red-600">High Risk</p>
                       </div>
                     </div>
-                    <p className="font-bold text-gray-900">85</p>
+                    <p className="font-bold text-white">85</p>
                   </div>
 
                   <div className="flex items-center justify-between p-3 rounded-lg bg-yellow-50">
                     <div className="flex items-center space-x-3">
                       <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-white">
                           Tourist District
                         </p>
                         <p className="text-sm text-yellow-600">Medium Risk</p>
                       </div>
                     </div>
-                    <p className="font-bold text-gray-900">45</p>
+                    <p className="font-bold text-white">45</p>
                   </div>
                 </CardContent>
               </Card>

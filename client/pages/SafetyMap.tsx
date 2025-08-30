@@ -106,16 +106,22 @@ export default function SafetyMap() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
+      <div
+        className="min-h-screen text-white bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')",
+        }}
+      >
         {/* Header */}
-        <div className="bg-white/90 backdrop-blur-md border-b border-gradient-teal-blue shadow-lg">
+        <div className="bg-black/50 backdrop-blur-md border-b border-white/10 shadow-lg text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
               <div>
-                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
+                <h1 className="text-2xl lg:text-3xl font-bold text-white">
                   Safety Heatmap
                 </h1>
-                <p className="text-gray-600 mt-1">
+                <p className="text-gray-300 mt-1">
                   Real-time safety intelligence and incident tracking
                 </p>
               </div>
@@ -299,7 +305,7 @@ export default function SafetyMap() {
                 <CardContent className="p-0">
                   <div className="relative h-96 lg:h-[600px]">
                     {/* Placeholder Map */}
-                    <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg relative overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-green-100 to-blue-100 rounded-lg relative overflow-hidden">
                       {/* Map Grid */}
                       <div className="absolute inset-0">
                         <svg className="w-full h-full opacity-20">
@@ -412,7 +418,9 @@ export default function SafetyMap() {
                       <div className="absolute inset-0 bg-white bg-opacity-90 hidden items-center justify-center">
                         <div className="text-center">
                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-safezone-blue mx-auto mb-2"></div>
-                          <p className="text-sm text-gray-600">Loading map data...</p>
+                          <p className="text-sm text-gray-600">
+                            Loading map data...
+                          </p>
                         </div>
                       </div>
                     </div>

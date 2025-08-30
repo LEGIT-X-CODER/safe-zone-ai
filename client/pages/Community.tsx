@@ -166,16 +166,22 @@ export default function Community() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+      <div
+        className="min-h-screen text-white bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')",
+        }}
+      >
         {/* Header */}
-        <div className="bg-white border-b border-gray-200">
+        <div className="bg-black/50 backdrop-blur-md border-b border-white/10 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
               <div>
-                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
+                <h1 className="text-2xl lg:text-3xl font-bold text-white">
                   Travel Safety Community
                 </h1>
-                <p className="text-gray-600 mt-1">
+                <p className="text-gray-300 mt-1">
                   Share experiences, stay informed, travel safely together
                 </p>
               </div>
@@ -187,7 +193,7 @@ export default function Community() {
                     placeholder="Search posts..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-64"
+                    className="w-64 bg-white/10 border-white/20 text-white placeholder-white/70"
                   />
                 </div>
                 <Link to="/report-incident">
@@ -291,7 +297,7 @@ export default function Community() {
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-6">
               {/* Filter Bar */}
-              <div className="flex items-center justify-between bg-white rounded-lg p-4 shadow-sm">
+              <div className="flex items-center justify-between bg-white/5 text-white rounded-lg p-4 shadow-sm">
                 <div className="flex items-center space-x-4">
                   <span className="text-sm text-gray-600">Sort by:</span>
                   <select className="text-sm border-0 focus:ring-0 text-gray-900 font-medium">
@@ -308,10 +314,11 @@ export default function Community() {
 
               {/* Posts */}
               <div className="space-y-6">
-                {communityPosts.map((post) => (
+                {communityPosts.map((post, index) => (
                   <Card
                     key={post.id}
-                    className="shadow-sm hover:shadow-md transition-shadow"
+                    className="shadow-sm hover:shadow-md transition-shadow animate-fade-up"
+                    style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <CardContent className="p-6">
                       {/* Post Header */}

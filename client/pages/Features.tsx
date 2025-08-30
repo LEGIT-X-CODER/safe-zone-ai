@@ -189,9 +189,15 @@ export default function Features() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-50">
+      <div
+        className="min-h-screen text-white bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')",
+        }}
+      >
         {/* Hero Section */}
-        <section className="bg-mesh-gradient text-white py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Badge className="bg-blue-100 text-safezone-blue mb-4">
               <Shield className="w-4 h-4 mr-1" />
@@ -223,7 +229,7 @@ export default function Features() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
@@ -231,10 +237,10 @@ export default function Features() {
                   <div className="text-3xl lg:text-4xl font-bold text-safezone-blue mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-lg font-semibold text-gray-900 mb-1">
+                  <div className="text-lg font-semibold text-white mb-1">
                     {stat.label}
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-300">
                     {stat.description}
                   </div>
                 </div>
@@ -244,13 +250,13 @@ export default function Features() {
         </section>
 
         {/* Main Features */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Core Safety Intelligence Features
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Our platform combines cutting-edge AI technology with community
                 insights to provide unparalleled travel safety intelligence.
               </p>
@@ -264,18 +270,19 @@ export default function Features() {
                     key={index}
                     className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                       index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                    }`}
+                    } animate-fade-up`}
+                    style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                       <div className="flex items-center space-x-3 mb-4">
                         <div className="w-12 h-12 bg-safezone-blue rounded-lg flex items-center justify-center">
                           <Icon className="w-6 h-6 text-white" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900">
+                        <h3 className="text-2xl font-bold text-white">
                           {feature.title}
                         </h3>
                       </div>
-                      <p className="text-lg text-gray-600 mb-6">
+                      <p className="text-lg text-gray-300 mb-6">
                         {feature.description}
                       </p>
                       <ul className="space-y-3 mb-8">
@@ -285,7 +292,7 @@ export default function Features() {
                             className="flex items-center space-x-3"
                           >
                             <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                            <span className="text-gray-700">{item}</span>
+                            <span className="text-gray-200">{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -308,13 +315,13 @@ export default function Features() {
         </section>
 
         {/* Additional Features Grid */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Additional Capabilities
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-300">
                 Explore more features that make SafeZone AI the complete travel
                 safety solution.
               </p>
@@ -326,7 +333,8 @@ export default function Features() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white animate-fade-up"
+                    style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <CardHeader>
                       <div className="flex items-center justify-between mb-2">
@@ -338,7 +346,7 @@ export default function Features() {
                       <CardTitle className="text-lg">{feature.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-600">{feature.description}</p>
+                      <p className="text-gray-300">{feature.description}</p>
                     </CardContent>
                   </Card>
                 );
@@ -348,13 +356,13 @@ export default function Features() {
         </section>
 
         {/* Use Cases */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Built for Every Type of Traveler
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-300">
                 Whether you're traveling for business, leisure, or managing
                 destinations, we have you covered.
               </p>
@@ -372,7 +380,7 @@ export default function Features() {
                       <CardTitle className="text-xl">{useCase.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-600 text-center mb-6">
+                      <p className="text-gray-300 text-center mb-6">
                         {useCase.description}
                       </p>
                       <ul className="space-y-2">
@@ -382,7 +390,7 @@ export default function Features() {
                             className="flex items-center space-x-2"
                           >
                             <Star className="w-4 h-4 text-yellow-500 flex-shrink-0" />
-                            <span className="text-sm text-gray-700">
+                            <span className="text-sm text-gray-200">
                               {benefit}
                             </span>
                           </li>

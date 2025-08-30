@@ -107,10 +107,10 @@ export default function Contact() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="w-8 h-8 text-green-600" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-white mb-2">
                 Message Sent!
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-300 mb-6">
                 Thank you for contacting SafeZone AI. We've received your
                 message and will get back to you within 24 hours.
               </p>
@@ -129,14 +129,20 @@ export default function Contact() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+      <div
+        className="min-h-screen text-white bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=1600')",
+        }}
+      >
         {/* Header */}
-        <section className="bg-white py-16">
+        <section className="bg-transparent py-24 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               Get in Touch
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-300 mb-8">
               Have questions about SafeZone AI? We'd love to hear from you. Send
               us a message and we'll respond as soon as possible.
             </p>
@@ -148,7 +154,7 @@ export default function Contact() {
             {/* Contact Information */}
             <div className="lg:col-span-1 space-y-8">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className="text-2xl font-bold text-white mb-6">
                   Contact Information
                 </h2>
                 <div className="space-y-6">
@@ -160,7 +166,7 @@ export default function Contact() {
                           <Icon className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-900">
+                          <h3 className="font-semibold text-white">
                             {info.title}
                           </h3>
                           {info.action ? (
@@ -171,11 +177,11 @@ export default function Contact() {
                               {info.content}
                             </a>
                           ) : (
-                            <p className="text-gray-900 font-medium">
+                            <p className="text-white font-medium">
                               {info.content}
                             </p>
                           )}
-                          <p className="text-gray-600 text-sm mt-1">
+                          <p className="text-gray-300 text-sm mt-1">
                             {info.description}
                           </p>
                         </div>
@@ -187,7 +193,7 @@ export default function Contact() {
 
               {/* Quick Links */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <h3 className="text-lg font-semibold text-white mb-4">
                   Quick Links
                 </h3>
                 <div className="space-y-2">
@@ -235,17 +241,17 @@ export default function Contact() {
                 <CardContent>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Monday - Friday</span>
+                      <span className="text-gray-300">Monday - Friday</span>
                       <span className="font-medium">9:00 AM - 6:00 PM EST</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Saturday</span>
+                      <span className="text-gray-300">Saturday</span>
                       <span className="font-medium">
                         10:00 AM - 4:00 PM EST
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Sunday</span>
+                      <span className="text-gray-300">Sunday</span>
                       <span className="font-medium">Emergency only</span>
                     </div>
                   </div>
@@ -258,7 +264,7 @@ export default function Contact() {
               <Card className="border-0 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-2xl">Send us a Message</CardTitle>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Fill out the form below and we'll get back to you as soon as
                     possible.
                   </p>
@@ -363,7 +369,7 @@ export default function Contact() {
                     <div className="pt-4">
                       <Button
                         type="submit"
-                        className="w-full bg-gradient-teal-blue hover:bg-gradient-purple-pink text-white py-3 text-lg font-semibold shadow-glow hover:shadow-glow-teal transition-all duration-300"
+                        className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
                         disabled={
                           isSubmitting ||
                           !formData.name ||
@@ -374,6 +380,9 @@ export default function Contact() {
                         }
                       >
                         <Send className="w-5 h-5 mr-2" />
+                        {isSubmitting && (
+                          <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                        )}
                         {isSubmitting ? "Sending Message..." : "Send Message"}
                       </Button>
                       <p className="text-xs text-gray-500 mt-2 text-center">
@@ -389,13 +398,13 @@ export default function Contact() {
         </div>
 
         {/* FAQ Section */}
-        <section className="bg-white py-16">
+        <section className="bg-white/5 py-16 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-white mb-4">
                 Frequently Asked Questions
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 Find quick answers to common questions about SafeZone AI
               </p>
             </div>
@@ -403,10 +412,10 @@ export default function Contact() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     How accurate is the safety data?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Our AI analyzes multiple real-time data sources including
                     community reports, official crime statistics, and local
                     conditions to provide highly accurate safety assessments.
@@ -414,10 +423,10 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     Is SafeZone AI available worldwide?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     We currently cover 150+ major cities worldwide with plans to
                     expand coverage continuously based on user demand and data
                     availability.
@@ -425,10 +434,10 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     How do I report an incident?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Use our incident reporting feature accessible from the main
                     navigation or safety map. Reports are verified by our
                     community and update risk assessments in real-time.
@@ -438,10 +447,10 @@ export default function Contact() {
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     Is my personal data secure?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Yes, we use enterprise-grade encryption and follow strict
                     privacy policies. Location data is anonymized and we never
                     share personal information with third parties.
@@ -449,20 +458,20 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     Do you offer API access?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Yes, we provide API access for businesses and developers.
                     Contact our sales team for pricing and integration details.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     What emergency features are available?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Our platform includes emergency contact integration, local
                     emergency service information, and crisis response features
                     for serious incidents.
