@@ -235,13 +235,13 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Comprehensive safety intelligence at your fingertips
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
               Our platform combines real-time data, AI analysis, and community
               insights to provide unparalleled travel safety intelligence.
             </p>
@@ -253,7 +253,7 @@ export default function Index() {
               return (
                 <Card
                   key={index}
-                  className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                  className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white"
                 >
                   <CardHeader className="text-center">
                     <div className="w-full h-32 mb-4 rounded-lg overflow-hidden">
@@ -279,13 +279,13 @@ export default function Index() {
       </section>
 
       {/* Safety Heatmap Section */}
-      <section className="py-20 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Interactive safety heatmap with live incident tracking
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-200">
               Click on any incident marker to view details and safety
               recommendations
             </p>
@@ -318,16 +318,16 @@ export default function Index() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-gray-900">
+                      <span className="text-2xl font-bold text-white">
                         62
                       </span>
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-white">
                     Risk Score
                   </h3>
-                  <p className="text-yellow-600 font-medium">Medium Risk</p>
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-yellow-400 font-medium">Medium Risk</p>
+                  <p className="text-sm text-gray-300 mt-2">
                     Based on recent incidents, crowd density, and local
                     conditions
                   </p>
@@ -346,13 +346,13 @@ export default function Index() {
                         className={`w-3 h-3 rounded-full ${area.color.replace("text-", "bg-")}`}
                       ></div>
                       <div>
-                        <p className="font-medium text-gray-900">{area.name}</p>
+                        <p className="font-medium text-white">{area.name}</p>
                         <p className={`text-sm ${area.color}`}>{area.level}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold text-gray-900">{area.score}</p>
-                      <p className="text-xs text-gray-600">Risk</p>
+                      <p className="font-bold text-white">{area.score}</p>
+                      <p className="text-xs text-gray-300">Risk</p>
                     </div>
                   </div>
                 ))}
@@ -398,10 +398,10 @@ export default function Index() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F3f2ac2ddc7544ae1b748719e2dd93a11?format=webp&width=1600')" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F3f2ac2ddc7544ae1b748719e2dd93a11?format=webp&width=1600')" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Trusted by travelers worldwide
             </h2>
             <div className="flex items-center justify-center space-x-2 mb-4">
@@ -411,12 +411,12 @@ export default function Index() {
                   className="w-6 h-6 text-yellow-400 fill-current"
                 />
               ))}
-              <span className="text-lg font-semibold text-gray-900 ml-2">
+              <span className="text-lg font-semibold text-white ml-2">
                 4.9/5
               </span>
-              <span className="text-gray-600">based on 2,500+ reviews</span>
+              <span className="text-gray-300">based on 2,500+ reviews</span>
             </div>
-            <div className="flex justify-center space-x-4 text-sm text-gray-600">
+            <div className="flex justify-center space-x-4 text-sm text-gray-300">
               <span>App Store</span>
               <span>•</span>
               <span>Google Play</span>
@@ -425,7 +425,7 @@ export default function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-0 shadow-lg">
+              <Card key={index} className="border-0 shadow-lg bg-white/5 text-white">
                 <CardHeader>
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-safezone-blue rounded-full flex items-center justify-center text-white font-bold">
@@ -448,10 +448,10 @@ export default function Index() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 mb-4">"{testimonial.comment}"</p>
+                  <p className="text-gray-300 mb-4">"{testimonial.comment}"</p>
                   <Badge
                     variant="secondary"
-                    className="bg-blue-50 text-safezone-blue"
+                    className="bg-white/10 text-white"
                   >
                     {testimonial.category}
                   </Badge>
@@ -463,7 +463,7 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')" }}>
+      <section className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             Travel smart, travel safe with AI-powered insights
@@ -479,13 +479,13 @@ export default function Index() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 bg-gradient-to-br from-cyan-50 via-teal-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=1600')" }}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=1600')" }}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               Get in touch
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Have questions about SafeZone AI? We'd love to hear from you.
             </p>
           </div>
