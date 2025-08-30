@@ -200,7 +200,7 @@ export default function Index() {
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden">
         <div className={cn("absolute inset-0 bg-cover bg-center transition-transform duration-700 will-change-transform", zoomState === "in" ? "scale-110" : "scale-95")} style={{ backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe5e854ef1b0446a786c54b8a4dfcc60d?format=webp&width=800')" }} />
-        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-black/60" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
