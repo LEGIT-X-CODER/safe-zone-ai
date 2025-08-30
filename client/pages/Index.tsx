@@ -68,14 +68,14 @@ export default function Index() {
       description:
         "Interactive map with color-coded risk zones updated in real-time",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F612e9a82b86748da836eaf9bc77dd81e%2F5d9ea8f2974646f7b075c8849f3fd9ab?format=webp&width=800",
+        "https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=800",
     },
     {
       icon: AlertTriangle,
       title: "Incident Reporting",
       description: "Community-driven incident reports with instant map updates",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F612e9a82b86748da836eaf9bc77dd81e%2F400e461dde3d44bebc2f433b0e527c0e?format=webp&width=800",
+        "https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F07ef52a5687544e8a01aff6f15675779?format=webp&width=800",
     },
     {
       icon: Shield,
@@ -83,7 +83,7 @@ export default function Index() {
       description:
         "Advanced algorithms analyze multiple data sources for accurate risk scores",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F612e9a82b86748da836eaf9bc77dd81e%2F454debd2cb5740d29a0d97806f0d6a93?format=webp&width=800",
+        "https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F92b066f27d48481f941755b0aa19cfc5?format=webp&width=800",
     },
     {
       icon: Smartphone,
@@ -91,7 +91,7 @@ export default function Index() {
       description:
         "Seamless experience across all devices with offline capabilities",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F612e9a82b86748da836eaf9bc77dd81e%2F2337ee8402c644b0b07074f9fb5864ce?format=webp&width=800",
+        "https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=800",
     },
   ];
 
@@ -186,7 +186,7 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative bg-gradient-teal-blue text-white overflow-hidden animate-gradient-x">
+      <section className="relative bg-gradient-teal-blue text-white overflow-hidden animate-gradient-x bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F92b066f27d48481f941755b0aa19cfc5?format=webp&width=1600')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -281,7 +281,7 @@ export default function Index() {
             <div className="relative">
               <div className="bg-white rounded-lg p-4 shadow-lg">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F612e9a82b86748da836eaf9bc77dd81e%2F99def52998f748408861e2009d709220?format=webp&width=800"
+                  src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=800"
                   alt="SafeZone AI Map Interface"
                   className="w-full h-64 object-cover rounded-lg"
                 />
@@ -298,7 +298,7 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -342,7 +342,7 @@ export default function Index() {
       </section>
 
       {/* Safety Heatmap Section */}
-      <section className="py-20 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -461,7 +461,7 @@ export default function Index() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -526,7 +526,7 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal">
+      <section className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             Travel smart, travel safe with AI-powered insights
@@ -542,7 +542,7 @@ export default function Index() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 bg-gradient-to-br from-cyan-50 via-teal-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-cyan-50 via-teal-50 to-blue-50 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=1600')" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
