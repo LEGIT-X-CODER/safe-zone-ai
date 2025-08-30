@@ -219,9 +219,9 @@ export default function Index() {
             <div className="relative">
               <div className="bg-white rounded-lg p-4 shadow-lg">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=800"
-                  alt="SafeZone AI Map Interface"
-                  className="w-full h-64 object-cover rounded-lg"
+                  src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=800"
+                  alt="SafeZone emblem"
+                  className="w-full h-64 object-contain rounded-lg bg-white/5"
                 />
                 <div className="absolute top-8 right-8 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                   <div className="flex items-center space-x-1">
