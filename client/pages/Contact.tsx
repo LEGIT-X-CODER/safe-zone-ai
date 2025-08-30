@@ -110,7 +110,7 @@ export default function Contact() {
               <h2 className="text-2xl font-bold text-white mb-2">
                 Message Sent!
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-300 mb-6">
                 Thank you for contacting SafeZone AI. We've received your
                 message and will get back to you within 24 hours.
               </p>
@@ -136,7 +136,7 @@ export default function Contact() {
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               Get in Touch
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-300 mb-8">
               Have questions about SafeZone AI? We'd love to hear from you. Send
               us a message and we'll respond as soon as possible.
             </p>
@@ -175,7 +175,7 @@ export default function Contact() {
                               {info.content}
                             </p>
                           )}
-                          <p className="text-gray-600 text-sm mt-1">
+                          <p className="text-gray-300 text-sm mt-1">
                             {info.description}
                           </p>
                         </div>
@@ -235,17 +235,17 @@ export default function Contact() {
                 <CardContent>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Monday - Friday</span>
+                      <span className="text-gray-300">Monday - Friday</span>
                       <span className="font-medium">9:00 AM - 6:00 PM EST</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Saturday</span>
+                      <span className="text-gray-300">Saturday</span>
                       <span className="font-medium">
                         10:00 AM - 4:00 PM EST
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Sunday</span>
+                      <span className="text-gray-300">Sunday</span>
                       <span className="font-medium">Emergency only</span>
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export default function Contact() {
               <Card className="border-0 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-2xl">Send us a Message</CardTitle>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Fill out the form below and we'll get back to you as soon as
                     possible.
                   </p>
@@ -398,7 +398,7 @@ export default function Contact() {
               <h2 className="text-3xl font-bold text-white mb-4">
                 Frequently Asked Questions
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 Find quick answers to common questions about SafeZone AI
               </p>
             </div>
@@ -409,7 +409,7 @@ export default function Contact() {
                   <h3 className="font-semibold text-white mb-2">
                     How accurate is the safety data?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Our AI analyzes multiple real-time data sources including
                     community reports, official crime statistics, and local
                     conditions to provide highly accurate safety assessments.
@@ -420,7 +420,7 @@ export default function Contact() {
                   <h3 className="font-semibold text-white mb-2">
                     Is SafeZone AI available worldwide?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     We currently cover 150+ major cities worldwide with plans to
                     expand coverage continuously based on user demand and data
                     availability.
@@ -431,7 +431,7 @@ export default function Contact() {
                   <h3 className="font-semibold text-white mb-2">
                     How do I report an incident?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Use our incident reporting feature accessible from the main
                     navigation or safety map. Reports are verified by our
                     community and update risk assessments in real-time.
@@ -444,7 +444,7 @@ export default function Contact() {
                   <h3 className="font-semibold text-white mb-2">
                     Is my personal data secure?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Yes, we use enterprise-grade encryption and follow strict
                     privacy policies. Location data is anonymized and we never
                     share personal information with third parties.
@@ -455,7 +455,7 @@ export default function Contact() {
                   <h3 className="font-semibold text-white mb-2">
                     Do you offer API access?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Yes, we provide API access for businesses and developers.
                     Contact our sales team for pricing and integration details.
                   </p>
@@ -465,7 +465,7 @@ export default function Contact() {
                   <h3 className="font-semibold text-white mb-2">
                     What emergency features are available?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Our platform includes emergency contact integration, local
                     emergency service information, and crisis response features
                     for serious incidents.
