@@ -22,7 +22,18 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+
+// Initialize Firestore with error handling
+let db;
+try {
+  db = getFirestore(app);
+  console.log('Firestore initialized successfully');
+} catch (error) {
+  console.error('Firestore initialization failed:', error);
+  // Firestore will be undefined if not available
+}
+export { db };
+
 export const storage = getStorage(app);
 
 // Initialize Analytics (only in browser environment)

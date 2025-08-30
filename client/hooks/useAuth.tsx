@@ -11,20 +11,8 @@ import {
   signInWithPopup,
   UserCredential
 } from 'firebase/auth';
-import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '@/lib/firebase';
-
-export interface UserProfile {
-  uid: string;
-  email: string;
-  displayName: string;
-  photoURL?: string;
-  phoneNumber?: string;
-  bio?: string;
-  location?: string;
-  joinedAt: Date;
-  lastLoginAt: Date;
-}
+import { auth } from '@/lib/firebase';
+import { UserService, type UserProfile } from '@/lib/firestore';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -56,36 +44,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const createUserProfile = async (user: User, additionalData?: any) => {
     if (!user) return;
 
-    const userRef = doc(db, 'users', user.uid);
-    const userDoc = await getDoc(userRef);
-
-    if (!userDoc.exists()) {
-      const { email, displayName, photoURL, phoneNumber } = user;
-      const userData: UserProfile = {
+    console.log('Creating/fetching user profile for:', user.email);
+    
+    try {
+      // Use the new UserService for profile management
+      const userData = {
         uid: user.uid,
-        email: email || '',
-        displayName: displayName || '',
-        photoURL: photoURL || undefined,
-        phoneNumber: phoneNumber || undefined,
+        email: user.email || '',
+        displayName: user.displayName || '',
+        photoURL: user.photoURL || undefined,
+        phoneNumber: user.phoneNumber || undefined,
+        bio: '',
+        location: '',
+        ...additionalData
+      };
+      
+      console.log('Calling UserService.createOrUpdateProfile...');
+      const profile = await UserService.createOrUpdateProfile(userData);
+      console.log('Profile created/updated successfully:', profile);
+      setUserProfile(profile);
+      
+    } catch (error) {
+      console.error('Error in createUserProfile:', error);
+      
+      // Create a basic profile as fallback
+      const basicProfile: UserProfile = {
+        uid: user.uid,
+        email: user.email || '',
+        displayName: user.displayName || 'User',
+        photoURL: user.photoURL || undefined,
+        phoneNumber: user.phoneNumber || undefined,
         bio: '',
         location: '',
         joinedAt: new Date(),
         lastLoginAt: new Date(),
-        ...additionalData
+        reputation: 0,
+        badgesEarned: [],
+        totalReports: 0,
+        totalComments: 0
       };
-
-      try {
-        await setDoc(userRef, userData);
-        setUserProfile(userData);
-      } catch (error) {
-        console.error('Error creating user profile:', error);
-      }
-    } else {
-      // Update last login time
-      const userData = userDoc.data() as UserProfile;
-      userData.lastLoginAt = new Date();
-      await updateDoc(userRef, { lastLoginAt: userData.lastLoginAt });
-      setUserProfile(userData);
+      
+      console.log('Setting basic profile due to error');
+      setUserProfile(basicProfile);
     }
   };
 
@@ -121,35 +121,81 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const updateUserProfile = async (data: Partial<UserProfile>) => {
     if (!currentUser) throw new Error('No user logged in');
 
-    const userRef = doc(db, 'users', currentUser.uid);
-    await updateDoc(userRef, data);
-    
-    if (userProfile) {
-      setUserProfile({ ...userProfile, ...data });
-    }
+    try {
+      // Use UserService to update profile
+      await UserService.updateProfile(currentUser.uid, data);
+      
+      // Update local state
+      if (userProfile) {
+        setUserProfile({ ...userProfile, ...data });
+      }
 
-    // Update Firebase Auth profile if needed
-    if (data.displayName || data.photoURL) {
-      await updateProfile(currentUser, {
-        displayName: data.displayName || currentUser.displayName,
-        photoURL: data.photoURL || currentUser.photoURL
-      });
+      // Update Firebase Auth profile if needed
+      if (data.displayName || data.photoURL) {
+        await updateProfile(currentUser, {
+          displayName: data.displayName || currentUser.displayName,
+          photoURL: data.photoURL || currentUser.photoURL
+        });
+      }
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      throw error;
     }
   };
 
   useEffect(() => {
+    console.log('Setting up auth state listener...');
+    
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log('Auth state changed:', user ? user.email : 'No user');
+      
       if (user) {
         setCurrentUser(user);
-        await createUserProfile(user);
+        console.log('User authenticated, creating profile...');
+        
+        // Set a timeout to prevent infinite loading
+        const timeoutId = setTimeout(() => {
+          console.log('Profile creation timeout, setting basic profile');
+          const basicProfile: UserProfile = {
+            uid: user.uid,
+            email: user.email || '',
+            displayName: user.displayName || 'User',
+            photoURL: user.photoURL || undefined,
+            phoneNumber: user.phoneNumber || undefined,
+            bio: '',
+            location: '',
+            joinedAt: new Date(),
+            lastLoginAt: new Date(),
+            reputation: 0,
+            badgesEarned: [],
+            totalReports: 0,
+            totalComments: 0
+          };
+          setUserProfile(basicProfile);
+        }, 5000); // 5 second timeout
+        
+        try {
+          await createUserProfile(user);
+          clearTimeout(timeoutId);
+          console.log('Profile creation completed');
+        } catch (error) {
+          console.error('Profile creation failed:', error);
+          clearTimeout(timeoutId);
+        }
       } else {
+        console.log('No user, clearing state');
         setCurrentUser(null);
         setUserProfile(null);
       }
+      
+      console.log('Setting loading to false');
       setLoading(false);
     });
 
-    return unsubscribe;
+    return () => {
+      console.log('Cleaning up auth listener');
+      unsubscribe();
+    };
   }, []);
 
   const value: AuthContextType = {

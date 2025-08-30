@@ -240,7 +240,7 @@ const Signup = () => {
                 <Checkbox
                   id="terms"
                   checked={acceptTerms}
-                  onCheckedChange={setAcceptTerms}
+                  onCheckedChange={(checked) => setAcceptTerms(checked === true)}
                 />
                 <Label htmlFor="terms" className="text-sm leading-relaxed">
                   I agree to the{' '}

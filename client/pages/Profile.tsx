@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -25,22 +25,43 @@ import {
   Phone,
   ArrowLeft,
   CheckCircle,
-  Clock
+  Clock,
+  Award,
+  MessageSquare,
+  AlertTriangle
 } from 'lucide-react';
+import { AnalyticsService, type UserProfile } from '@/lib/firestore';
 
 const Profile = () => {
-  const { currentUser, userProfile, logout, updateUserProfile } = useAuth();
+  const { currentUser, userProfile, logout, updateUserProfile, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [userStats, setUserStats] = useState<any>(null);
   const [editData, setEditData] = useState({
     displayName: userProfile?.displayName || '',
     bio: userProfile?.bio || '',
     location: userProfile?.location || '',
     phoneNumber: userProfile?.phoneNumber || ''
   });
+
+  // Load user statistics
+  useEffect(() => {
+    const loadUserStats = async () => {
+      if (currentUser && userProfile) {
+        try {
+          const stats = await AnalyticsService.getUserStats(currentUser.uid);
+          setUserStats(stats);
+        } catch (error) {
+          console.error('Failed to load user stats:', error);
+        }
+      }
+    };
+
+    loadUserStats();
+  }, [currentUser, userProfile]);
 
   const handleLogout = async () => {
     try {
@@ -97,15 +118,30 @@ const Profile = () => {
       .slice(0, 2);
   };
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date: Date | any) => {
+    // Handle Firestore Timestamp
+    const dateObj = date?.toDate ? date.toDate() : new Date(date);
     return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
-    }).format(new Date(date));
+    }).format(dateObj);
   };
 
-  if (!currentUser || !userProfile) {
+  // Show loading while authentication is being determined
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="text-center space-y-4">
+          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="text-muted-foreground">Loading your profile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show access denied only if not authenticated (not loading)
+  if (!currentUser) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -114,6 +150,48 @@ const Profile = () => {
           <Link to="/login">
             <Button className="bg-gradient-teal-blue">Sign In</Button>
           </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Show loading while user profile is being created/loaded
+  if (!userProfile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="text-center space-y-6">
+          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="text-muted-foreground">Setting up your profile...</p>
+          
+          {/* Manual bypass button after 3 seconds */}
+          <div className="mt-6">
+            <Button 
+              onClick={() => {
+                console.log('Manual profile bypass triggered');
+                const basicProfile: UserProfile = {
+                  uid: currentUser.uid,
+                  email: currentUser.email || '',
+                  displayName: currentUser.displayName || 'User',
+                  photoURL: currentUser.photoURL || undefined,
+                  phoneNumber: currentUser.phoneNumber || undefined,
+                  bio: '',
+                  location: '',
+                  joinedAt: new Date(),
+                  lastLoginAt: new Date(),
+                  reputation: 0,
+                  badgesEarned: [],
+                  totalReports: 0,
+                  totalComments: 0
+                };
+                window.localStorage.setItem('tempProfile', JSON.stringify(basicProfile));
+                window.location.reload();
+              }}
+              variant="outline"
+              className="text-xs"
+            >
+              Continue anyway (Skip Profile Setup)
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -348,6 +426,72 @@ const Profile = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* User Statistics */}
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center space-x-2">
+                  <Award className="w-5 h-5" />
+                  <span>Statistics & Reputation</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Reputation Score */}
+                <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+                  <div className="text-2xl font-bold text-blue-600">
+                    {userProfile.reputation || 0}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Reputation Points</div>
+                </div>
+                
+                {/* Activity Stats */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-3 bg-green-50 rounded-lg">
+                    <div className="flex items-center justify-center mb-1">
+                      <AlertTriangle className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div className="text-lg font-semibold text-green-700">
+                      {userStats?.totalReports || userProfile.totalReports || 0}
+                    </div>
+                    <div className="text-xs text-green-600">Reports</div>
+                  </div>
+                  
+                  <div className="text-center p-3 bg-blue-50 rounded-lg">
+                    <div className="flex items-center justify-center mb-1">
+                      <MessageSquare className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div className="text-lg font-semibold text-blue-700">
+                      {userStats?.totalComments || userProfile.totalComments || 0}
+                    </div>
+                    <div className="text-xs text-blue-600">Comments</div>
+                  </div>
+                </div>
+                
+                {userStats && (
+                  <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                    <div className="text-lg font-semibold text-yellow-700">
+                      {userStats.totalUpvotes || 0}
+                    </div>
+                    <div className="text-xs text-yellow-600">Total Upvotes Received</div>
+                  </div>
+                )}
+                
+                {/* Badges */}
+                {userProfile.badgesEarned && userProfile.badgesEarned.length > 0 && (
+                  <div>
+                    <Label className="text-sm text-muted-foreground mb-2 block">Badges Earned</Label>
+                    <div className="flex flex-wrap gap-2">
+                      {userProfile.badgesEarned.map((badge, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs">
+                          <Award className="w-3 h-3 mr-1" />
+                          {badge}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
             {/* Account Stats */}
             <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
               <CardHeader>

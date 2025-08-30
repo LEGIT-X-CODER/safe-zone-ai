@@ -23,31 +23,33 @@ import {
   Upload,
   Navigation,
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { IncidentService } from "@/lib/firestore";
+import { useNavigate } from "react-router-dom";
 
 export default function ReportIncident() {
+  const { currentUser, userProfile } = useAuth();
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     incidentType: "",
     severityLevel: "",
     location: "",
     description: "",
-    yourName: "",
-    email: "",
+    title: ""
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const incidentTypes = [
-    "Theft/Robbery",
-    "Assault",
-    "Harassment",
-    "Fraud/Scam",
-    "Traffic Incident",
-    "Natural Disaster",
-    "Medical Emergency",
-    "Suspicious Activity",
-    "Infrastructure Issue",
-    "Other",
+    { value: "theft", label: "Theft/Robbery" },
+    { value: "harassment", label: "Assault/Harassment" },
+    { value: "accident", label: "Traffic Incident" },
+    { value: "weather", label: "Weather/Natural Disaster" },
+    { value: "medical", label: "Medical Emergency" },
+    { value: "other", label: "Other" },
   ];
 
   const severityLevels = [
@@ -67,37 +69,62 @@ export default function ReportIncident() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
+    // Check if user is authenticated
+    if (!currentUser || !userProfile) {
+      setError("Please log in to report an incident");
+      navigate("/login");
+      return;
+    }
 
     // Validate form
     if (
       !formData.incidentType ||
       !formData.severityLevel ||
       !formData.location ||
-      !formData.description
+      !formData.description ||
+      !formData.title
     ) {
-      alert("Please fill in all required fields");
+      setError("Please fill in all required fields");
       return;
     }
 
     setIsSubmitting(true);
 
-    // Simulate API call with realistic delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Create incident using Firestore service
+      await IncidentService.createIncident({
+        reporterId: currentUser.uid,
+        reporterName: userProfile.displayName,
+        reporterAvatar: currentUser.photoURL || undefined,
+        title: formData.title,
+        description: formData.description,
+        category: formData.incidentType as any,
+        severity: formData.severityLevel as any,
+        location: {
+          address: formData.location
+        }
+      });
 
-    // Show success message
-    console.log("Incident reported:", formData);
-    setIsSubmitted(true);
-    setIsSubmitting(false);
+      // Show success message
+      console.log("Incident reported successfully");
+      setIsSubmitted(true);
+      setIsSubmitting(false);
 
-    // Reset form data
-    setFormData({
-      incidentType: "",
-      severityLevel: "",
-      location: "",
-      description: "",
-      yourName: "",
-      email: "",
-    });
+      // Reset form data
+      setFormData({
+        incidentType: "",
+        severityLevel: "",
+        location: "",
+        description: "",
+        title: ""
+      });
+    } catch (error: any) {
+      console.error("Error reporting incident:", error);
+      setError(error.message || "Failed to submit incident report. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -206,6 +233,41 @@ export default function ReportIncident() {
             <Card className="shadow-xl">
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Authentication Check */}
+                  {!currentUser && (
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                      <p className="text-yellow-800 text-sm">
+                        <AlertTriangle className="w-4 h-4 inline mr-2" />
+                        Please <a href="/login" className="underline font-medium">log in</a> to report incidents
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Error Message */}
+                  {error && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                      <p className="text-red-800 text-sm">
+                        <AlertTriangle className="w-4 h-4 inline mr-2" />
+                        {error}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Title */}
+                  <div className="space-y-2">
+                    <Label htmlFor="title" className="text-base font-medium">
+                      Incident Title *
+                    </Label>
+                    <Input
+                      id="title"
+                      placeholder="Brief title describing the incident"
+                      value={formData.title}
+                      onChange={(e) => handleInputChange("title", e.target.value)}
+                      required
+                      disabled={!currentUser}
+                    />
+                  </div>
+
                   {/* Incident Type */}
                   <div className="space-y-2">
                     <Label
@@ -219,19 +281,15 @@ export default function ReportIncident() {
                       onValueChange={(value) =>
                         handleInputChange("incidentType", value)
                       }
+                      disabled={!currentUser}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select incident type" />
                       </SelectTrigger>
                       <SelectContent>
                         {incidentTypes.map((type) => (
-                          <SelectItem
-                            key={type}
-                            value={type
-                              .toLowerCase()
-                              .replace(/[^a-z0-9]/g, "-")}
-                          >
-                            {type}
+                          <SelectItem key={type.value} value={type.value}>
+                            {type.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -248,6 +306,7 @@ export default function ReportIncident() {
                       onValueChange={(value) =>
                         handleInputChange("severityLevel", value)
                       }
+                      disabled={!currentUser}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select severity level" />
@@ -277,12 +336,14 @@ export default function ReportIncident() {
                         }
                         className="flex-1"
                         required
+                        disabled={!currentUser}
                       />
                       <Button
                         type="button"
                         variant="outline"
                         onClick={getCurrentLocation}
                         className="px-3"
+                        disabled={!currentUser}
                       >
                         <Navigation className="w-4 h-4" />
                       </Button>
@@ -310,6 +371,7 @@ export default function ReportIncident() {
                       rows={4}
                       className="resize-none"
                       required
+                      disabled={!currentUser}
                     />
                     <p className="text-sm text-gray-500">
                       Please provide as much detail as possible to help others
@@ -333,61 +395,25 @@ export default function ReportIncident() {
                     </div>
                   </div>
 
-                  <div className="border-t pt-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                      Contact Information (Optional)
-                    </h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Your Name (Optional)</Label>
-                        <Input
-                          id="name"
-                          placeholder="Your name"
-                          value={formData.yourName}
-                          onChange={(e) =>
-                            handleInputChange("yourName", e.target.value)
-                          }
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email (Optional)</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="your@email.com"
-                          value={formData.email}
-                          onChange={(e) =>
-                            handleInputChange("email", e.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
-
-                    <p className="text-sm text-gray-500 mt-2">
-                      Providing contact information helps us follow up if needed
-                      and improves report accuracy
-                    </p>
-                  </div>
-
                   {/* Submit Button */}
                   <div className="pt-6">
                     <Button
                       type="submit"
                       className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
                       disabled={
+                        !currentUser ||
                         isSubmitting ||
                         !formData.incidentType ||
                         !formData.severityLevel ||
                         !formData.location ||
-                        !formData.description
+                        !formData.description ||
+                        !formData.title
                       }
                     >
                       {isSubmitting && (
                         <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
                       )}
-                      {isSubmitting ? "Submitting Report..." : "Submit Report"}
+                      {!currentUser ? "Please Log In" : isSubmitting ? "Submitting Report..." : "Submit Report"}
                     </Button>
                     <p className="text-xs text-gray-500 mt-2 text-center">
                       By submitting, you agree to our community guidelines and
