@@ -426,7 +426,7 @@ export default function Index() {
             <div className="lg:col-span-2">
               <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-lg h-96 relative overflow-hidden">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F612e9a82b86748da836eaf9bc77dd81e%2Ff116dbc7f543452ea2f7f1dc18376f9d?format=webp&width=800"
+                  src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=800"
                   alt="Interactive Safety Heatmap"
                   className="w-full h-full object-cover rounded-lg"
                 />
