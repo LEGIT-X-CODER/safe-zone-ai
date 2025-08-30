@@ -197,10 +197,6 @@ export default function Index() {
           <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-12 items-center transition-transform duration-700", zoomState === "in" ? "scale-105" : "scale-95")}>
             <div className="space-y-8">
               <div className="space-y-4">
-                <Badge className="bg-gradient-teal-blue text-white hover:bg-gradient-lime-cyan shadow-glow-teal animate-pulse-slow">
-                  <Shield className="w-4 h-4 mr-1" />
-                  AI-Powered Safety Intelligence
-                </Badge>
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
                   Travel Safely with Real-Time Risk Intelligence
                 </h1>
