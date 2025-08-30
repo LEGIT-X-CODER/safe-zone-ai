@@ -49,6 +49,12 @@ export default function Index() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const [heroVisible, setHeroVisible] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setHeroVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   // Indian cities with pincodes
   const indianCities = [
     { name: "Mumbai, Maharashtra", pincode: "400001", area: "Fort, South Mumbai" },
@@ -198,12 +204,12 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative text-white overflow-hidden">
+      <section className="relative text-white overflow-hidden min-h-screen">
         <div className={cn("absolute inset-0 bg-cover bg-center transition-transform duration-700 will-change-transform", zoomState === "in" ? "scale-110" : "scale-95")} style={{ backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe5e854ef1b0446a786c54b8a4dfcc60d?format=webp&width=800')" }} />
         <div className="absolute inset-0 bg-black/60" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
           <div className="grid grid-cols-1 gap-12 items-center">
-            <div className="space-y-8">
+            <div className={cn("space-y-8 max-w-2xl mr-auto text-left transform transition-all duration-700 ease-out", heroVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8")}>
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
                   Travel Safely with Real-Time Risk Intelligence
