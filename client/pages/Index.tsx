@@ -223,12 +223,6 @@ export default function Index() {
                   alt="SafeZone emblem"
                   className="w-full h-64 object-contain rounded-lg bg-white/5"
                 />
-                <div className="absolute top-8 right-8 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                  <div className="flex items-center space-x-1">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    <span>Live Tracking</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
