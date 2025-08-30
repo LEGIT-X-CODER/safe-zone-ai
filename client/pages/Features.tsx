@@ -234,7 +234,7 @@ export default function Features() {
                   <div className="text-lg font-semibold text-white mb-1">
                     {stat.label}
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-300">
                     {stat.description}
                   </div>
                 </div>
@@ -250,7 +250,7 @@ export default function Features() {
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Core Safety Intelligence Features
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Our platform combines cutting-edge AI technology with community
                 insights to provide unparalleled travel safety intelligence.
               </p>
@@ -275,7 +275,7 @@ export default function Features() {
                           {feature.title}
                         </h3>
                       </div>
-                      <p className="text-lg text-gray-600 mb-6">
+                      <p className="text-lg text-gray-300 mb-6">
                         {feature.description}
                       </p>
                       <ul className="space-y-3 mb-8">
@@ -314,7 +314,7 @@ export default function Features() {
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Additional Capabilities
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-300">
                 Explore more features that make SafeZone AI the complete travel
                 safety solution.
               </p>
@@ -338,7 +338,7 @@ export default function Features() {
                       <CardTitle className="text-lg">{feature.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-600">{feature.description}</p>
+                      <p className="text-gray-300">{feature.description}</p>
                     </CardContent>
                   </Card>
                 );
@@ -354,7 +354,7 @@ export default function Features() {
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Built for Every Type of Traveler
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-300">
                 Whether you're traveling for business, leisure, or managing
                 destinations, we have you covered.
               </p>
@@ -372,7 +372,7 @@ export default function Features() {
                       <CardTitle className="text-xl">{useCase.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-600 text-center mb-6">
+                      <p className="text-gray-300 text-center mb-6">
                         {useCase.description}
                       </p>
                       <ul className="space-y-2">
