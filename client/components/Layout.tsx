@@ -61,7 +61,7 @@ export function Layout({ children }: LayoutProps) {
                     key={item.name}
                     to={item.href}
                     className={cn(
-                      "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
+                      "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-0.5",
                       isActiveLink(item.href)
                         ? "text-white bg-gradient-teal-blue shadow-glow-teal"
                         : "text-gray-600 hover:text-vibrant-teal-500 hover:bg-gradient-to-r hover:from-teal-50 hover:to-blue-50",
