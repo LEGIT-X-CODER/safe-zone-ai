@@ -308,10 +308,11 @@ export default function Community() {
 
               {/* Posts */}
               <div className="space-y-6">
-                {communityPosts.map((post) => (
+                {communityPosts.map((post, index) => (
                   <Card
                     key={post.id}
-                    className="shadow-sm hover:shadow-md transition-shadow"
+                    className="shadow-sm hover:shadow-md transition-shadow animate-fade-up"
+                    style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <CardContent className="p-6">
                       {/* Post Header */}
