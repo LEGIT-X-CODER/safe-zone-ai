@@ -390,13 +390,13 @@ export default function ReportIncident() {
         </div>
 
         {/* Additional Info Section */}
-        <div className="bg-white py-16 mt-16">
+        <div className="bg-white/5 text-white py-16 mt-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-white mb-4">
                 Live risk assessment for your location
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 AI-powered risk scores updated in real-time based on multiple
                 data sources
               </p>
@@ -434,7 +434,7 @@ export default function ReportIncident() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-gray-900">
+                      <span className="text-2xl font-bold text-white">
                         6
                       </span>
                     </div>
@@ -453,24 +453,24 @@ export default function ReportIncident() {
                     <div className="flex items-center space-x-3">
                       <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                       <div>
-                        <p className="font-medium text-gray-900">Downtown</p>
+                        <p className="font-medium text-white">Downtown</p>
                         <p className="text-sm text-red-600">High Risk</p>
                       </div>
                     </div>
-                    <p className="font-bold text-gray-900">85</p>
+                    <p className="font-bold text-white">85</p>
                   </div>
 
                   <div className="flex items-center justify-between p-3 rounded-lg bg-yellow-50">
                     <div className="flex items-center space-x-3">
                       <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-white">
                           Tourist District
                         </p>
                         <p className="text-sm text-yellow-600">Medium Risk</p>
                       </div>
                     </div>
-                    <p className="font-bold text-gray-900">45</p>
+                    <p className="font-bold text-white">45</p>
                   </div>
                 </CardContent>
               </Card>
