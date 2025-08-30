@@ -37,14 +37,14 @@ export function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-blue-50">
       {/* Navigation Header */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-gradient-purple-pink sticky top-0 z-50 shadow-lg">
+      <header className="bg-white/90 backdrop-blur-md border-b border-gradient-teal-blue sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-purple-pink rounded-lg flex items-center justify-center shadow-glow">
+              <div className="w-8 h-8 bg-gradient-teal-blue rounded-lg flex items-center justify-center shadow-glow-teal">
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">
@@ -63,8 +63,8 @@ export function Layout({ children }: LayoutProps) {
                     className={cn(
                       "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
                       isActiveLink(item.href)
-                        ? "text-white bg-gradient-purple-pink shadow-glow"
-                        : "text-gray-600 hover:text-vibrant-purple-500 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50",
+                        ? "text-white bg-gradient-teal-blue shadow-glow-teal"
+                        : "text-gray-600 hover:text-vibrant-teal-500 hover:bg-gradient-to-r hover:from-teal-50 hover:to-blue-50",
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -76,7 +76,7 @@ export function Layout({ children }: LayoutProps) {
 
             {/* CTA Button */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button className="bg-gradient-purple-pink hover:bg-gradient-orange-pink text-white shadow-glow hover:shadow-glow-pink transition-all duration-300 transform hover:scale-105">
+              <Button className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300 transform hover:scale-105">
                 Get Started
               </Button>
             </div>
@@ -111,8 +111,8 @@ export function Layout({ children }: LayoutProps) {
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
                         isActiveLink(item.href)
-                          ? "text-white bg-gradient-purple-pink shadow-glow"
-                          : "text-gray-600 hover:text-vibrant-purple-500 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50",
+                          ? "text-white bg-gradient-teal-blue shadow-glow-teal"
+                        : "text-gray-600 hover:text-vibrant-teal-500 hover:bg-gradient-to-r hover:from-teal-50 hover:to-blue-50",
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -121,7 +121,7 @@ export function Layout({ children }: LayoutProps) {
                   );
                 })}
                 <div className="pt-4">
-                  <Button className="w-full bg-gradient-purple-pink hover:bg-gradient-orange-pink text-white shadow-glow hover:shadow-glow-pink transition-all duration-300">
+                  <Button className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
                     Get Started
                   </Button>
                 </div>
@@ -141,7 +141,7 @@ export function Layout({ children }: LayoutProps) {
             {/* Company Info */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-purple-pink rounded-lg flex items-center justify-center shadow-glow">
+                <div className="w-8 h-8 bg-gradient-teal-blue rounded-lg flex items-center justify-center shadow-glow-teal">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold">SafeZone AI</span>
