@@ -253,7 +253,8 @@ export default function Index() {
               return (
                 <Card
                   key={index}
-                  className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white"
+                  className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white animate-fade-up"
+                  style={{ animationDelay: `${index * 120}ms` }}
                 >
                   <CardHeader className="text-center">
                     <div className="w-full h-32 mb-4 rounded-lg overflow-hidden">
@@ -425,7 +426,7 @@ export default function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-0 shadow-lg bg-white/5 text-white">
+              <Card key={index} className="border-0 shadow-lg bg-white/5 text-white animate-fade-up" style={{ animationDelay: `${index * 150}ms` }}>
                 <CardHeader>
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-safezone-blue rounded-full flex items-center justify-center text-white font-bold">
