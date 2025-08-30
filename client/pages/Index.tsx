@@ -11,6 +11,13 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Layout } from "@/components/Layout";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Shield,
   Map,
   AlertTriangle,
@@ -28,6 +35,31 @@ import { Link } from "react-router-dom";
 
 export default function Index() {
   const [destinationQuery, setDestinationQuery] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  // Indian cities with pincodes
+  const indianCities = [
+    { name: "Mumbai, Maharashtra", pincode: "400001", area: "Fort, South Mumbai" },
+    { name: "Delhi", pincode: "110001", area: "Connaught Place, Central Delhi" },
+    { name: "Bangalore, Karnataka", pincode: "560001", area: "Bangalore GPO, Central Bangalore" },
+    { name: "Chennai, Tamil Nadu", pincode: "600001", area: "Anna Salai, Central Chennai" },
+    { name: "Kolkata, West Bengal", pincode: "700001", area: "BBD Bagh, Central Kolkata" },
+    { name: "Hyderabad, Telangana", pincode: "500001", area: "Abids, Central Hyderabad" },
+    { name: "Pune, Maharashtra", pincode: "411001", area: "Pune Camp, Central Pune" },
+    { name: "Ahmedabad, Gujarat", pincode: "380001", area: "Ellis Bridge, Central Ahmedabad" },
+    { name: "Jaipur, Rajasthan", pincode: "302001", area: "Civil Lines, Central Jaipur" },
+    { name: "Surat, Gujarat", pincode: "395001", area: "Ring Road, Central Surat" },
+    { name: "Lucknow, Uttar Pradesh", pincode: "226001", area: "Hazratganj, Central Lucknow" },
+    { name: "Kanpur, Uttar Pradesh", pincode: "208001", area: "Civil Lines, Central Kanpur" },
+    { name: "Nagpur, Maharashtra", pincode: "440001", area: "Civil Lines, Central Nagpur" },
+    { name: "Indore, Madhya Pradesh", pincode: "452001", area: "MG Road, Central Indore" },
+    { name: "Thane, Maharashtra", pincode: "400601", area: "Thane West, Central Thane" },
+    { name: "Bhopal, Madhya Pradesh", pincode: "462001", area: "MP Nagar, Central Bhopal" },
+    { name: "Visakhapatnam, Andhra Pradesh", pincode: "530001", area: "Dwaraka Nagar, Central Visakhapatnam" },
+    { name: "Patna, Bihar", pincode: "800001", area: "Fraser Road, Central Patna" },
+    { name: "Vadodara, Gujarat", pincode: "390001", area: "Mandvi, Central Vadodara" },
+    { name: "Ghaziabad, Uttar Pradesh", pincode: "201001", area: "Civil Lines, Central Ghaziabad" }
+  ];
 
   const features = [
     {
@@ -122,13 +154,22 @@ export default function Index() {
   ];
 
   const handleAnalyze = () => {
-    if (destinationQuery.trim()) {
+    const locationToAnalyze = selectedCity || destinationQuery;
+    if (locationToAnalyze.trim()) {
       // Show analysis results
-      alert(`Analyzing safety for: ${destinationQuery}\n\nRisk Score: ${Math.floor(Math.random() * 100)}\nRecommendation: ${getRandomRecommendation()}`);
+      alert(`Analyzing safety for: ${locationToAnalyze}\n\nRisk Score: ${Math.floor(Math.random() * 100)}\nRecommendation: ${getRandomRecommendation()}`);
       // In a real app, this would call an API
-      console.log("Analyzing destination:", destinationQuery);
+      console.log("Analyzing destination:", locationToAnalyze);
     } else {
-      alert("Please enter a destination to analyze");
+      alert("Please enter a destination or select from Indian cities");
+    }
+  };
+
+  const handleCitySelect = (cityValue: string) => {
+    const city = indianCities.find(c => `${c.name} - ${c.pincode}` === cityValue);
+    if (city) {
+      setSelectedCity(`${city.name} - ${city.area} (${city.pincode})`);
+      setDestinationQuery(`${city.name} - ${city.area} (${city.pincode})`);
     }
   };
 
@@ -171,20 +212,55 @@ export default function Index() {
                     <MapPin className="w-5 h-5" />
                     <span className="font-medium">Check Your Destination</span>
                   </div>
-                  <div className="flex space-x-2">
-                    <Input
-                      placeholder="Enter location (e.g. Downtown Tourist District)"
-                      value={destinationQuery}
-                      onChange={(e) => setDestinationQuery(e.target.value)}
-                      className="flex-1"
-                    />
-                    <Button
-                      onClick={handleAnalyze}
-                      className="bg-gradient-purple-pink hover:bg-gradient-orange-pink text-white shadow-glow hover:shadow-glow-pink transition-all duration-300 transform hover:scale-105"
-                    >
-                      Analyze
-                    </Button>
+                  
+                  {/* Quick Select for Indian Cities */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">
+                      Popular Indian Cities
+                    </label>
+                    <Select onValueChange={handleCitySelect}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a city in India" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {indianCities.map((city, index) => (
+                          <SelectItem 
+                            key={index} 
+                            value={`${city.name} - ${city.pincode}`}
+                          >
+                            <div className="flex flex-col">
+                              <span className="font-medium">{city.name}</span>
+                              <span className="text-xs text-gray-500">
+                                {city.area} - PIN: {city.pincode}
+                              </span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
+
+                  {/* Manual Input */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">
+                      Or enter any location
+                    </label>
+                    <div className="flex space-x-2">
+                      <Input
+                        placeholder="Enter location (e.g. Connaught Place, Delhi - 110001)"
+                        value={destinationQuery}
+                        onChange={(e) => setDestinationQuery(e.target.value)}
+                        className="flex-1"
+                      />
+                      <Button
+                        onClick={handleAnalyze}
+                        className="bg-gradient-purple-pink hover:bg-gradient-orange-pink text-white shadow-glow hover:shadow-glow-pink transition-all duration-300 transform hover:scale-105"
+                      >
+                        Analyze
+                      </Button>
+                    </div>
+                  </div>
+                  
                   <div className="flex space-x-2">
                     <Link to="/safety-map">
                       <Button
