@@ -363,7 +363,7 @@ export default function Contact() {
                     <div className="pt-4">
                       <Button
                         type="submit"
-                        className="w-full bg-gradient-teal-blue hover:bg-gradient-purple-pink text-white py-3 text-lg font-semibold shadow-glow hover:shadow-glow-teal transition-all duration-300"
+                        className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
                         disabled={
                           isSubmitting ||
                           !formData.name ||
@@ -374,6 +374,9 @@ export default function Contact() {
                         }
                       >
                         <Send className="w-5 h-5 mr-2" />
+                        {isSubmitting && (
+                          <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                        )}
                         {isSubmitting ? "Sending Message..." : "Send Message"}
                       </Button>
                       <p className="text-xs text-gray-500 mt-2 text-center">
