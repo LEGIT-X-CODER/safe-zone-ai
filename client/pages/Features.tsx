@@ -189,9 +189,9 @@ export default function Features() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen text-white bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')" }}>
         {/* Hero Section */}
-        <section className="bg-mesh-gradient text-white py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Badge className="bg-blue-100 text-safezone-blue mb-4">
               <Shield className="w-4 h-4 mr-1" />
@@ -223,7 +223,7 @@ export default function Features() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
@@ -244,7 +244,7 @@ export default function Features() {
         </section>
 
         {/* Main Features */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -308,7 +308,7 @@ export default function Features() {
         </section>
 
         {/* Additional Features Grid */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -348,7 +348,7 @@ export default function Features() {
         </section>
 
         {/* Use Cases */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
