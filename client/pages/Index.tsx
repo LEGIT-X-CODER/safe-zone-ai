@@ -39,9 +39,14 @@ export default function Index() {
   const [selectedCity, setSelectedCity] = useState("");
   const [zoomState, setZoomState] = useState<"in" | "out">("out");
   useEffect(() => {
-    const onWheel = (e: WheelEvent) => setZoomState(e.deltaY < 0 ? "in" : "out");
-    window.addEventListener("wheel", onWheel, { passive: true });
-    return () => window.removeEventListener("wheel", onWheel);
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setZoomState(y > lastY ? "in" : "out");
+      lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Indian cities with pincodes
@@ -193,9 +198,11 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative text-white overflow-hidden bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=1600')" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-12 items-center transition-transform duration-700", zoomState === "in" ? "scale-105" : "scale-95")}>
+      <section className="relative text-white overflow-hidden">
+        <div className={cn("absolute inset-0 bg-cover bg-center transition-transform duration-700 will-change-transform", zoomState === "in" ? "scale-110" : "scale-95")} style={{ backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe5e854ef1b0446a786c54b8a4dfcc60d?format=webp&width=800')" }} />
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
