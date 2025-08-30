@@ -23,7 +23,7 @@ const buttonVariants = cva(
         "gradient-blue":
           "bg-gradient-blue-purple text-white hover:bg-gradient-teal-blue shadow-glow-blue hover:shadow-glow-teal transition-all duration-300",
         "gradient-teal":
-          "bg-gradient-teal-blue text-white hover:bg-gradient-lime-cyan shadow-glow-teal hover:shadow-glow transition-all duration-300",
+          "bg-gradient-teal-blue text-white hover:bg-gradient-lime-cyan shadow-glow-teal hover:shadow-glow-blue transition-all duration-300",
         "gradient-orange":
           "bg-gradient-orange-pink text-white hover:bg-gradient-purple-pink shadow-glow hover:shadow-glow-pink transition-all duration-300",
       },
