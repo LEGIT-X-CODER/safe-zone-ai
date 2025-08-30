@@ -84,7 +84,7 @@ const CardGradient = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-lg bg-gradient-purple-pink text-white shadow-glow hover:shadow-glow-pink transition-all duration-300 hover:-translate-y-1 transform hover:scale-105",
+      "rounded-lg bg-gradient-teal-blue text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300 hover:-translate-y-1 transform hover:scale-105",
       className,
     )}
     {...props}
@@ -99,7 +99,7 @@ const CardVibrant = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-lg border-2 border-gradient-purple-pink bg-white text-card-foreground shadow-lg hover:shadow-glow hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50 transition-all duration-300 hover:-translate-y-1",
+      "rounded-lg border-2 border-gradient-teal-blue bg-white text-card-foreground shadow-lg hover:shadow-glow-teal hover:bg-gradient-to-br hover:from-teal-50 hover:to-blue-50 transition-all duration-300 hover:-translate-y-1",
       className,
     )}
     {...props}
