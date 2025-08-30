@@ -37,17 +37,17 @@ export function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-blue-50">
+    <div className="min-h-screen dark bg-black">
       {/* Navigation Header */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-gradient-teal-blue sticky top-0 z-50 shadow-lg">
+      <header className="bg-transparent backdrop-blur-md sticky top-0 z-50 shadow-lg bg-center bg-cover" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=1200')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-teal-blue rounded-lg flex items-center justify-center shadow-glow-teal">
-                <Shield className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=128" alt="SafeZone logo" className="w-8 h-8 object-contain" />
               </div>
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-xl font-bold text-white">
                 SafeZone AI
               </span>
             </Link>
@@ -61,10 +61,8 @@ export function Layout({ children }: LayoutProps) {
                     key={item.name}
                     to={item.href}
                     className={cn(
-                      "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-0.5",
-                      isActiveLink(item.href)
-                        ? "text-white bg-gradient-teal-blue shadow-glow-teal"
-                        : "text-gray-600 hover:text-vibrant-teal-500 hover:bg-gradient-to-r hover:from-teal-50 hover:to-blue-50",
+                      "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
+                      isActiveLink(item.href) ? "text-white" : "text-gray-300 hover:text-white",
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -76,7 +74,7 @@ export function Layout({ children }: LayoutProps) {
 
             {/* CTA Button */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300 transform hover:scale-105">
+              <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all duration-300">
                 Get Started
               </Button>
             </div>
@@ -111,8 +109,8 @@ export function Layout({ children }: LayoutProps) {
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
                         isActiveLink(item.href)
-                          ? "text-white bg-gradient-teal-blue shadow-glow-teal"
-                        : "text-gray-600 hover:text-vibrant-teal-500 hover:bg-gradient-to-r hover:from-teal-50 hover:to-blue-50",
+                          ? "text-white"
+                          : "text-gray-300 hover:text-white",
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -135,14 +133,14 @@ export function Layout({ children }: LayoutProps) {
       <main className="flex-1">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-gradient-teal-blue text-white shadow-glow-blue">
+      <footer className="bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Company Info */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-teal-blue rounded-lg flex items-center justify-center shadow-glow-teal">
-                  <Shield className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                  <img src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=128" alt="SafeZone logo" className="w-8 h-8 object-contain" />
                 </div>
                 <span className="text-xl font-bold">SafeZone AI</span>
               </div>
