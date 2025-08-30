@@ -264,7 +264,8 @@ export default function Features() {
                     key={index}
                     className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                       index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                    }`}
+                    } animate-fade-up`}
+                    style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                       <div className="flex items-center space-x-3 mb-4">
@@ -326,7 +327,8 @@ export default function Features() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white"
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white animate-fade-up"
+                    style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <CardHeader>
                       <div className="flex items-center justify-between mb-2">
