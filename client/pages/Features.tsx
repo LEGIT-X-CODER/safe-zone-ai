@@ -231,7 +231,7 @@ export default function Features() {
                   <div className="text-3xl lg:text-4xl font-bold text-safezone-blue mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-lg font-semibold text-gray-900 mb-1">
+                  <div className="text-lg font-semibold text-white mb-1">
                     {stat.label}
                   </div>
                   <div className="text-sm text-gray-600">
@@ -247,7 +247,7 @@ export default function Features() {
         <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Core Safety Intelligence Features
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -271,7 +271,7 @@ export default function Features() {
                         <div className="w-12 h-12 bg-safezone-blue rounded-lg flex items-center justify-center">
                           <Icon className="w-6 h-6 text-white" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900">
+                        <h3 className="text-2xl font-bold text-white">
                           {feature.title}
                         </h3>
                       </div>
@@ -311,7 +311,7 @@ export default function Features() {
         <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Additional Capabilities
               </h2>
               <p className="text-xl text-gray-600">
@@ -351,7 +351,7 @@ export default function Features() {
         <section className="py-20 bg-white/5 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Built for Every Type of Traveler
               </h2>
               <p className="text-xl text-gray-600">
