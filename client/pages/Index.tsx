@@ -36,6 +36,12 @@ import { Link } from "react-router-dom";
 export default function Index() {
   const [destinationQuery, setDestinationQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [zoomState, setZoomState] = useState<"in" | "out">("out");
+  useEffect(() => {
+    const onWheel = (e: WheelEvent) => setZoomState(e.deltaY < 0 ? "in" : "out");
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, []);
 
   // Indian cities with pincodes
   const indianCities = [
