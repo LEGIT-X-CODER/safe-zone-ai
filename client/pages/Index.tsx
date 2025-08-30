@@ -194,7 +194,7 @@ export default function Index() {
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=1600')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-12 items-center transition-transform duration-700", zoomState === "in" ? "scale-105" : "scale-95")}>
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge className="bg-gradient-teal-blue text-white hover:bg-gradient-lime-cyan shadow-glow-teal animate-pulse-slow">
