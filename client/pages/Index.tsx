@@ -186,12 +186,12 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative bg-mesh-gradient text-white overflow-hidden">
+      <section className="relative bg-gradient-teal-blue text-white overflow-hidden animate-gradient-x">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <Badge className="bg-gradient-purple-pink text-white hover:bg-gradient-orange-pink shadow-glow animate-pulse-slow">
+                <Badge className="bg-gradient-teal-blue text-white hover:bg-gradient-lime-cyan shadow-glow-teal animate-pulse-slow">
                   <Shield className="w-4 h-4 mr-1" />
                   AI-Powered Safety Intelligence
                 </Badge>
@@ -254,7 +254,7 @@ export default function Index() {
                       />
                       <Button
                         onClick={handleAnalyze}
-                        className="bg-gradient-purple-pink hover:bg-gradient-orange-pink text-white shadow-glow hover:shadow-glow-pink transition-all duration-300 transform hover:scale-105"
+                        className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300 transform hover:scale-105"
                       >
                         Analyze
                       </Button>
@@ -265,7 +265,7 @@ export default function Index() {
                     <Link to="/safety-map">
                       <Button
                         variant="outline"
-                        className="border-vibrant-purple-500 text-vibrant-purple-500 hover:bg-gradient-purple-pink hover:text-white hover:border-transparent shadow-glow transition-all duration-300"
+                        className="border-vibrant-teal-500 text-vibrant-teal-500 hover:bg-gradient-teal-blue hover:text-white hover:border-transparent shadow-glow-teal transition-all duration-300"
                       >
                         Explore Safety Map
                       </Button>
@@ -298,7 +298,7 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -461,7 +461,7 @@ export default function Index() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+      <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -526,7 +526,7 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-blue-purple text-white shadow-glow-blue">
+      <section className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             Travel smart, travel safe with AI-powered insights
@@ -535,7 +535,7 @@ export default function Index() {
             Join thousands of travelers who trust SafeZone AI for real-time
             safety intelligence and peace of mind on every journey.
           </p>
-          <Button className="bg-gradient-orange-pink hover:bg-gradient-lime-cyan text-white font-semibold px-8 py-3 text-lg shadow-glow hover:shadow-glow-pink transition-all duration-300 transform hover:scale-105">
+          <Button className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white font-semibold px-8 py-3 text-lg shadow-glow-teal hover:shadow-glow-blue transition-all duration-300 transform hover:scale-105">
             Start Using SafeZone AI
           </Button>
         </div>
@@ -580,7 +580,7 @@ export default function Index() {
                     placeholder="Tell us about your travel safety needs..."
                   />
                 </div>
-                <Button className="w-full bg-gradient-teal-blue hover:bg-gradient-purple-pink text-white shadow-glow hover:shadow-glow-teal transition-all duration-300">
+                <Button className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
                   Send Message
                 </Button>
               </form>
