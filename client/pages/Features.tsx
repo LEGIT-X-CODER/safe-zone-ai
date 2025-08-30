@@ -326,7 +326,7 @@ export default function Features() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white"
                   >
                     <CardHeader>
                       <div className="flex items-center justify-between mb-2">
