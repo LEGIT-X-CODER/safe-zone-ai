@@ -67,13 +67,32 @@ export default function ReportIncident() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form
+    if (!formData.incidentType || !formData.severityLevel || !formData.location || !formData.description) {
+      alert("Please fill in all required fields");
+      return;
+    }
+    
     setIsSubmitting(true);
 
-    // Simulate API call
+    // Simulate API call with realistic delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
+    // Show success message
+    console.log("Incident reported:", formData);
     setIsSubmitted(true);
     setIsSubmitting(false);
+    
+    // Reset form data
+    setFormData({
+      incidentType: "",
+      severityLevel: "",
+      location: "",
+      description: "",
+      yourName: "",
+      email: "",
+    });
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -85,18 +104,36 @@ export default function ReportIncident() {
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
+      setFormData((prev) => ({
+        ...prev,
+        location: "Getting location...",
+      }));
+      
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
+          const locationString = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
           setFormData((prev) => ({
             ...prev,
-            location: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
+            location: locationString,
           }));
         },
         (error) => {
           console.error("Error getting location:", error);
+          setFormData((prev) => ({
+            ...prev,
+            location: "Unable to get location",
+          }));
+          alert("Unable to get your location. Please enter manually.");
         },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
       );
+    } else {
+      alert("Geolocation is not supported by this browser.");
     }
   };
 

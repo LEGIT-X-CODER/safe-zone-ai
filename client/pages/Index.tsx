@@ -123,9 +123,23 @@ export default function Index() {
 
   const handleAnalyze = () => {
     if (destinationQuery.trim()) {
-      // In a real app, this would analyze the destination
+      // Show analysis results
+      alert(`Analyzing safety for: ${destinationQuery}\n\nRisk Score: ${Math.floor(Math.random() * 100)}\nRecommendation: ${getRandomRecommendation()}`);
+      // In a real app, this would call an API
       console.log("Analyzing destination:", destinationQuery);
+    } else {
+      alert("Please enter a destination to analyze");
     }
+  };
+
+  const getRandomRecommendation = () => {
+    const recommendations = [
+      "Low risk area - Safe for travel",
+      "Medium risk - Exercise normal precautions", 
+      "High risk - Avoid if possible",
+      "Very safe area - Enjoy your visit!"
+    ];
+    return recommendations[Math.floor(Math.random() * recommendations.length)];
   };
 
   return (

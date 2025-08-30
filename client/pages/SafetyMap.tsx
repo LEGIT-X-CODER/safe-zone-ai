@@ -298,6 +298,125 @@ export default function SafetyMap() {
                 </CardHeader>
                 <CardContent className="p-0">
                   <div className="relative h-96 lg:h-[600px]">
+                    {/* Placeholder Map */}
+                    <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg relative overflow-hidden">
+                      {/* Map Grid */}
+                      <div className="absolute inset-0">
+                        <svg className="w-full h-full opacity-20">
+                          <defs>
+                            <pattern
+                              id="grid"
+                              width="40"
+                              height="40"
+                              patternUnits="userSpaceOnUse"
+                            >
+                              <path
+                                d="M 40 0 L 0 0 0 40"
+                                fill="none"
+                                stroke="#6366f1"
+                                strokeWidth="1"
+                              />
+                            </pattern>
+                          </defs>
+                          <rect width="100%" height="100%" fill="url(#grid)" />
+                        </svg>
+                      </div>
+
+                      {/* Risk Zones */}
+                      <div className="absolute inset-0">
+                        {/* High Risk Zone */}
+                        <div className="absolute top-16 left-20 w-32 h-24 bg-red-400 opacity-40 rounded-lg animate-pulse">
+                          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                            <Badge className="bg-red-500 text-white text-xs">
+                              High Risk
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* Medium Risk Zone */}
+                        <div className="absolute top-32 right-24 w-40 h-32 bg-yellow-400 opacity-40 rounded-lg">
+                          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                            <Badge className="bg-yellow-500 text-white text-xs">
+                              Medium Risk
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* Low Risk Zone */}
+                        <div className="absolute bottom-20 left-32 w-36 h-28 bg-green-400 opacity-40 rounded-lg">
+                          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                            <Badge className="bg-green-500 text-white text-xs">
+                              Low Risk
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Incident Markers */}
+                      <div className="absolute inset-0">
+                        {/* Recent Incident 1 */}
+                        <div className="absolute top-24 left-32 cursor-pointer">
+                          <div className="w-4 h-4 bg-red-500 rounded-full animate-ping absolute"></div>
+                          <div className="w-4 h-4 bg-red-600 rounded-full relative flex items-center justify-center">
+                            <AlertTriangle className="w-2 h-2 text-white" />
+                          </div>
+                        </div>
+
+                        {/* Recent Incident 2 */}
+                        <div className="absolute top-40 right-32 cursor-pointer">
+                          <div className="w-4 h-4 bg-yellow-500 rounded-full animate-ping absolute"></div>
+                          <div className="w-4 h-4 bg-yellow-600 rounded-full relative flex items-center justify-center">
+                            <AlertTriangle className="w-2 h-2 text-white" />
+                          </div>
+                        </div>
+
+                        {/* User Location */}
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                          <div className="w-6 h-6 bg-blue-500 rounded-full relative flex items-center justify-center border-4 border-white shadow-lg">
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          </div>
+                          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+                            <Badge className="bg-blue-500 text-white text-xs">
+                              You are here
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Map Legend */}
+                      <div className="absolute bottom-4 left-4 bg-white rounded-lg p-3 shadow-lg">
+                        <h4 className="text-sm font-medium text-gray-900 mb-2">
+                          Legend
+                        </h4>
+                        <div className="space-y-1 text-xs">
+                          <div className="flex items-center space-x-2">
+                            <div className="w-3 h-3 bg-red-500 rounded"></div>
+                            <span>High Risk</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-3 h-3 bg-yellow-500 rounded"></div>
+                            <span>Medium Risk</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-3 h-3 bg-green-500 rounded"></div>
+                            <span>Low Risk</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <AlertTriangle className="w-3 h-3 text-red-600" />
+                            <span>Recent Incidents</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Loading Overlay (initially hidden) */}
+                      <div className="absolute inset-0 bg-white bg-opacity-90 hidden items-center justify-center">
+                        <div className="text-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-safezone-blue mx-auto mb-2"></div>
+                          <p className="text-sm text-gray-600">Loading map data...</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                     {/* Background Map */}
                     <div className="w-full h-full bg-gradient-to-br from-blue-100 via-green-100 to-yellow-100 rounded-lg relative overflow-hidden">
                       <img
