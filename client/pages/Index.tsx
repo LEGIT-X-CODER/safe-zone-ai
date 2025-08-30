@@ -207,76 +207,12 @@ export default function Index() {
                 </p>
               </div>
 
-              {/* Destination Search */}
-              <div className="bg-white rounded-lg p-6 shadow-lg">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2 text-gray-600">
-                    <MapPin className="w-5 h-5" />
-                    <span className="font-medium">Check Your Destination</span>
-                  </div>
-                  
-                  {/* Quick Select for Indian Cities */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">
-                      Popular Indian Cities
-                    </label>
-                    <Select onValueChange={handleCitySelect}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a city in India" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {indianCities.map((city, index) => (
-                          <SelectItem 
-                            key={index} 
-                            value={`${city.name} - ${city.pincode}`}
-                          >
-                            <div className="flex flex-col">
-                              <span className="font-medium">{city.name}</span>
-                              <span className="text-xs text-gray-500">
-                                {city.area} - PIN: {city.pincode}
-                              </span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Manual Input */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">
-                      Or enter any location
-                    </label>
-                    <div className="flex space-x-2">
-                      <Input
-                        placeholder="Enter location (e.g. Connaught Place, Delhi - 110001)"
-                        value={destinationQuery}
-                        onChange={(e) => setDestinationQuery(e.target.value)}
-                        className="flex-1"
-                      />
-                      <Button
-                        onClick={handleAnalyze}
-                        className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300 transform hover:scale-105"
-                      >
-                        Analyze
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="flex space-x-2">
-                    <Link to="/safety-map">
-                      <Button
-                        variant="outline"
-                        className="border-vibrant-teal-500 text-vibrant-teal-500 hover:bg-gradient-teal-blue hover:text-white hover:border-transparent shadow-glow-teal transition-all duration-300"
-                      >
-                        Explore Safety Map
-                      </Button>
-                    </Link>
-                    <Button variant="ghost" className="text-gray-600">
-                      Learn More
-                    </Button>
-                  </div>
-                </div>
+              {/* Primary CTA Buttons */}
+              <div className="flex space-x-3">
+                <Link to="/safety-map">
+                  <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">Explore Safety Map</Button>
+                </Link>
+                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black">Learn More</Button>
               </div>
             </div>
 
