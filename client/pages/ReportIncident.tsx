@@ -173,9 +173,9 @@ export default function ReportIncident() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-mesh-gradient">
+      <div className="min-h-screen bg-gradient-teal-blue animate-gradient-x">
         {/* Header Section */}
-        <div className="bg-gradient-purple-pink text-white py-12 relative overflow-hidden">
+        <div className="bg-gradient-teal-blue text-white py-12 relative overflow-hidden animate-gradient-x">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-8 h-8 text-safezone-blue" />
@@ -363,18 +363,21 @@ export default function ReportIncident() {
                   {/* Submit Button */}
                   <div className="pt-6">
                     <Button
-                      type="submit"
-                      className="w-full bg-gradient-orange-pink hover:bg-gradient-purple-pink text-white py-3 text-lg font-semibold shadow-glow hover:shadow-glow-pink transition-all duration-300"
-                      disabled={
-                        isSubmitting ||
-                        !formData.incidentType ||
-                        !formData.severityLevel ||
-                        !formData.location ||
-                        !formData.description
-                      }
-                    >
-                      {isSubmitting ? "Submitting Report..." : "Submit Report"}
-                    </Button>
+                        type="submit"
+                        className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
+                        disabled={
+                          isSubmitting ||
+                          !formData.incidentType ||
+                          !formData.severityLevel ||
+                          !formData.location ||
+                          !formData.description
+                        }
+                      >
+                        {isSubmitting && (
+                          <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
+                        )}
+                        {isSubmitting ? "Submitting Report..." : "Submit Report"}
+                      </Button>
                     <p className="text-xs text-gray-500 mt-2 text-center">
                       By submitting, you agree to our community guidelines and
                       data policy
