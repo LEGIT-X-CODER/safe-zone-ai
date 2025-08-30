@@ -612,6 +612,11 @@ export class AnalyticsService {
     totalComments: number;
     totalUpvotes: number;
     reputation: number;
+    recentActivity?: Array<{
+      type: string;
+      description: string;
+      createdAt: Date;
+    }>;
   }> {
     if (!db) throw new Error('Database not available');
 
@@ -621,9 +626,29 @@ export class AnalyticsService {
     // Get user's incidents
     const incidentsQuery = query(
       collection(db, 'incidents'),
-      where('reporterId', '==', userId)
+      where('reporterId', '==', userId),
+      orderBy('createdAt', 'desc'),
+      limit(5)
     );
     const incidentsSnapshot = await getDocs(incidentsQuery);
+    
+    // Get user's comments
+    const commentsQuery = query(
+      collection(db, 'comments'),
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc'),
+      limit(5)
+    );
+    const commentsSnapshot = await getDocs(commentsQuery);
+    
+    // Get user's community posts
+    const postsQuery = query(
+      collection(db, 'communityPosts'),
+      where('authorId', '==', userId),
+      orderBy('createdAt', 'desc'),
+      limit(5)
+    );
+    const postsSnapshot = await getDocs(postsQuery);
     
     // Calculate total upvotes on user's content
     let totalUpvotes = 0;
@@ -632,11 +657,52 @@ export class AnalyticsService {
       totalUpvotes += incident.upvotes || 0;
     });
 
+    // Compile recent activity
+    const recentActivity: Array<{
+      type: string;
+      description: string;
+      createdAt: Date;
+    }> = [];
+    
+    // Add incidents to activity
+    incidentsSnapshot.docs.forEach(doc => {
+      const incident = doc.data() as IncidentReport;
+      recentActivity.push({
+        type: 'report_created',
+        description: `Reported an incident: ${incident.title}`,
+        createdAt: new Date(incident.createdAt)
+      });
+    });
+    
+    // Add comments to activity
+    commentsSnapshot.docs.forEach(doc => {
+      const comment = doc.data() as Comment;
+      recentActivity.push({
+        type: 'comment_added',
+        description: `Added a comment: "${comment.content.substring(0, 30)}${comment.content.length > 30 ? '...' : ''}"`,
+        createdAt: new Date(comment.createdAt)
+      });
+    });
+    
+    // Add posts to activity
+    postsSnapshot.docs.forEach(doc => {
+      const post = doc.data() as CommunityPost;
+      recentActivity.push({
+        type: 'post_created',
+        description: `Created a post: ${post.title}`,
+        createdAt: new Date(post.createdAt)
+      });
+    });
+    
+    // Sort all activities by date (newest first)
+    recentActivity.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
     return {
       totalReports: user.totalReports || 0,
       totalComments: user.totalComments || 0,
       totalUpvotes,
-      reputation: user.reputation || 0
+      reputation: user.reputation || 0,
+      recentActivity: recentActivity.slice(0, 10) // Return only the 10 most recent activities
     };
   }
 

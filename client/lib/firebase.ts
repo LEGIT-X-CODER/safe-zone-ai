@@ -11,7 +11,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyB-EpUBnsmvRrZxAbjn87p1-3Os2Cmlf6M",
   authDomain: "bitnbuilt.firebaseapp.com",
   projectId: "bitnbuilt",
-  storageBucket: "bitnbuilt.firebasestorage.app",
+  storageBucket: "bitnbuilt.appspot.com",
   messagingSenderId: "918640008934",
   appId: "1:918640008934:web:ccfd512fb6c48d7528a527",
   measurementId: "G-4DTT96QN46"
@@ -46,7 +46,7 @@ export { analytics };
 
 // Connect to emulators in development
 if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
-  // Uncomment these if you want to use Firebase emulators
+  // Firebase emulators are not being used in this project
   // connectAuthEmulator(auth, "http://localhost:9099");
   // connectFirestoreEmulator(db, "localhost", 8080);
   // connectStorageEmulator(storage, "localhost", 9199);

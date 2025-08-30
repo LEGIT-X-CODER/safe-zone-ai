@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -28,9 +28,13 @@ import {
   Clock,
   Award,
   MessageSquare,
-  AlertTriangle
+  AlertTriangle,
+  Upload,
+  Settings,
+  History
 } from 'lucide-react';
 import { AnalyticsService, type UserProfile } from '@/lib/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const Profile = () => {
   const { currentUser, userProfile, logout, updateUserProfile, loading: authLoading } = useAuth();
@@ -39,7 +43,19 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [userStats, setUserStats] = useState<any>(null);
+  const [userStats, setUserStats] = useState<{
+    totalReports: number;
+    totalComments: number;
+    totalUpvotes: number;
+    reputation: number;
+    recentActivity?: Array<{
+      type: string;
+      description: string;
+      createdAt: Date;
+    }>;
+  } | null>(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [editData, setEditData] = useState({
     displayName: userProfile?.displayName || '',
     bio: userProfile?.bio || '',
@@ -54,6 +70,7 @@ const Profile = () => {
         try {
           const stats = await AnalyticsService.getUserStats(currentUser.uid);
           setUserStats(stats);
+          console.log('User stats loaded:', stats); // For debugging recentActivity
         } catch (error) {
           console.error('Failed to load user stats:', error);
         }
@@ -62,6 +79,59 @@ const Profile = () => {
 
     loadUserStats();
   }, [currentUser, userProfile]);
+  
+  // Handle profile photo upload
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !e.target.files[0] || !currentUser) return;
+    
+    const file = e.target.files[0];
+    
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setMessage('Please select an image file');
+      return;
+    }
+    
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setMessage('Image size should be less than 5MB');
+      return;
+    }
+    
+    try {
+      setUploadingPhoto(true);
+      setMessage('');
+      
+      // Upload to Firebase Storage
+      const storage = getStorage();
+      const storageRef = ref(storage, `profile_photos/${currentUser.uid}`);
+      await uploadBytes(storageRef, file);
+      
+      // Get download URL
+      const photoURL = await getDownloadURL(storageRef);
+      
+      // Update user profile
+      await updateUserProfile({ photoURL });
+      
+      // Update local state to show the new photo immediately
+      if (currentUser) {
+        currentUser.photoURL = photoURL;
+      }
+      
+      setMessage('Profile photo updated successfully!');
+    } catch (error: any) {
+      console.error('Error uploading photo:', error);
+      setMessage(error.message || 'Failed to upload photo');
+    } finally {
+      setUploadingPhoto(false);
+    }
+  };
+  
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -243,12 +313,25 @@ const Profile = () => {
                     {getInitials(userProfile.displayName)}
                   </AvatarFallback>
                 </Avatar>
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  onChange={handlePhotoUpload} 
+                  accept="image/*" 
+                  className="hidden" 
+                />
                 <Button
                   size="sm"
                   variant="outline"
                   className="absolute -bottom-2 -right-2 rounded-full w-8 h-8 p-0 bg-white border-2 border-white shadow-md"
+                  onClick={triggerFileInput}
+                  disabled={uploadingPhoto}
                 >
-                  <Camera className="w-4 h-4" />
+                  {uploadingPhoto ? (
+                    <div className="w-3 h-3 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <Camera className="w-4 h-4" />
+                  )}
                 </Button>
               </div>
 
@@ -514,6 +597,42 @@ const Profile = () => {
                     {formatDate(userProfile.lastLoginAt)}
                   </span>
                 </div>
+              </CardContent>
+            </Card>
+            
+            {/* Recent Activity */}
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center space-x-2">
+                  <Clock className="w-5 h-5" />
+                  <span>Recent Activity</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {userStats?.recentActivity && userStats.recentActivity.length > 0 ? (
+                  <div className="space-y-3">
+                    {userStats.recentActivity.map((activity: any, index: number) => (
+                      <div key={index} className="flex items-start space-x-3 pb-3 border-b border-gray-100 last:border-0">
+                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                          {activity.type === 'report_created' && <AlertTriangle className="w-4 h-4 text-blue-600" />}
+                          {activity.type === 'comment_added' && <MessageSquare className="w-4 h-4 text-blue-600" />}
+                          {activity.type === 'post_created' && <Edit3 className="w-4 h-4 text-blue-600" />}
+                          {activity.type === 'badge_earned' && <Award className="w-4 h-4 text-blue-600" />}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm">{activity.description}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {formatDate(activity.createdAt)}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-6 text-muted-foreground">
+                    <p>No recent activity</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 

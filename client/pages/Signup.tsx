@@ -66,9 +66,20 @@ const Signup = () => {
       setError('');
       setLoading(true);
       await signup(formData.email, formData.password, formData.displayName);
+      // Redirect to profile page after successful signup
       navigate('/profile', { replace: true });
     } catch (error: any) {
-      setError(error.message || 'Failed to create account');
+      console.error('Signup error:', error);
+      // Handle specific Firebase auth errors
+      if (error.code === 'auth/email-already-in-use') {
+        setError('This email is already registered. Please use a different email or try logging in.');
+      } else if (error.code === 'auth/invalid-email') {
+        setError('Please enter a valid email address.');
+      } else if (error.code === 'auth/weak-password') {
+        setError('Password is too weak. Please use a stronger password.');
+      } else {
+        setError(error.message || 'Failed to create account');
+      }
     } finally {
       setLoading(false);
     }

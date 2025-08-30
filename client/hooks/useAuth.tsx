@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     console.log('Creating/fetching user profile for:', user.email);
     
     try {
-      // Use the new UserService for profile management
+      // Use the UserService for profile management
       const userData = {
         uid: user.uid,
         email: user.email || '',
@@ -63,6 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const profile = await UserService.createOrUpdateProfile(userData);
       console.log('Profile created/updated successfully:', profile);
       setUserProfile(profile);
+      return profile;
       
     } catch (error) {
       console.error('Error in createUserProfile:', error);
@@ -86,6 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       console.log('Setting basic profile due to error');
       setUserProfile(basicProfile);
+      return basicProfile;
     }
   };
 

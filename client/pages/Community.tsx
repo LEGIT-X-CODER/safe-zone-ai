@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   MessageCircle,
   Heart,
@@ -16,129 +19,183 @@ import {
   PlusCircle,
   AlertTriangle,
   ThumbsUp,
+  ThumbsDown,
   Eye,
   Users,
   TrendingUp,
+  Send,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { CommunityService, type CommunityPost } from "@/lib/firestore";
+import { db } from "@/lib/firebase";
+import { formatDistanceToNow } from "date-fns";
 
 export default function Community() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [posts, setPosts] = useState<CommunityPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [newPost, setNewPost] = useState({
+    title: "",
+    content: "",
+    category: "discussion",
+    tags: []
+  });
+  const [tagInput, setTagInput] = useState("");
+  
+  const { currentUser, userProfile } = useAuth();
+  const navigate = useNavigate();
 
   const categories = [
-    { id: "all", name: "All Posts", count: 156 },
-    { id: "theft", name: "Theft & Safety", count: 45 },
-    { id: "travel-tips", name: "Travel Tips", count: 38 },
-    { id: "weather", name: "Weather Alerts", count: 25 },
-    { id: "local-insights", name: "Local Insights", count: 48 },
+    { id: "all", name: "All Posts", count: 0 },
+    { id: "discussion", name: "Discussions", count: 0 },
+    { id: "question", name: "Questions", count: 0 },
+    { id: "tip", name: "Travel Tips", count: 0 },
+    { id: "warning", name: "Warnings", count: 0 },
+    { id: "local-insights", name: "Local Insights", count: 0 },
   ];
 
   const trendingTopics = [
-    "#BangkokSafety",
+    "#SafeTravel",
     "#SoloTravel",
     "#NightSafety",
     "#PublicTransport",
-    "#TouristScams",
+    "#TouristTips",
   ];
 
-  const communityPosts = [
-    {
-      id: 1,
-      author: {
-        name: "Sarah Chen",
-        avatar: "SC",
-        verified: true,
-        location: "Bangkok, Thailand",
-      },
-      timestamp: "2 hours ago",
-      location: "Khao San Road, Bangkok",
-      category: "theft",
-      title: "Phone Snatching Incident on Khao San Road - Stay Alert",
-      content:
-        "Had my phone snatched while walking down Khao San Road around 10 PM last night. Two guys on a motorcycle approached from behind. Thankfully, I had my backup phone and contacts. The local police were helpful and filed a report. Warning to other travelers - keep your valuables secure and stay aware of your surroundings, especially at night.",
-      images: [
-        "https://cdn.builder.io/api/v1/image/assets%2F612e9a82b86748da836eaf9bc77dd81e%2F400e461dde3d44bebc2f433b0e527c0e?format=webp&width=400",
-      ],
-      engagement: {
-        likes: 23,
-        comments: 8,
-        shares: 5,
-        views: 156,
-      },
-      tags: ["theft", "bangkok", "night-safety"],
-      helpfulCount: 15,
-    },
-    {
-      id: 2,
-      author: {
-        name: "Mike Rodriguez",
-        avatar: "MR",
-        verified: false,
-        location: "Mexico City, Mexico",
-      },
-      timestamp: "5 hours ago",
-      location: "Zocalo Area, Mexico City",
-      category: "travel-tips",
-      title: "Safe Transportation Tips for Mexico City First-Timers",
-      content:
-        "After 3 weeks in Mexico City, here are my top safety tips for getting around: 1) Use official taxi apps like Uber/Didi, 2) Avoid street taxis late at night, 3) Metro is generally safe during day hours, 4) Keep emergency contacts saved offline. The city is amazing but preparation is key!",
-      engagement: {
-        likes: 67,
-        comments: 15,
-        shares: 12,
-        views: 342,
-      },
-      tags: ["mexico-city", "transportation", "travel-tips"],
-      helpfulCount: 42,
-    },
-    {
-      id: 3,
-      author: {
-        name: "Emma Thompson",
-        avatar: "ET",
-        verified: true,
-        location: "London, UK",
-      },
-      timestamp: "1 day ago",
-      location: "Central London",
-      category: "local-insights",
-      title: "Weather Alert: Heavy Flooding in Central London",
-      content:
-        "Currently experiencing severe flooding near Westminster and London Bridge stations. Several tube lines are suspended. If you're visiting London today, check TfL updates and consider alternative routes. Emergency services are on-site. Stay safe everyone!",
-      engagement: {
-        likes: 134,
-        comments: 28,
-        shares: 89,
-        views: 1205,
-      },
-      tags: ["london", "weather", "emergency", "public-transport"],
-      helpfulCount: 78,
-    },
-    {
-      id: 4,
-      author: {
-        name: "Alex Kim",
-        avatar: "AK",
-        verified: false,
-        location: "Seoul, South Korea",
-      },
-      timestamp: "2 days ago",
-      location: "Hongdae District, Seoul",
-      category: "travel-tips",
-      title: "Solo Female Traveler Tips for Seoul Nightlife",
-      content:
-        "Spent an amazing month in Seoul as a solo female traveler. Hongdae is generally very safe, but here are some tips: stick to main streets, clubs have good security, locals are helpful, always share your location with someone. Seoul is one of the safest cities I've visited!",
-      engagement: {
-        likes: 89,
-        comments: 22,
-        shares: 18,
-        views: 567,
-      },
-      tags: ["seoul", "solo-travel", "nightlife", "female-safety"],
-      helpfulCount: 56,
-    },
-  ];
+  // Fetch posts from Firebase
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        console.log('Fetching posts for category:', selectedCategory);
+        console.log('Current user:', currentUser ? 'Logged in' : 'Not logged in');
+        console.log('User profile:', userProfile);
+        console.log('Firestore DB available:', !!db);
+        
+        let fetchedPosts;
+        
+        if (selectedCategory === 'all') {
+          fetchedPosts = await CommunityService.getPosts();
+        } else {
+          fetchedPosts = await CommunityService.getPosts(selectedCategory);
+        }
+        
+        console.log('Fetched posts:', fetchedPosts);
+        setPosts(fetchedPosts);
+        
+        // Update category counts
+        const categoryCounts = categories.map(category => {
+          if (category.id === 'all') {
+            return { ...category, count: fetchedPosts.length };
+          } else {
+            const count = fetchedPosts.filter(post => post.category === category.id).length;
+            return { ...category, count };
+          }
+        });
+        
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+        console.error('Error details:', JSON.stringify(err));
+        setError('Failed to load community posts');
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, [selectedCategory]);
+  
+  // Filter posts based on search query
+  const filteredPosts = posts.filter(post => {
+    if (!searchQuery.trim()) return true;
+    
+    const query = searchQuery.toLowerCase();
+    return (
+      (post.title && post.title.toLowerCase().includes(query)) ||
+      (post.content && post.content.toLowerCase().includes(query)) ||
+      (post.authorName && post.authorName.toLowerCase().includes(query)) ||
+      (post.tags && post.tags.some(tag => tag.toLowerCase().includes(query)))
+    );
+  });
+
+  // Handle creating a new post
+  const handleCreatePost = async () => {
+    if (!currentUser || !userProfile) {
+      alert('You must be logged in to create a post');
+      return;
+    }
+
+    if (!newPost.title.trim() || !newPost.content.trim()) {
+      alert('Please fill in both title and content');
+      return;
+    }
+
+    try {
+      const postData = {
+        authorId: currentUser.uid,
+        authorName: userProfile.displayName || currentUser.email?.split('@')[0] || 'Anonymous',
+        authorAvatar: userProfile.photoURL,
+        title: newPost.title.trim(),
+        content: newPost.content.trim(),
+        category: newPost.category as CommunityPost['category'],
+        tags: newPost.tags,
+      };
+
+      await CommunityService.createPost(postData);
+      
+      // Reset form and close dialog
+      setNewPost({
+        title: "",
+        content: "",
+        category: "discussion",
+        tags: []
+      });
+      setIsCreateDialogOpen(false);
+      
+      // Refresh posts
+      const refreshedPosts = await CommunityService.getPosts(selectedCategory === 'all' ? undefined : selectedCategory);
+      setPosts(refreshedPosts);
+    } catch (err) {
+      console.error('Error creating post:', err);
+      alert('Failed to create post. Please try again.');
+    }
+  };
+
+  // Handle adding tags
+  const handleAddTag = () => {
+    if (tagInput.trim() && !newPost.tags.includes(tagInput.trim())) {
+      setNewPost({
+        ...newPost,
+        tags: [...newPost.tags, tagInput.trim()]
+      });
+      setTagInput("");
+    }
+  };
+
+  // Handle removing tags
+  const handleRemoveTag = (tagToRemove: string) => {
+    setNewPost({
+      ...newPost,
+      tags: newPost.tags.filter(tag => tag !== tagToRemove)
+    });
+  };
+
+  // Format timestamp
+  const formatTimestamp = (timestamp: any) => {
+    if (!timestamp) return "";
+    
+    try {
+      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      return formatDistanceToNow(date, { addSuffix: true });
+    } catch (err) {
+      console.error('Error formatting timestamp:', err);
+      return "";
+    }
+  };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -173,6 +230,82 @@ export default function Community() {
             "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')",
         }}
       >
+        {/* Create Post Dialog */}
+        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>Create a New Post</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Title</label>
+                <Input 
+                  placeholder="Enter post title" 
+                  value={newPost.title}
+                  onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Content</label>
+                <Textarea 
+                  placeholder="Share your experience or question..." 
+                  className="min-h-[120px]"
+                  value={newPost.content}
+                  onChange={(e) => setNewPost({...newPost, content: e.target.value})}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Category</label>
+                <Select 
+                  value={newPost.category}
+                  onValueChange={(value) => setNewPost({...newPost, category: value})}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="discussion">Discussion</SelectItem>
+                    <SelectItem value="question">Question</SelectItem>
+                    <SelectItem value="tip">Travel Tip</SelectItem>
+                    <SelectItem value="warning">Warning</SelectItem>
+                    <SelectItem value="local-insights">Local Insight</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Tags</label>
+                <div className="flex items-center space-x-2">
+                  <Input 
+                    placeholder="Add a tag" 
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAddTag()}
+                  />
+                  <Button type="button" onClick={handleAddTag} size="sm">Add</Button>
+                </div>
+                {newPost.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {newPost.tags.map((tag, index) => (
+                      <Badge key={index} variant="secondary" className="px-2 py-1">
+                        {tag}
+                        <button 
+                          onClick={() => handleRemoveTag(tag)}
+                          className="ml-1 text-xs hover:text-red-500"
+                        >
+                          ×
+                        </button>
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="flex justify-end space-x-2">
+              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>Cancel</Button>
+              <Button onClick={handleCreatePost}>Create Post</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
         {/* Header */}
         <div className="bg-black/50 backdrop-blur-md border-b border-white/10 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -306,51 +439,131 @@ export default function Community() {
                     <option>Most Viewed</option>
                   </select>
                 </div>
-                <Button variant="outline" size="sm">
-                  <Filter className="w-4 h-4 mr-2" />
-                  Filters
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    onClick={() => {
+                      if (!currentUser) {
+                        alert('You must be logged in to create a post');
+                        return;
+                      }
+                      setIsCreateDialogOpen(true);
+                    }}
+                    variant="default"
+                    size="sm"
+                    className="bg-safezone-blue hover:bg-safezone-blue-dark"
+                  >
+                    <PlusCircle className="w-4 h-4 mr-2" />
+                    Create Post
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Filters
+                  </Button>
+                </div>
               </div>
 
               {/* Posts */}
               <div className="space-y-6">
-                {communityPosts.map((post, index) => (
-                  <Card
-                    key={post.id}
-                    className="shadow-sm hover:shadow-md transition-shadow animate-fade-up"
-                    style={{ animationDelay: `${index * 120}ms` }}
-                  >
-                    <CardContent className="p-6">
+                {loading ? (
+                  <div className="text-center py-10">
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
+                    <p>Loading posts...</p>
+                  </div>
+                ) : error ? (
+                  <div className="text-center py-10 text-red-500">
+                    <AlertTriangle className="mx-auto h-8 w-8 mb-2" />
+                    <p>{error}</p>
+                  </div>
+                ) : filteredPosts.length === 0 ? (
+                   <div className="text-center py-10 text-white">
+                     {searchQuery.trim() ? (
+                       <>
+                         <p>No posts found matching "{searchQuery}".</p>
+                         <Button 
+                           onClick={() => setSearchQuery('')}
+                           className="mt-4"
+                         >
+                           Clear search
+                         </Button>
+                       </>
+                     ) : (
+                       <>
+                         <p>No posts found in this category.</p>
+                         <Button 
+                           onClick={() => {
+                             if (!currentUser) {
+                               alert('You must be logged in to create a post');
+                               return;
+                             }
+                             setIsCreateDialogOpen(true);
+                           }}
+                           className="mt-4"
+                         >
+                           Create the first post
+                         </Button>
+                       </>
+                     )}
+                   </div>
+                 ) : (
+                  filteredPosts.map((post, index) => (
+                    <Card
+                      key={post.id}
+                      className="shadow-sm hover:shadow-md transition-shadow animate-fade-up"
+                      style={{ animationDelay: `${index * 120}ms` }}
+                      onClick={async () => {
+                        // Increment view count when post is viewed
+                        if (post.id) {
+                          try {
+                            await CommunityService.incrementViewCount(post.id);
+                            // Update local post view count
+                            setPosts(prevPosts => 
+                              prevPosts.map(p => 
+                                p.id === post.id ? {...p, viewCount: (p.viewCount || 0) + 1} : p
+                              )
+                            );
+                          } catch (err) {
+                            console.error('Error incrementing view count:', err);
+                          }
+                        }
+                      }}
+                    >
+                      <CardContent className="p-6">
+
                       {/* Post Header */}
-                      <div className="flex items-start space-x-4 mb-4">
-                        <Avatar>
-                          <AvatarFallback className="bg-safezone-blue text-white">
-                            {post.author.avatar}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2">
-                            <h3 className="font-semibold text-gray-900">
-                              {post.author.name}
-                            </h3>
-                            {post.author.verified && (
-                              <Badge className="bg-blue-50 text-blue-600 text-xs">
-                                Verified
-                              </Badge>
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex items-center gap-3">
+                          <Avatar>
+                            {post.authorAvatar ? (
+                              <AvatarImage src={post.authorAvatar} alt={post.authorName || 'User'} />
+                            ) : (
+                              <AvatarFallback className="bg-safezone-blue text-white">
+                                {post.authorName ? post.authorName.substring(0, 2).toUpperCase() : 'U'}
+                              </AvatarFallback>
                             )}
-                          </div>
-                          <div className="flex items-center space-x-2 text-sm text-gray-500 mt-1">
-                            <MapPin className="w-4 h-4" />
-                            <span>{post.author.location}</span>
-                            <span>•</span>
-                            <Clock className="w-4 h-4" />
-                            <span>{post.timestamp}</span>
+                          </Avatar>
+                          <div>
+                            <div className="flex items-center gap-1">
+                              <h3 className="font-medium">{post.authorName || 'Anonymous User'}</h3>
+                            </div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                              {formatTimestamp(post.createdAt)}
+                            </div>
                           </div>
                         </div>
-                        <Badge className={getCategoryColor(post.category)}>
+                        <Badge
+                          className={getCategoryColor(post.category)}
+                        >
                           {getSeverityIcon(post.category)}
                           <span className="ml-1">
-                            {post.category.replace("-", " ")}
+                            {post.category === "discussion"
+                              ? "Discussion"
+                              : post.category === "question"
+                                ? "Question"
+                                : post.category === "tip"
+                                  ? "Travel Tip"
+                                  : post.category === "warning"
+                                    ? "Warning"
+                                    : "Local Insight"}
                           </span>
                         </Badge>
                       </div>
@@ -360,88 +573,157 @@ export default function Community() {
                         <h2 className="text-lg font-semibold text-gray-900 mb-2">
                           {post.title}
                         </h2>
-                        <p className="text-gray-700 leading-relaxed">
+                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                           {post.content}
                         </p>
 
-                        {/* Location Badge */}
-                        <div className="flex items-center space-x-2 mt-3">
-                          <Badge variant="outline" className="text-xs">
-                            <MapPin className="w-3 h-3 mr-1" />
-                            {post.location}
-                          </Badge>
-                        </div>
-
                         {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          {post.tags.map((tag, index) => (
-                            <Badge
-                              key={index}
-                              variant="secondary"
-                              className="text-xs"
-                            >
-                              #{tag}
-                            </Badge>
-                          ))}
-                        </div>
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-2 mt-3">
+                            {post.tags.map((tag, index) => (
+                              <Badge
+                                key={index}
+                                variant="secondary"
+                                className="text-xs"
+                              >
+                                #{tag}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
                       </div>
-
-                      {/* Images */}
-                      {post.images && (
-                        <div className="mb-4">
-                          <img
-                            src={post.images[0]}
-                            alt="Incident"
-                            className="w-full h-48 object-cover rounded-lg"
-                          />
-                        </div>
-                      )}
 
                       {/* Engagement */}
                       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                         <div className="flex items-center space-x-6">
-                          <button className="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors">
-                            <Heart className="w-5 h-5" />
+                          <button
+                            className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors"
+                            onClick={async () => {
+                              if (!currentUser) {
+                                alert('You must be logged in to vote');
+                                return;
+                              }
+                              try {
+                                await CommunityService.voteOnPost(post.id!, currentUser.uid, 'up');
+                                // Refresh posts after voting
+                                const refreshedPosts = await CommunityService.getPosts(
+                                  selectedCategory === 'all' ? undefined : selectedCategory
+                                );
+                                setPosts(refreshedPosts);
+                              } catch (err) {
+                                console.error('Error voting on post:', err);
+                              }
+                            }}
+                          >
+                            <ThumbsUp className="w-5 h-5" />
                             <span className="text-sm">
-                              {post.engagement.likes}
+                              {post.upvotes || 0}
                             </span>
                           </button>
                           <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors">
                             <MessageCircle className="w-5 h-5" />
                             <span className="text-sm">
-                              {post.engagement.comments}
+                              {post.commentCount || 0}
                             </span>
                           </button>
-                          <button className="flex items-center space-x-2 text-gray-500 hover:text-green-500 transition-colors">
-                            <Share2 className="w-5 h-5" />
+                          <button 
+                            className="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors"
+                            onClick={async () => {
+                              if (!currentUser) {
+                                alert('You must be logged in to vote');
+                                return;
+                              }
+                              try {
+                                await CommunityService.voteOnPost(post.id!, currentUser.uid, 'down');
+                                // Refresh posts after voting
+                                const refreshedPosts = await CommunityService.getPosts(
+                                  selectedCategory === 'all' ? undefined : selectedCategory
+                                );
+                                setPosts(refreshedPosts);
+                              } catch (err) {
+                                console.error('Error voting on post:', err);
+                              }
+                            }}
+                          >
+                            <ThumbsDown className="w-5 h-5" />
                             <span className="text-sm">
-                              {post.engagement.shares}
+                              {post.downvotes || 0}
                             </span>
                           </button>
                           <div className="flex items-center space-x-2 text-gray-500">
                             <Eye className="w-5 h-5" />
                             <span className="text-sm">
-                              {post.engagement.views}
+                              {post.viewCount || 0}
                             </span>
                           </div>
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          <ThumbsUp className="w-4 h-4 text-green-500" />
-                          <span className="text-sm text-gray-600">
-                            {post.helpfulCount} found helpful
-                          </span>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
-                ))}
+                ))
+              )}
               </div>
 
+              {/* Create Sample Data Button */}
+              {posts.length === 0 && !loading && !error && (
+                <div className="text-center py-4 space-y-4">
+                  {!currentUser ? (
+                    <div className="space-y-2">
+                      <p className="text-gray-600">You need to be logged in to see or create posts</p>
+                      <Button 
+                        onClick={() => navigate('/login')}
+                        className="bg-safezone-blue hover:bg-blue-700 text-white"
+                      >
+                        Login to Continue
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button 
+                      onClick={async () => {
+                        try {
+                          // Import dynamically to avoid loading this in production
+                          const { createSampleData } = await import('@/utils/createSampleData');
+                          await createSampleData(currentUser, userProfile);
+                          // Refresh posts
+                          const refreshedPosts = await CommunityService.getPosts(selectedCategory === 'all' ? undefined : selectedCategory);
+                          setPosts(refreshedPosts);
+                          alert('Sample data created successfully!');
+                        } catch (err) {
+                          console.error('Error creating sample data:', err);
+                          alert('Failed to create sample data. Please try again.');
+                        }
+                      }}
+                      className="bg-safezone-blue hover:bg-blue-700 text-white"
+                    >
+                      Create Sample Data
+                    </Button>
+                  )}
+                </div>
+              )}
+              
               {/* Load More */}
               <div className="text-center">
-                <Button variant="outline" className="w-full max-w-xs">
-                  Load More Posts
+                <Button 
+                  variant="outline" 
+                  className="w-full max-w-xs"
+                  onClick={async () => {
+                    try {
+                      setLoading(true);
+                      const morePosts = await CommunityService.getPosts(
+                        selectedCategory === 'all' ? undefined : selectedCategory,
+                        posts.length + 10
+                      );
+                      setPosts(morePosts);
+                      setLoading(false);
+                    } catch (err) {
+                      console.error('Error loading more posts:', err);
+                      setError('Failed to load more posts');
+                      setLoading(false);
+                    }
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? 'Loading...' : 'Load More Posts'}
                 </Button>
               </div>
             </div>
