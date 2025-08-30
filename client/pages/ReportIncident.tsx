@@ -173,9 +173,9 @@ export default function ReportIncident() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-teal-blue animate-gradient-x">
+      <div className="min-h-screen text-white bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')" }}>
         {/* Header Section */}
-        <div className="bg-gradient-teal-blue text-white py-12 relative overflow-hidden animate-gradient-x">
+        <div className="text-white py-12 relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-8 h-8 text-safezone-blue" />
