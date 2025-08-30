@@ -8,9 +8,20 @@ import {
   Phone,
   Menu,
   X,
+  User,
+  LogOut,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -19,6 +30,24 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { currentUser, userProfile, logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Failed to log out:', error);
+    }
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   const navigation = [
     { name: "Home", href: "/", icon: Shield },
@@ -83,11 +112,59 @@ export function Layout({ children }: LayoutProps) {
               })}
             </nav>
 
-            {/* CTA Button */}
+            {/* CTA Button or User Menu */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all duration-300">
-                Get Started
-              </Button>
+              {currentUser ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={currentUser.photoURL || ''} />
+                        <AvatarFallback className="bg-gradient-teal-blue text-white text-xs">
+                          {userProfile ? getInitials(userProfile.displayName) : 'U'}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <div className="flex items-center justify-start gap-2 p-2">
+                      <div className="flex flex-col space-y-1 leading-none">
+                        <p className="font-medium text-sm">
+                          {userProfile?.displayName || 'User'}
+                        </p>
+                        <p className="w-[200px] truncate text-xs text-muted-foreground">
+                          {currentUser.email}
+                        </p>
+                      </div>
+                    </div>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/profile" className="flex items-center">
+                        <User className="mr-2 h-4 w-4" />
+                        Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Sign out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <Link to="/login">
+                    <Button variant="ghost" className="text-white hover:bg-white/10">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button className="bg-gradient-teal-blue hover:opacity-90 text-white">
+                      Get Started
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -130,9 +207,37 @@ export function Layout({ children }: LayoutProps) {
                   );
                 })}
                 <div className="pt-4">
-                  <Button className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
-                    Get Started
-                  </Button>
+                  {currentUser ? (
+                    <div className="space-y-2">
+                      <Link to="/profile">
+                        <Button variant="outline" className="w-full">
+                          <User className="w-4 h-4 mr-2" />
+                          Profile
+                        </Button>
+                      </Link>
+                      <Button 
+                        onClick={handleLogout}
+                        variant="destructive" 
+                        className="w-full"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <Link to="/login">
+                        <Button variant="outline" className="w-full">
+                          Sign In
+                        </Button>
+                      </Link>
+                      <Link to="/signup">
+                        <Button className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
+                          Get Started
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </nav>
             </div>
