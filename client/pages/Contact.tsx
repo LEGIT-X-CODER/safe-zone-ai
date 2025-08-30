@@ -107,7 +107,7 @@ export default function Contact() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="w-8 h-8 text-green-600" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-white mb-2">
                 Message Sent!
               </h2>
               <p className="text-gray-600 mb-6">
@@ -133,7 +133,7 @@ export default function Contact() {
         {/* Header */}
         <section className="bg-white py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               Get in Touch
             </h1>
             <p className="text-xl text-gray-600 mb-8">
@@ -148,7 +148,7 @@ export default function Contact() {
             {/* Contact Information */}
             <div className="lg:col-span-1 space-y-8">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className="text-2xl font-bold text-white mb-6">
                   Contact Information
                 </h2>
                 <div className="space-y-6">
@@ -160,7 +160,7 @@ export default function Contact() {
                           <Icon className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-900">
+                          <h3 className="font-semibold text-white">
                             {info.title}
                           </h3>
                           {info.action ? (
@@ -171,7 +171,7 @@ export default function Contact() {
                               {info.content}
                             </a>
                           ) : (
-                            <p className="text-gray-900 font-medium">
+                            <p className="text-white font-medium">
                               {info.content}
                             </p>
                           )}
@@ -187,7 +187,7 @@ export default function Contact() {
 
               {/* Quick Links */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <h3 className="text-lg font-semibold text-white mb-4">
                   Quick Links
                 </h3>
                 <div className="space-y-2">
@@ -395,7 +395,7 @@ export default function Contact() {
         <section className="bg-white py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-white mb-4">
                 Frequently Asked Questions
               </h2>
               <p className="text-gray-600">
@@ -406,7 +406,7 @@ export default function Contact() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     How accurate is the safety data?
                   </h3>
                   <p className="text-gray-600">
@@ -417,7 +417,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     Is SafeZone AI available worldwide?
                   </h3>
                   <p className="text-gray-600">
@@ -428,7 +428,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     How do I report an incident?
                   </h3>
                   <p className="text-gray-600">
@@ -441,7 +441,7 @@ export default function Contact() {
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     Is my personal data secure?
                   </h3>
                   <p className="text-gray-600">
@@ -452,7 +452,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     Do you offer API access?
                   </h3>
                   <p className="text-gray-600">
@@ -462,7 +462,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     What emergency features are available?
                   </h3>
                   <p className="text-gray-600">
