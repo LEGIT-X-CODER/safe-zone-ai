@@ -67,13 +67,18 @@ export default function ReportIncident() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form
-    if (!formData.incidentType || !formData.severityLevel || !formData.location || !formData.description) {
+    if (
+      !formData.incidentType ||
+      !formData.severityLevel ||
+      !formData.location ||
+      !formData.description
+    ) {
       alert("Please fill in all required fields");
       return;
     }
-    
+
     setIsSubmitting(true);
 
     // Simulate API call with realistic delay
@@ -83,7 +88,7 @@ export default function ReportIncident() {
     console.log("Incident reported:", formData);
     setIsSubmitted(true);
     setIsSubmitting(false);
-    
+
     // Reset form data
     setFormData({
       incidentType: "",
@@ -108,7 +113,7 @@ export default function ReportIncident() {
         ...prev,
         location: "Getting location...",
       }));
-      
+
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -129,8 +134,8 @@ export default function ReportIncident() {
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 0
-        }
+          maximumAge: 0,
+        },
       );
     } else {
       alert("Geolocation is not supported by this browser.");
@@ -173,7 +178,13 @@ export default function ReportIncident() {
 
   return (
     <Layout>
-      <div className="min-h-screen text-white bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')" }}>
+      <div
+        className="min-h-screen text-white bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')",
+        }}
+      >
         {/* Header Section */}
         <div className="text-white py-12 relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -363,21 +374,21 @@ export default function ReportIncident() {
                   {/* Submit Button */}
                   <div className="pt-6">
                     <Button
-                        type="submit"
-                        className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
-                        disabled={
-                          isSubmitting ||
-                          !formData.incidentType ||
-                          !formData.severityLevel ||
-                          !formData.location ||
-                          !formData.description
-                        }
-                      >
-                        {isSubmitting && (
-                          <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
-                        )}
-                        {isSubmitting ? "Submitting Report..." : "Submit Report"}
-                      </Button>
+                      type="submit"
+                      className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
+                      disabled={
+                        isSubmitting ||
+                        !formData.incidentType ||
+                        !formData.severityLevel ||
+                        !formData.location ||
+                        !formData.description
+                      }
+                    >
+                      {isSubmitting && (
+                        <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
+                      )}
+                      {isSubmitting ? "Submitting Report..." : "Submit Report"}
+                    </Button>
                     <p className="text-xs text-gray-500 mt-2 text-center">
                       By submitting, you agree to our community guidelines and
                       data policy
@@ -434,9 +445,7 @@ export default function ReportIncident() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white">
-                        6
-                      </span>
+                      <span className="text-2xl font-bold text-white">6</span>
                     </div>
                   </div>
                   <Badge className="bg-green-50 text-green-600">Low Risk</Badge>

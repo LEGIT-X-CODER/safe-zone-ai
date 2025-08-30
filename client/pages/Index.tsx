@@ -57,26 +57,106 @@ export default function Index() {
 
   // Indian cities with pincodes
   const indianCities = [
-    { name: "Mumbai, Maharashtra", pincode: "400001", area: "Fort, South Mumbai" },
-    { name: "Delhi", pincode: "110001", area: "Connaught Place, Central Delhi" },
-    { name: "Bangalore, Karnataka", pincode: "560001", area: "Bangalore GPO, Central Bangalore" },
-    { name: "Chennai, Tamil Nadu", pincode: "600001", area: "Anna Salai, Central Chennai" },
-    { name: "Kolkata, West Bengal", pincode: "700001", area: "BBD Bagh, Central Kolkata" },
-    { name: "Hyderabad, Telangana", pincode: "500001", area: "Abids, Central Hyderabad" },
-    { name: "Pune, Maharashtra", pincode: "411001", area: "Pune Camp, Central Pune" },
-    { name: "Ahmedabad, Gujarat", pincode: "380001", area: "Ellis Bridge, Central Ahmedabad" },
-    { name: "Jaipur, Rajasthan", pincode: "302001", area: "Civil Lines, Central Jaipur" },
-    { name: "Surat, Gujarat", pincode: "395001", area: "Ring Road, Central Surat" },
-    { name: "Lucknow, Uttar Pradesh", pincode: "226001", area: "Hazratganj, Central Lucknow" },
-    { name: "Kanpur, Uttar Pradesh", pincode: "208001", area: "Civil Lines, Central Kanpur" },
-    { name: "Nagpur, Maharashtra", pincode: "440001", area: "Civil Lines, Central Nagpur" },
-    { name: "Indore, Madhya Pradesh", pincode: "452001", area: "MG Road, Central Indore" },
-    { name: "Thane, Maharashtra", pincode: "400601", area: "Thane West, Central Thane" },
-    { name: "Bhopal, Madhya Pradesh", pincode: "462001", area: "MP Nagar, Central Bhopal" },
-    { name: "Visakhapatnam, Andhra Pradesh", pincode: "530001", area: "Dwaraka Nagar, Central Visakhapatnam" },
-    { name: "Patna, Bihar", pincode: "800001", area: "Fraser Road, Central Patna" },
-    { name: "Vadodara, Gujarat", pincode: "390001", area: "Mandvi, Central Vadodara" },
-    { name: "Ghaziabad, Uttar Pradesh", pincode: "201001", area: "Civil Lines, Central Ghaziabad" }
+    {
+      name: "Mumbai, Maharashtra",
+      pincode: "400001",
+      area: "Fort, South Mumbai",
+    },
+    {
+      name: "Delhi",
+      pincode: "110001",
+      area: "Connaught Place, Central Delhi",
+    },
+    {
+      name: "Bangalore, Karnataka",
+      pincode: "560001",
+      area: "Bangalore GPO, Central Bangalore",
+    },
+    {
+      name: "Chennai, Tamil Nadu",
+      pincode: "600001",
+      area: "Anna Salai, Central Chennai",
+    },
+    {
+      name: "Kolkata, West Bengal",
+      pincode: "700001",
+      area: "BBD Bagh, Central Kolkata",
+    },
+    {
+      name: "Hyderabad, Telangana",
+      pincode: "500001",
+      area: "Abids, Central Hyderabad",
+    },
+    {
+      name: "Pune, Maharashtra",
+      pincode: "411001",
+      area: "Pune Camp, Central Pune",
+    },
+    {
+      name: "Ahmedabad, Gujarat",
+      pincode: "380001",
+      area: "Ellis Bridge, Central Ahmedabad",
+    },
+    {
+      name: "Jaipur, Rajasthan",
+      pincode: "302001",
+      area: "Civil Lines, Central Jaipur",
+    },
+    {
+      name: "Surat, Gujarat",
+      pincode: "395001",
+      area: "Ring Road, Central Surat",
+    },
+    {
+      name: "Lucknow, Uttar Pradesh",
+      pincode: "226001",
+      area: "Hazratganj, Central Lucknow",
+    },
+    {
+      name: "Kanpur, Uttar Pradesh",
+      pincode: "208001",
+      area: "Civil Lines, Central Kanpur",
+    },
+    {
+      name: "Nagpur, Maharashtra",
+      pincode: "440001",
+      area: "Civil Lines, Central Nagpur",
+    },
+    {
+      name: "Indore, Madhya Pradesh",
+      pincode: "452001",
+      area: "MG Road, Central Indore",
+    },
+    {
+      name: "Thane, Maharashtra",
+      pincode: "400601",
+      area: "Thane West, Central Thane",
+    },
+    {
+      name: "Bhopal, Madhya Pradesh",
+      pincode: "462001",
+      area: "MP Nagar, Central Bhopal",
+    },
+    {
+      name: "Visakhapatnam, Andhra Pradesh",
+      pincode: "530001",
+      area: "Dwaraka Nagar, Central Visakhapatnam",
+    },
+    {
+      name: "Patna, Bihar",
+      pincode: "800001",
+      area: "Fraser Road, Central Patna",
+    },
+    {
+      name: "Vadodara, Gujarat",
+      pincode: "390001",
+      area: "Mandvi, Central Vadodara",
+    },
+    {
+      name: "Ghaziabad, Uttar Pradesh",
+      pincode: "201001",
+      area: "Civil Lines, Central Ghaziabad",
+    },
   ];
 
   const features = [
@@ -175,7 +255,9 @@ export default function Index() {
     const locationToAnalyze = selectedCity || destinationQuery;
     if (locationToAnalyze.trim()) {
       // Show analysis results
-      alert(`Analyzing safety for: ${locationToAnalyze}\n\nRisk Score: ${Math.floor(Math.random() * 100)}\nRecommendation: ${getRandomRecommendation()}`);
+      alert(
+        `Analyzing safety for: ${locationToAnalyze}\n\nRisk Score: ${Math.floor(Math.random() * 100)}\nRecommendation: ${getRandomRecommendation()}`,
+      );
       // In a real app, this would call an API
       console.log("Analyzing destination:", locationToAnalyze);
     } else {
@@ -184,7 +266,9 @@ export default function Index() {
   };
 
   const handleCitySelect = (cityValue: string) => {
-    const city = indianCities.find(c => `${c.name} - ${c.pincode}` === cityValue);
+    const city = indianCities.find(
+      (c) => `${c.name} - ${c.pincode}` === cityValue,
+    );
     if (city) {
       setSelectedCity(`${city.name} - ${city.area} (${city.pincode})`);
       setDestinationQuery(`${city.name} - ${city.area} (${city.pincode})`);
@@ -194,9 +278,9 @@ export default function Index() {
   const getRandomRecommendation = () => {
     const recommendations = [
       "Low risk area - Safe for travel",
-      "Medium risk - Exercise normal precautions", 
+      "Medium risk - Exercise normal precautions",
       "High risk - Avoid if possible",
-      "Very safe area - Enjoy your visit!"
+      "Very safe area - Enjoy your visit!",
     ];
     return recommendations[Math.floor(Math.random() * recommendations.length)];
   };
@@ -205,11 +289,27 @@ export default function Index() {
     <Layout>
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden min-h-screen">
-        <div className={cn("absolute inset-0 bg-cover bg-center transition-transform duration-700 will-change-transform", zoomState === "in" ? "scale-110" : "scale-95")} style={{ backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe5e854ef1b0446a786c54b8a4dfcc60d?format=webp&width=800')" }} />
+        <div
+          className={cn(
+            "absolute inset-0 bg-cover bg-center transition-transform duration-700 will-change-transform",
+            zoomState === "in" ? "scale-110" : "scale-95",
+          )}
+          style={{
+            backgroundImage:
+              "url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe5e854ef1b0446a786c54b8a4dfcc60d?format=webp&width=800')",
+          }}
+        />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
           <div className="grid grid-cols-1 gap-12 items-center">
-            <div className={cn("space-y-8 max-w-2xl mr-auto text-left transform transition-all duration-700 ease-out", heroVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8")}>
+            <div
+              className={cn(
+                "space-y-8 max-w-2xl mr-auto text-left transform transition-all duration-700 ease-out",
+                heroVisible
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-8",
+              )}
+            >
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
                   Travel Safely with Real-Time Risk Intelligence
@@ -224,18 +324,30 @@ export default function Index() {
               {/* Primary CTA Buttons */}
               <div className="flex space-x-3">
                 <Link to="/safety-map">
-                  <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">Explore Safety Map</Button>
+                  <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
+                    Explore Safety Map
+                  </Button>
                 </Link>
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black">Learn More</Button>
+                <Button
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-black"
+                >
+                  Learn More
+                </Button>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')" }}>
+      <section
+        className="py-20 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
@@ -280,7 +392,13 @@ export default function Index() {
       </section>
 
       {/* Safety Heatmap Section */}
-      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')" }}>
+      <section
+        className="py-20 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
@@ -319,9 +437,7 @@ export default function Index() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white">
-                        62
-                      </span>
+                      <span className="text-2xl font-bold text-white">62</span>
                     </div>
                   </div>
                   <h3 className="text-lg font-semibold text-white">
@@ -399,7 +515,13 @@ export default function Index() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F3f2ac2ddc7544ae1b748719e2dd93a11?format=webp&width=1600')" }}>
+      <section
+        className="py-20 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F3f2ac2ddc7544ae1b748719e2dd93a11?format=webp&width=1600')",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
@@ -426,7 +548,11 @@ export default function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-0 shadow-lg bg-white/5 text-white animate-fade-up" style={{ animationDelay: `${index * 150}ms` }}>
+              <Card
+                key={index}
+                className="border-0 shadow-lg bg-white/5 text-white animate-fade-up"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
                 <CardHeader>
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-safezone-blue rounded-full flex items-center justify-center text-white font-bold">
@@ -450,10 +576,7 @@ export default function Index() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-300 mb-4">"{testimonial.comment}"</p>
-                  <Badge
-                    variant="secondary"
-                    className="bg-white/10 text-white"
-                  >
+                  <Badge variant="secondary" className="bg-white/10 text-white">
                     {testimonial.category}
                   </Badge>
                 </CardContent>
@@ -464,7 +587,13 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')" }}>
+      <section
+        className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')",
+        }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             Travel smart, travel safe with AI-powered insights
@@ -480,12 +609,16 @@ export default function Index() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=1600')" }}>
+      <section
+        className="py-20 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=1600')",
+        }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Get in touch
-            </h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Get in touch</h2>
             <p className="text-xl text-gray-300">
               Have questions about SafeZone AI? We'd love to hear from you.
             </p>

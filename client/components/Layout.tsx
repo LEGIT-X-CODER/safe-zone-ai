@@ -39,17 +39,26 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen dark bg-black">
       {/* Navigation Header */}
-      <header className={cn("z-50", location.pathname === "/" ? "absolute top-0 left-0 right-0 bg-transparent" : "sticky top-0 backdrop-blur-md bg-black/60 shadow-lg")}>
+      <header
+        className={cn(
+          "z-50",
+          location.pathname === "/"
+            ? "absolute top-0 left-0 right-0 bg-transparent"
+            : "sticky top-0 backdrop-blur-md bg-black/60 shadow-lg",
+        )}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3">
               <div className="w-12 h-12 rounded-lg flex items-center justify-center">
-                <img src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=192" alt="SafeZone logo" className="w-12 h-12 object-contain" />
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=192"
+                  alt="SafeZone logo"
+                  className="w-12 h-12 object-contain"
+                />
               </div>
-              <span className="text-2xl font-bold text-white">
-                SafeZone AI
-              </span>
+              <span className="text-2xl font-bold text-white">SafeZone AI</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -62,7 +71,9 @@ export function Layout({ children }: LayoutProps) {
                     to={item.href}
                     className={cn(
                       "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
-                      isActiveLink(item.href) ? "text-white" : "text-gray-300 hover:text-white",
+                      isActiveLink(item.href)
+                        ? "text-white"
+                        : "text-gray-300 hover:text-white",
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -140,7 +151,11 @@ export function Layout({ children }: LayoutProps) {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                  <img src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=128" alt="SafeZone logo" className="w-8 h-8 object-contain" />
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=128"
+                    alt="SafeZone logo"
+                    className="w-8 h-8 object-contain"
+                  />
                 </div>
                 <span className="text-xl font-bold">SafeZone AI</span>
               </div>

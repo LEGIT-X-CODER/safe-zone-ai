@@ -106,7 +106,13 @@ export default function SafetyMap() {
 
   return (
     <Layout>
-      <div className="min-h-screen text-white bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')" }}>
+      <div
+        className="min-h-screen text-white bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')",
+        }}
+      >
         {/* Header */}
         <div className="bg-black/50 backdrop-blur-md border-b border-white/10 shadow-lg text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -412,7 +418,9 @@ export default function SafetyMap() {
                       <div className="absolute inset-0 bg-white bg-opacity-90 hidden items-center justify-center">
                         <div className="text-center">
                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-safezone-blue mx-auto mb-2"></div>
-                          <p className="text-sm text-gray-600">Loading map data...</p>
+                          <p className="text-sm text-gray-600">
+                            Loading map data...
+                          </p>
                         </div>
                       </div>
                     </div>
