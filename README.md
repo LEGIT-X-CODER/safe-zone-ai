@@ -145,6 +145,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Styling with Tailwind CSS
 - Icons from Lucide React
 
+## About the Project
+This website frontend was created using Builder.io as a design tool, but all the code, logic, and customization were developed and implemented by me.
+
 ## 📧 Contact
 
 For questions and support, please reach out through the contact form in the application.
