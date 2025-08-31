@@ -66,7 +66,11 @@ export const createSampleData = async (currentUser: any, userProfile: any) => {
       userId: currentUser.uid,
       userName: userProfile.displayName,
       userAvatar: currentUser.photoURL,
-      content: 'I saw this happen too! Police arrived within 10 minutes. The area seems to have increased security now.'
+      content: 'I saw this happen too! Police arrived within 10 minutes. The area seems to have increased security now.',
+      upvotes: 0,
+      downvotes: 0,
+      votedBy: [],
+      isEdited: false
     });
 
     await CommentService.addComment({
@@ -74,7 +78,11 @@ export const createSampleData = async (currentUser: any, userProfile: any) => {
       userId: currentUser.uid,
       userName: userProfile.displayName,
       userAvatar: currentUser.photoURL,
-      content: 'Traffic is clearing up now. Oak Avenue is a good alternative route if you need to get through the area.'
+      content: 'Traffic is clearing up now. Oak Avenue is a good alternative route if you need to get through the area.',
+      upvotes: 0,
+      downvotes: 0,
+      votedBy: [],
+      isEdited: false
     });
 
     console.log('Sample comments added successfully!');
@@ -87,7 +95,13 @@ export const createSampleData = async (currentUser: any, userProfile: any) => {
       title: 'Safety Tips for Downtown Area',
       content: 'Based on recent incidents, here are some safety recommendations for the downtown area:\\n\\n1. Keep valuables secure and out of sight\\n2. Travel in groups when possible, especially at night\\n3. Stay aware of your surroundings at transit stations\\n4. Have emergency contacts readily available\\n\\nStay safe everyone!',
       category: 'tip',
-      tags: ['safety', 'downtown', 'prevention']
+      tags: ['safety', 'downtown', 'prevention'],
+      upvotes: 0,
+      downvotes: 0,
+      votedBy: [],
+      commentCount: 0,
+      viewCount: 0,
+      isPinned: false
     });
 
     console.log('Sample community post created:', postId);

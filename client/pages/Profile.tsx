@@ -114,9 +114,8 @@ const Profile = () => {
       await updateUserProfile({ photoURL });
       
       // Update local state to show the new photo immediately
-      if (currentUser) {
-        currentUser.photoURL = photoURL;
-      }
+      // Note: We don't modify currentUser directly since it may be read-only
+      // The UI will update when the profile is refetched
       
       setMessage('Profile photo updated successfully!');
     } catch (error: any) {

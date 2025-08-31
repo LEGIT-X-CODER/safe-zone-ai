@@ -55,7 +55,13 @@ export const createSamplePosts = async (currentUser: any, userProfile: any) => {
           title: postData.title,
           content: postData.content,
           category: postData.category as any,
-          tags: postData.tags
+          tags: postData.tags,
+          upvotes: 0,
+          downvotes: 0,
+          votedBy: [],
+          commentCount: 0,
+          viewCount: 0,
+          isPinned: false
         });
         
         postIds.push(postId);

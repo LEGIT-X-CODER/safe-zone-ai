@@ -33,6 +33,11 @@ import {
   Globe,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { MotionWrapper, MotionContainer } from "@/components/animations/MotionWrapper";
+import { TypewriterText, AnimatedText } from "@/components/animations/TypewriterText";
+import { CountingNumber, AnimatedStatsCard } from "@/components/animations/CountingNumber";
+import { HoverEffect, FloatingElement, PulseEffect } from "@/components/animations/InteractiveEffects";
 
 export default function Index() {
   const [destinationQuery, setDestinationQuery] = useState("");
@@ -302,40 +307,55 @@ export default function Index() {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
           <div className="grid grid-cols-1 gap-12 items-center">
-            <div
-              className={cn(
-                "space-y-8 max-w-2xl mr-auto text-left transform transition-all duration-700 ease-out",
-                heroVisible
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-8",
-              )}
-            >
+            <MotionWrapper variant="slideUp" duration={0.8} className="space-y-8 max-w-2xl mr-auto text-left">
               <div className="space-y-4">
-                <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-                  Travel Safely with Real-Time Risk Intelligence
-                </h1>
-                <p className="text-xl text-blue-100">
+                <motion.h1 
+                  className="text-4xl lg:text-5xl font-bold leading-tight"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  <TypewriterText 
+                    text="Travel Safely with Real-Time Risk Intelligence"
+                    speed={80}
+                  />
+                </motion.h1>
+                <motion.p 
+                  className="text-xl text-blue-100"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.5 }}
+                >
                   Get instant safety insights, live risk assessments, and
                   community-driven alerts for any destination. Make informed
                   travel decisions with our advanced AI safety platform.
-                </p>
+                </motion.p>
               </div>
 
               {/* Primary CTA Buttons */}
-              <div className="flex space-x-3">
+              <motion.div 
+                className="flex space-x-3"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 2.2 }}
+              >
                 <Link to="/safety-map">
-                  <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
-                    Explore Safety Map
-                  </Button>
+                  <HoverEffect scale={1.1}>
+                    <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
+                      Explore Safety Map
+                    </Button>
+                  </HoverEffect>
                 </Link>
-                <Button
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-black"
-                >
-                  Learn More
-                </Button>
-              </div>
-            </div>
+                <HoverEffect scale={1.1}>
+                  <Button
+                    variant="outline"
+                    className="border-white text-white hover:bg-white hover:text-black"
+                  >
+                    Learn More
+                  </Button>
+                </HoverEffect>
+              </motion.div>
+            </MotionWrapper>
           </div>
         </div>
       </section>
@@ -349,45 +369,116 @@ export default function Index() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Comprehensive safety intelligence at your fingertips
-            </h2>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+          <MotionWrapper variant="fadeIn" className="text-center mb-16">
+            <motion.h2 
+              className="text-3xl lg:text-4xl font-bold text-white mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <AnimatedText 
+                text="Comprehensive safety intelligence at your fingertips"
+                variant="slideUp"
+              />
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-gray-200 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Our platform combines real-time data, AI analysis, and community
               insights to provide unparalleled travel safety intelligence.
-            </p>
-          </div>
+            </motion.p>
+          </MotionWrapper>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <MotionContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" staggerChildren={0.2}>
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card
-                  key={index}
-                  className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white animate-fade-up"
-                  style={{ animationDelay: `${index * 120}ms` }}
-                >
-                  <CardHeader className="text-center">
-                    <div className="w-full h-32 mb-4 rounded-lg overflow-hidden">
-                      <img
-                        src={feature.image}
-                        alt={feature.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <Icon className="w-8 h-8 text-safezone-blue mx-auto mb-2" />
-                    <CardTitle className="text-lg">{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-center">
-                      {feature.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                <MotionWrapper key={index} variant="slideUp" delay={index * 0.1}>
+                  <HoverEffect scale={1.08} className="h-full">
+                    <Card className="border-0 shadow-lg hover:shadow-xl transition-all bg-white/5 text-white h-full">
+                      <CardHeader className="text-center">
+                        <FloatingElement duration={3} delay={index * 0.5} yOffset={5}>
+                          <div className="w-full h-32 mb-4 rounded-lg overflow-hidden">
+                            <img
+                              src={feature.image}
+                              alt={feature.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </FloatingElement>
+                        <PulseEffect>
+                          <Icon className="w-8 h-8 text-safezone-blue mx-auto mb-2" />
+                        </PulseEffect>
+                        <CardTitle className="text-lg">{feature.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <CardDescription className="text-center">
+                          {feature.description}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  </HoverEffect>
+                </MotionWrapper>
               );
             })}
-          </div>
+          </MotionContainer>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 bg-gradient-to-r from-gray-900 via-black to-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <MotionWrapper variant="fadeIn" className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+              <TypewriterText 
+                text="Trusted by millions worldwide"
+                speed={100}
+              />
+            </h2>
+            <p className="text-xl text-gray-300">
+              Real numbers from our global safety network
+            </p>
+          </MotionWrapper>
+
+          <MotionContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" staggerChildren={0.2}>
+            <AnimatedStatsCard
+              title="Active Users"
+              value={2500000}
+              suffix="+"
+              description="Travelers staying safe daily"
+              icon={<Users className="w-8 h-8" />}
+              delay={0}
+            />
+            <AnimatedStatsCard
+              title="Safety Reports"
+              value={1250000}
+              suffix="+"
+              description="Community-generated incident reports"
+              icon={<AlertTriangle className="w-8 h-8" />}
+              delay={0.2}
+            />
+            <AnimatedStatsCard
+              title="Cities Covered"
+              value={850}
+              suffix="+"
+              description="Major cities with real-time data"
+              icon={<Globe className="w-8 h-8" />}
+              delay={0.4}
+            />
+            <AnimatedStatsCard
+              title="Incidents Prevented"
+              value={95}
+              suffix="%"
+              description="Success rate in risk prediction"
+              icon={<Shield className="w-8 h-8" />}
+              delay={0.6}
+            />
+          </MotionContainer>
         </div>
       </section>
 
@@ -400,116 +491,162 @@ export default function Index() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-          <div className="text-center mb-12">
+          <MotionWrapper variant="slideUp" className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Interactive safety heatmap with live incident tracking
+              <AnimatedText 
+                text="Interactive safety heatmap with live incident tracking"
+                variant="slideUp"
+              />
             </h2>
             <p className="text-xl text-gray-200">
               Click on any incident marker to view details and safety
               recommendations
             </p>
-          </div>
+          </MotionWrapper>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Risk Score Display */}
-            <div className="space-y-6">
-              <Card className="p-6">
-                <div className="text-center">
-                  <div className="relative w-24 h-24 mx-auto mb-4">
-                    <svg className="w-24 h-24 transform -rotate-90">
-                      <circle
-                        cx="48"
-                        cy="48"
-                        r="40"
-                        stroke="#e5e7eb"
-                        strokeWidth="8"
-                        fill="none"
-                      />
-                      <circle
-                        cx="48"
-                        cy="48"
-                        r="40"
-                        stroke="#f59e0b"
-                        strokeWidth="8"
-                        fill="none"
-                        strokeDasharray={`${(62 / 100) * 251.2} 251.2`}
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white">62</span>
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">
-                    Risk Score
-                  </h3>
-                  <p className="text-yellow-400 font-medium">Medium Risk</p>
-                  <p className="text-sm text-gray-300 mt-2">
-                    Based on recent incidents, crowd density, and local
-                    conditions
-                  </p>
-                </div>
-              </Card>
-
-              <div className="space-y-3">
-                <h4 className="font-semibold text-gray-900">Risk by Area</h4>
-                {riskAreas.map((area, index) => (
-                  <div
-                    key={index}
-                    className={`flex items-center justify-between p-3 rounded-lg ${area.bgColor}`}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div
-                        className={`w-3 h-3 rounded-full ${area.color.replace("text-", "bg-")}`}
-                      ></div>
-                      <div>
-                        <p className="font-medium text-white">{area.name}</p>
-                        <p className={`text-sm ${area.color}`}>{area.level}</p>
+            <MotionWrapper variant="slideLeft" delay={0.2} className="space-y-6">
+              <HoverEffect scale={1.05}>
+                <Card className="p-6">
+                  <div className="text-center">
+                    <motion.div 
+                      className="relative w-24 h-24 mx-auto mb-4"
+                      initial={{ scale: 0, rotate: -180 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                    >
+                      <svg className="w-24 h-24 transform -rotate-90">
+                        <circle
+                          cx="48"
+                          cy="48"
+                          r="40"
+                          stroke="#e5e7eb"
+                          strokeWidth="8"
+                          fill="none"
+                        />
+                        <motion.circle
+                          cx="48"
+                          cy="48"
+                          r="40"
+                          stroke="#f59e0b"
+                          strokeWidth="8"
+                          fill="none"
+                          strokeDasharray={`${(62 / 100) * 251.2} 251.2`}
+                          strokeLinecap="round"
+                          initial={{ pathLength: 0 }}
+                          whileInView={{ pathLength: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 2, delay: 0.8 }}
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <CountingNumber 
+                          end={62}
+                          duration={2}
+                          delay={1}
+                          className="text-2xl font-bold text-white"
+                        />
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold text-white">{area.score}</p>
-                      <p className="text-xs text-gray-300">Risk</p>
-                    </div>
+                    </motion.div>
+                    <h3 className="text-lg font-semibold text-white">
+                      Risk Score
+                    </h3>
+                    <p className="text-yellow-400 font-medium">Medium Risk</p>
+                    <p className="text-sm text-gray-300 mt-2">
+                      Based on recent incidents, crowd density, and local
+                      conditions
+                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
+                </Card>
+              </HoverEffect>
+
+              <MotionWrapper variant="slideUp" delay={0.4}>
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-gray-900">Risk by Area</h4>
+                  <MotionContainer staggerChildren={0.1}>
+                    {riskAreas.map((area, index) => (
+                      <MotionWrapper key={index} variant="slideLeft" delay={index * 0.1}>
+                        <HoverEffect scale={1.02}>
+                          <div
+                            className={`flex items-center justify-between p-3 rounded-lg ${area.bgColor}`}
+                          >
+                            <div className="flex items-center space-x-3">
+                              <PulseEffect>
+                                <div
+                                  className={`w-3 h-3 rounded-full ${area.color.replace("text-", "bg-")}`}
+                                ></div>
+                              </PulseEffect>
+                              <div>
+                                <p className="font-medium text-white">{area.name}</p>
+                                <p className={`text-sm ${area.color}`}>{area.level}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <CountingNumber 
+                                end={area.score}
+                                duration={1.5}
+                                delay={0.5 + index * 0.1}
+                                className="font-bold text-white"
+                              />
+                              <p className="text-xs text-gray-300">Risk</p>
+                            </div>
+                          </div>
+                        </HoverEffect>
+                      </MotionWrapper>
+                    ))}
+                  </MotionContainer>
+                </div>
+              </MotionWrapper>
+            </MotionWrapper>
 
             {/* Interactive Map */}
-            <div className="lg:col-span-2">
-              <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-lg h-96 relative overflow-hidden">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=800"
-                  alt="Interactive Safety Heatmap"
-                  className="w-full h-full object-cover rounded-lg"
-                />
+            <MotionWrapper variant="slideRight" delay={0.3} className="lg:col-span-2">
+              <HoverEffect scale={1.02}>
+                <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-lg h-96 relative overflow-hidden">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=800"
+                    alt="Interactive Safety Heatmap"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
 
-                {/* Incident Markers */}
-                <div className="absolute top-16 left-20 w-4 h-4 bg-red-500 rounded-full animate-pulse shadow-lg"></div>
-                <div className="absolute top-32 right-24 w-4 h-4 bg-red-500 rounded-full animate-pulse shadow-lg"></div>
-                <div className="absolute bottom-24 left-1/2 w-4 h-4 bg-yellow-500 rounded-full animate-pulse shadow-lg"></div>
-                <div className="absolute bottom-16 right-16 w-4 h-4 bg-green-500 rounded-full animate-pulse shadow-lg"></div>
+                  {/* Incident Markers */}
+                  <PulseEffect>
+                    <div className="absolute top-16 left-20 w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
+                  </PulseEffect>
+                  <PulseEffect>
+                    <div className="absolute top-32 right-24 w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
+                  </PulseEffect>
+                  <PulseEffect>
+                    <div className="absolute bottom-24 left-1/2 w-4 h-4 bg-yellow-500 rounded-full shadow-lg"></div>
+                  </PulseEffect>
+                  <PulseEffect>
+                    <div className="absolute bottom-16 right-16 w-4 h-4 bg-green-500 rounded-full shadow-lg"></div>
+                  </PulseEffect>
 
-                {/* Legend */}
-                <div className="absolute bottom-4 left-4 bg-white rounded-lg p-3 shadow-lg">
-                  <div className="flex items-center space-x-4 text-xs">
-                    <div className="flex items-center space-x-1">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                      <span>High Risk</span>
+                  {/* Legend */}
+                  <MotionWrapper variant="slideUp" delay={0.8}>
+                    <div className="absolute bottom-4 left-4 bg-white rounded-lg p-3 shadow-lg">
+                      <div className="flex items-center space-x-4 text-xs">
+                        <div className="flex items-center space-x-1">
+                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                          <span>High Risk</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                          <span>Medium Risk</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                          <span>Low Risk</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                      <span>Medium Risk</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span>Low Risk</span>
-                    </div>
-                  </div>
+                  </MotionWrapper>
                 </div>
-              </div>
-            </div>
+              </HoverEffect>
+            </MotionWrapper>
           </div>
         </div>
       </section>
@@ -523,66 +660,128 @@ export default function Index() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-          <div className="text-center mb-16">
+          <MotionWrapper variant="slideUp" className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Trusted by travelers worldwide
+              <TypewriterText 
+                text="Trusted by travelers worldwide"
+                speed={80}
+              />
             </h2>
-            <div className="flex items-center justify-center space-x-2 mb-4">
+            <motion.div 
+              className="flex items-center justify-center space-x-2 mb-4"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 2 }}
+            >
               {[...Array(5)].map((_, i) => (
-                <Star
+                <motion.div
                   key={i}
-                  className="w-6 h-6 text-yellow-400 fill-current"
-                />
+                  initial={{ opacity: 0, y: -20, rotate: -180 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 2.2 + i * 0.1 }}
+                >
+                  <Star className="w-6 h-6 text-yellow-400 fill-current" />
+                </motion.div>
               ))}
-              <span className="text-lg font-semibold text-white ml-2">
-                4.9/5
-              </span>
-              <span className="text-gray-300">based on 2,500+ reviews</span>
-            </div>
-            <div className="flex justify-center space-x-4 text-sm text-gray-300">
+              <motion.span 
+                className="text-lg font-semibold text-white ml-2"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 2.7 }}
+              >
+                <CountingNumber end={4.9} decimals={1} duration={1.5} delay={2.8} />\5
+              </motion.span>
+              <motion.span 
+                className="text-gray-300"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 3 }}
+              >
+                based on <CountingNumber end={2500} suffix="+" duration={1.5} delay={3} /> reviews
+              </motion.span>
+            </motion.div>
+            <motion.div 
+              className="flex justify-center space-x-4 text-sm text-gray-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 3.2 }}
+            >
               <span>App Store</span>
               <span>•</span>
               <span>Google Play</span>
-            </div>
-          </div>
+            </motion.div>
+          </MotionWrapper>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <MotionContainer className="grid grid-cols-1 md:grid-cols-3 gap-8" staggerChildren={0.2}>
             {testimonials.map((testimonial, index) => (
-              <Card
-                key={index}
-                className="border-0 shadow-lg bg-white/5 text-white animate-fade-up"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <CardHeader>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-safezone-blue rounded-full flex items-center justify-center text-white font-bold">
-                      {testimonial.name.charAt(0)}
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">
-                        {testimonial.name}
-                      </CardTitle>
-                      <CardDescription>{testimonial.role}</CardDescription>
-                    </div>
-                  </div>
-                  <div className="flex space-x-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-4 h-4 text-yellow-400 fill-current"
-                      />
-                    ))}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300 mb-4">"{testimonial.comment}"</p>
-                  <Badge variant="secondary" className="bg-white/10 text-white">
-                    {testimonial.category}
-                  </Badge>
-                </CardContent>
-              </Card>
+              <MotionWrapper key={index} variant="slideUp" delay={index * 0.2}>
+                <HoverEffect scale={1.05} rotateY={5}>
+                  <Card className="border-0 shadow-lg bg-white/5 text-white h-full">
+                    <CardHeader>
+                      <div className="flex items-center space-x-4">
+                        <FloatingElement duration={3} delay={index * 0.5} yOffset={3}>
+                          <div className="w-12 h-12 bg-safezone-blue rounded-full flex items-center justify-center text-white font-bold">
+                            {testimonial.name.charAt(0)}
+                          </div>
+                        </FloatingElement>
+                        <div>
+                          <CardTitle className="text-lg">
+                            {testimonial.name}
+                          </CardTitle>
+                          <CardDescription>{testimonial.role}</CardDescription>
+                        </div>
+                      </div>
+                      <motion.div 
+                        className="flex space-x-1"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: index * 0.2 + 0.5 }}
+                      >
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.3, delay: index * 0.2 + 0.7 + i * 0.1 }}
+                          >
+                            <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    </CardHeader>
+                    <CardContent>
+                      <motion.p 
+                        className="text-gray-300 mb-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: index * 0.2 + 0.8 }}
+                      >
+                        "{testimonial.comment}"
+                      </motion.p>
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: index * 0.2 + 1 }}
+                      >
+                        <Badge variant="secondary" className="bg-white/10 text-white">
+                          {testimonial.category}
+                        </Badge>
+                      </motion.div>
+                    </CardContent>
+                  </Card>
+                </HoverEffect>
+              </MotionWrapper>
             ))}
-          </div>
+          </MotionContainer>
         </div>
       </section>
 
@@ -595,16 +794,44 @@ export default function Index() {
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Travel smart, travel safe with AI-powered insights
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Join thousands of travelers who trust SafeZone AI for real-time
-            safety intelligence and peace of mind on every journey.
-          </p>
-          <Button className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white font-semibold px-8 py-3 text-lg shadow-glow-teal hover:shadow-glow-blue transition-all duration-300 transform hover:scale-105">
-            Start Using SafeZone AI
-          </Button>
+          <MotionWrapper variant="slideUp">
+            <motion.h2 
+              className="text-3xl lg:text-4xl font-bold mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <TypewriterText 
+                text="Travel smart, travel safe with AI-powered insights"
+                speed={80}
+              />
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-blue-100 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 2.5 }}
+            >
+              Join <CountingNumber end={50000} suffix="+" duration={2} delay={3} /> travelers who trust SafeZone AI for real-time
+              safety intelligence and peace of mind on every journey.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.8 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 3.5 }}
+            >
+              <HoverEffect scale={1.1}>
+                <PulseEffect>
+                  <Button className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white font-semibold px-8 py-3 text-lg shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
+                    Start Using SafeZone AI
+                  </Button>
+                </PulseEffect>
+              </HoverEffect>
+            </motion.div>
+          </MotionWrapper>
         </div>
       </section>
 

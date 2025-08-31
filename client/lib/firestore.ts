@@ -461,17 +461,17 @@ export class CommunityService {
         console.log('Post data:', doc.id, data);
         return {
           id: doc.id,
-          ...data
+          ...(data as object)
         } as CommunityPost;
       });
       
       // Manual sorting for category queries since we can't use composite index
       if (category && category !== 'all') {
         posts = posts.sort((a, b) => {
-          const aTime = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 
-                      (a.createdAt as any)?.seconds ? (a.createdAt as any).seconds * 1000 : 0;
-          const bTime = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 
-                      (b.createdAt as any)?.seconds ? (b.createdAt as any).seconds * 1000 : 0;
+          const aTime = a.createdAt instanceof Timestamp ? a.createdAt.toDate().getTime() : 
+                      a.createdAt instanceof Date ? a.createdAt.getTime() : 0;
+          const bTime = b.createdAt instanceof Timestamp ? b.createdAt.toDate().getTime() : 
+                      b.createdAt instanceof Date ? b.createdAt.getTime() : 0;
           return bTime - aTime; // Newest first
         });
       }
@@ -505,10 +505,10 @@ export class CommunityService {
         
         // Sort manually
         allPosts = allPosts.sort((a, b) => {
-          const aTime = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 
-                      (a.createdAt as any)?.seconds ? (a.createdAt as any).seconds * 1000 : 0;
-          const bTime = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 
-                      (b.createdAt as any)?.seconds ? (b.createdAt as any).seconds * 1000 : 0;
+          const aTime = a.createdAt instanceof Timestamp ? a.createdAt.toDate().getTime() : 
+                      a.createdAt instanceof Date ? a.createdAt.getTime() : 0;
+          const bTime = b.createdAt instanceof Timestamp ? b.createdAt.toDate().getTime() : 
+                      b.createdAt instanceof Date ? b.createdAt.getTime() : 0;
           return bTime - aTime;
         });
         
@@ -737,7 +737,8 @@ export class AnalyticsService {
       recentActivity.push({
         type: 'report_created',
         description: `Reported an incident: ${incident.title}`,
-        createdAt: new Date(incident.createdAt)
+        createdAt: incident.createdAt instanceof Timestamp ? incident.createdAt.toDate() : 
+                   incident.createdAt instanceof Date ? incident.createdAt : new Date()
       });
     });
     
@@ -747,7 +748,8 @@ export class AnalyticsService {
       recentActivity.push({
         type: 'comment_added',
         description: `Added a comment: "${comment.content.substring(0, 30)}${comment.content.length > 30 ? '...' : ''}"`,
-        createdAt: new Date(comment.createdAt)
+        createdAt: comment.createdAt instanceof Timestamp ? comment.createdAt.toDate() : 
+                   comment.createdAt instanceof Date ? comment.createdAt : new Date()
       });
     });
     
@@ -757,7 +759,8 @@ export class AnalyticsService {
       recentActivity.push({
         type: 'post_created',
         description: `Created a post: ${post.title}`,
-        createdAt: new Date(post.createdAt)
+        createdAt: post.createdAt instanceof Timestamp ? post.createdAt.toDate() : 
+                   post.createdAt instanceof Date ? post.createdAt : new Date()
       });
     });
     

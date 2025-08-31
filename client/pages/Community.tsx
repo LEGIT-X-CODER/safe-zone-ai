@@ -187,6 +187,12 @@ export default function Community() {
         content: newPost.content.trim(),
         category: newPost.category as CommunityPost['category'],
         tags: newPost.tags,
+        upvotes: 0,
+        downvotes: 0,
+        votedBy: [],
+        commentCount: 0,
+        viewCount: 0,
+        isPinned: false
       };
 
       await CommunityService.createPost(postData);
