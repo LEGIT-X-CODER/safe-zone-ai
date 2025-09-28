@@ -200,9 +200,9 @@ const Profile = () => {
   // Show loading while authentication is being determined
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20">
         <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="text-muted-foreground">Loading your profile...</p>
         </div>
       </div>
@@ -217,7 +217,7 @@ const Profile = () => {
           <h2 className="text-2xl font-semibold mb-4">Access Denied</h2>
           <p className="text-muted-foreground mb-6">Please log in to view your profile</p>
           <Link to="/login">
-            <Button className="bg-gradient-teal-blue">Sign In</Button>
+            <Button className="bg-primary text-primary-foreground">Sign In</Button>
           </Link>
         </div>
       </div>
@@ -227,9 +227,9 @@ const Profile = () => {
   // Show loading while user profile is being created/loaded
   if (!userProfile) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20">
         <div className="text-center space-y-6">
-          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="text-muted-foreground">Setting up your profile...</p>
           
           {/* Manual bypass button after 3 seconds */}
@@ -267,9 +267,9 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       {/* Header */}
-      <div className="bg-white border-b sticky top-0 z-10 backdrop-blur-sm bg-white/80">
+      <div className="bg-card border-b border-border sticky top-0 z-10 backdrop-blur-sm bg-card/80">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link
@@ -281,11 +281,11 @@ const Profile = () => {
             </Link>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-teal-blue rounded-lg flex items-center justify-center">
-              <Shield className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <Shield className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-lg bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              SafeZone AI
+            <span className="font-semibold text-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              TrekSure
             </span>
           </div>
         </div>
@@ -294,21 +294,21 @@ const Profile = () => {
       <div className="max-w-4xl mx-auto p-4 space-y-6">
         {/* Success Message */}
         {message && (
-          <Alert className="border-green-200 bg-green-50">
-            <CheckCircle className="w-4 h-4 text-green-600" />
-            <AlertDescription className="text-green-700">{message}</AlertDescription>
+          <Alert className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
+            <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
+            <AlertDescription className="text-green-700 dark:text-green-300">{message}</AlertDescription>
           </Alert>
         )}
 
         {/* Profile Header Card */}
-        <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+        <Card className="border border-border shadow-xl bg-card/80 backdrop-blur-sm">
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
               {/* Avatar */}
               <div className="relative">
-                <Avatar className="w-24 h-24 border-4 border-white shadow-lg">
+                <Avatar className="w-24 h-24 border-4 border-card shadow-lg">
                   <AvatarImage src={currentUser.photoURL || ''} />
-                  <AvatarFallback className="bg-gradient-teal-blue text-white text-xl font-semibold">
+                  <AvatarFallback className="bg-gradient-to-r from-primary to-secondary text-primary-foreground text-xl font-semibold">
                     {getInitials(userProfile.displayName)}
                   </AvatarFallback>
                 </Avatar>
@@ -322,12 +322,12 @@ const Profile = () => {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="absolute -bottom-2 -right-2 rounded-full w-8 h-8 p-0 bg-white border-2 border-white shadow-md"
+                  className="absolute -bottom-2 -right-2 rounded-full w-8 h-8 p-0 bg-card border-2 border-card shadow-md"
                   onClick={triggerFileInput}
                   disabled={uploadingPhoto}
                 >
                   {uploadingPhoto ? (
-                    <div className="w-3 h-3 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
                   ) : (
                     <Camera className="w-4 h-4" />
                   )}
@@ -337,10 +337,10 @@ const Profile = () => {
               {/* Profile Info */}
               <div className="flex-1 space-y-2">
                 <div className="flex items-center space-x-3">
-                  <h1 className="text-2xl font-bold text-gray-900">
+                  <h1 className="text-2xl font-bold text-foreground">
                     {userProfile.displayName}
                   </h1>
-                  <Badge variant="secondary" className="bg-green-100 text-green-700">
+                  <Badge variant="secondary" className="bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300">
                     <CheckCircle className="w-3 h-3 mr-1" />
                     Verified
                   </Badge>
@@ -358,7 +358,7 @@ const Profile = () => {
                 </div>
 
                 {userProfile.bio && (
-                  <p className="text-gray-600 max-w-md">{userProfile.bio}</p>
+                  <p className="text-muted-foreground max-w-md">{userProfile.bio}</p>
                 )}
                 
                 {userProfile.location && (
@@ -375,7 +375,7 @@ const Profile = () => {
                   <Button
                     onClick={handleEdit}
                     variant="outline"
-                    className="border-blue-200 text-blue-600 hover:bg-blue-50"
+                    className="border-primary text-primary hover:bg-accent"
                   >
                     <Edit3 className="w-4 h-4 mr-2" />
                     Edit Profile
@@ -385,7 +385,7 @@ const Profile = () => {
                     <Button
                       onClick={handleSave}
                       disabled={loading}
-                      className="bg-gradient-teal-blue"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90"
                     >
                       <Save className="w-4 h-4 mr-2" />
                       {loading ? 'Saving...' : 'Save'}
@@ -408,7 +408,7 @@ const Profile = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Profile Details */}
           <div className="lg:col-span-2">
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <Card className="border border-border shadow-xl bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <User className="w-5 h-5" />
@@ -509,7 +509,7 @@ const Profile = () => {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* User Statistics */}
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <Card className="border border-border shadow-xl bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center space-x-2">
                   <Award className="w-5 h-5" />
@@ -518,8 +518,8 @@ const Profile = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Reputation Score */}
-                <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">
+                <div className="text-center p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg">
+                  <div className="text-2xl font-bold text-primary">
                     {userProfile.reputation || 0}
                   </div>
                   <div className="text-sm text-muted-foreground">Reputation Points</div>
@@ -527,33 +527,33 @@ const Profile = () => {
                 
                 {/* Activity Stats */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-green-50 rounded-lg">
+                  <div className="text-center p-3 bg-muted/50 rounded-lg border border-border">
                     <div className="flex items-center justify-center mb-1">
-                      <AlertTriangle className="w-4 h-4 text-green-600" />
+                      <AlertTriangle className="w-4 h-4 text-primary" />
                     </div>
-                    <div className="text-lg font-semibold text-green-700">
+                    <div className="text-lg font-semibold text-foreground">
                       {userStats?.totalReports || userProfile.totalReports || 0}
                     </div>
-                    <div className="text-xs text-green-600">Reports</div>
+                    <div className="text-xs text-muted-foreground">Reports</div>
                   </div>
                   
-                  <div className="text-center p-3 bg-blue-50 rounded-lg">
+                  <div className="text-center p-3 bg-muted/50 rounded-lg border border-border">
                     <div className="flex items-center justify-center mb-1">
-                      <MessageSquare className="w-4 h-4 text-blue-600" />
+                      <MessageSquare className="w-4 h-4 text-primary" />
                     </div>
-                    <div className="text-lg font-semibold text-blue-700">
+                    <div className="text-lg font-semibold text-foreground">
                       {userStats?.totalComments || userProfile.totalComments || 0}
                     </div>
-                    <div className="text-xs text-blue-600">Comments</div>
+                    <div className="text-xs text-muted-foreground">Comments</div>
                   </div>
                 </div>
                 
                 {userStats && (
-                  <div className="text-center p-3 bg-yellow-50 rounded-lg">
-                    <div className="text-lg font-semibold text-yellow-700">
+                  <div className="text-center p-3 bg-muted/50 rounded-lg border border-border">
+                    <div className="text-lg font-semibold text-foreground">
                       {userStats.totalUpvotes || 0}
                     </div>
-                    <div className="text-xs text-yellow-600">Total Upvotes Received</div>
+                    <div className="text-xs text-muted-foreground">Total Upvotes Received</div>
                   </div>
                 )}
                 
@@ -575,32 +575,53 @@ const Profile = () => {
             </Card>
 
             {/* Account Stats */}
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <Card className="border border-border shadow-xl bg-card/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-lg">Account Status</CardTitle>
+                <CardTitle className="text-lg flex items-center space-x-2">
+                  <Shield className="w-5 h-5" />
+                  <span>Account Status</span>
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Account Type</span>
-                  <Badge className="bg-gradient-teal-blue">Premium</Badge>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Member Since</span>
-                  <span className="text-sm font-medium">
-                    {formatDate(userProfile.joinedAt)}
+                <div className="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                    <span className="text-sm font-medium text-foreground">Email Verified</span>
+                  </div>
+                  <span className="text-xs text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-800 px-2 py-1 rounded-full">
+                    Active
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Last Login</span>
-                  <span className="text-sm font-medium">
-                    {formatDate(userProfile.lastLoginAt)}
+                
+                <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <span className="text-sm font-medium text-foreground">Profile Complete</span>
+                  </div>
+                  <span className="text-xs text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded-full">
+                    {userProfile.displayName && userProfile.bio ? '100%' : '75%'}
                   </span>
+                </div>
+
+                <div className="pt-4 border-t border-border">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Member Since</span>
+                    <span className="text-sm font-medium">
+                      {formatDate(userProfile.joinedAt)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-sm text-muted-foreground">Last Login</span>
+                    <span className="text-sm font-medium">
+                      {formatDate(userProfile.lastLoginAt)}
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
             
             {/* Recent Activity */}
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <Card className="border border-border shadow-xl bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center space-x-2">
                   <Clock className="w-5 h-5" />
@@ -611,12 +632,12 @@ const Profile = () => {
                 {userStats?.recentActivity && userStats.recentActivity.length > 0 ? (
                   <div className="space-y-3">
                     {userStats.recentActivity.map((activity: any, index: number) => (
-                      <div key={index} className="flex items-start space-x-3 pb-3 border-b border-gray-100 last:border-0">
-                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                          {activity.type === 'report_created' && <AlertTriangle className="w-4 h-4 text-blue-600" />}
-                          {activity.type === 'comment_added' && <MessageSquare className="w-4 h-4 text-blue-600" />}
-                          {activity.type === 'post_created' && <Edit3 className="w-4 h-4 text-blue-600" />}
-                          {activity.type === 'badge_earned' && <Award className="w-4 h-4 text-blue-600" />}
+                      <div key={index} className="flex items-start space-x-3 pb-3 border-b border-border last:border-0">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          {activity.type === 'report_created' && <AlertTriangle className="w-4 h-4 text-primary" />}
+                          {activity.type === 'comment_added' && <MessageSquare className="w-4 h-4 text-primary" />}
+                          {activity.type === 'post_created' && <Edit3 className="w-4 h-4 text-primary" />}
+                          {activity.type === 'badge_earned' && <Award className="w-4 h-4 text-primary" />}
                         </div>
                         <div className="flex-1">
                           <p className="text-sm">{activity.description}</p>
@@ -636,7 +657,7 @@ const Profile = () => {
             </Card>
 
             {/* Quick Actions */}
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <Card className="border border-border shadow-xl bg-card/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-lg">Quick Actions</CardTitle>
               </CardHeader>

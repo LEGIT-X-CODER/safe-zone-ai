@@ -53,17 +53,17 @@ export default function ReportIncident() {
   ];
 
   const severityLevels = [
-    { value: "low", label: "Low - Minor incident", color: "text-green-600" },
+    { value: "low", label: "Low - Minor incident", color: "text-green-600 dark:text-green-400" },
     {
       value: "medium",
       label: "Medium - Moderate concern",
-      color: "text-yellow-600",
+      color: "text-yellow-600 dark:text-yellow-400",
     },
-    { value: "high", label: "High - Serious incident", color: "text-red-600" },
+    { value: "high", label: "High - Serious incident", color: "text-red-600 dark:text-red-400" },
     {
       value: "critical",
       label: "Critical - Immediate danger",
-      color: "text-red-800",
+      color: "text-red-800 dark:text-red-300",
     },
   ];
 
@@ -172,16 +172,16 @@ export default function ReportIncident() {
   if (isSubmitted) {
     return (
       <Layout>
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-muted/50 flex items-center justify-center px-4">
           <Card className="max-w-md w-full">
             <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-foreground mb-2">
                 Report Submitted
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-muted-foreground mb-6">
                 Thank you for helping keep the community safe. Your incident
                 report has been submitted and will be reviewed by our team.
               </p>
@@ -206,22 +206,22 @@ export default function ReportIncident() {
   return (
     <Layout>
       <div
-        className="min-h-screen text-white bg-cover bg-center"
+        className="min-h-screen text-white dark:text-white bg-cover bg-center"
         style={{
           backgroundImage:
             "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')",
         }}
       >
         {/* Header Section */}
-        <div className="text-white py-12 relative overflow-hidden">
+        <div className="text-white dark:text-white py-12 relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertTriangle className="w-8 h-8 text-safezone-blue" />
+            <div className="w-16 h-16 bg-white dark:bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="w-8 h-8 text-treksure-blue" />
             </div>
             <h1 className="text-3xl lg:text-4xl font-bold mb-4">
               Report a safety incident
             </h1>
-            <p className="text-xl text-blue-100">
+            <p className="text-xl text-blue-100 dark:text-blue-100">
               Help keep the community safe by reporting incidents in real-time
             </p>
           </div>
@@ -235,8 +235,8 @@ export default function ReportIncident() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Authentication Check */}
                   {!currentUser && (
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <p className="text-yellow-800 text-sm">
+                    <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4">
+                      <p className="text-yellow-800 dark:text-yellow-300 text-sm">
                         <AlertTriangle className="w-4 h-4 inline mr-2" />
                         Please <a href="/login" className="underline font-medium">log in</a> to report incidents
                       </p>
@@ -245,8 +245,8 @@ export default function ReportIncident() {
 
                   {/* Error Message */}
                   {error && (
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                      <p className="text-red-800 text-sm">
+                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg p-4">
+                      <p className="text-red-800 dark:text-red-300 text-sm">
                         <AlertTriangle className="w-4 h-4 inline mr-2" />
                         {error}
                       </p>
@@ -348,7 +348,7 @@ export default function ReportIncident() {
                         <Navigation className="w-4 h-4" />
                       </Button>
                     </div>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground">
                       Click the location icon to use your current location
                     </p>
                   </div>
@@ -373,7 +373,7 @@ export default function ReportIncident() {
                       required
                       disabled={!currentUser}
                     />
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground">
                       Please provide as much detail as possible to help others
                       stay safe
                     </p>
@@ -384,12 +384,12 @@ export default function ReportIncident() {
                     <Label className="text-base font-medium">
                       Photos (Optional)
                     </Label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-                      <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">
+                    <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-border/80 transition-colors">
+                      <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                      <p className="text-sm text-foreground">
                         Click to upload photos or drag and drop
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         PNG, JPG up to 10MB each
                       </p>
                     </div>
@@ -399,7 +399,7 @@ export default function ReportIncident() {
                   <div className="pt-6">
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
+                      className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white dark:text-white py-3 text-lg font-semibold shadow-glow-teal hover:shadow-glow-blue transition-all duration-300"
                       disabled={
                         !currentUser ||
                         isSubmitting ||
@@ -415,7 +415,7 @@ export default function ReportIncident() {
                       )}
                       {!currentUser ? "Please Log In" : isSubmitting ? "Submitting Report..." : "Submit Report"}
                     </Button>
-                    <p className="text-xs text-gray-500 mt-2 text-center">
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
                       By submitting, you agree to our community guidelines and
                       data policy
                     </p>
@@ -427,13 +427,13 @@ export default function ReportIncident() {
         </div>
 
         {/* Additional Info Section */}
-        <div className="bg-white/5 text-white py-16 mt-16">
+        <div className="bg-white/5 dark:bg-white/5 text-white dark:text-white py-16 mt-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold text-white mb-4">
+              <h2 className="text-2xl font-bold text-white dark:text-white mb-4">
                 Live risk assessment for your location
               </h2>
-              <p className="text-gray-300">
+              <p className="text-gray-300 dark:text-gray-300">
                 AI-powered risk scores updated in real-time based on multiple
                 data sources
               </p>
@@ -444,7 +444,7 @@ export default function ReportIncident() {
               <Card className="text-center">
                 <CardHeader>
                   <CardTitle className="flex items-center justify-center">
-                    <MapPin className="w-5 h-5 mr-2 text-safezone-blue" />
+                    <MapPin className="w-5 h-5 mr-2 text-safezone-blue dark:text-safezone-blue" />
                     Current Location Risk
                   </CardTitle>
                 </CardHeader>
@@ -471,10 +471,10 @@ export default function ReportIncident() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white">6</span>
+                      <span className="text-2xl font-bold text-foreground dark:text-foreground">6</span>
                     </div>
                   </div>
-                  <Badge className="bg-green-50 text-green-600">Low Risk</Badge>
+                  <Badge className="bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400">Low Risk</Badge>
                 </CardContent>
               </Card>
 
@@ -484,28 +484,28 @@ export default function ReportIncident() {
                   <CardTitle>Risk by Area</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-red-50">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-red-50 dark:bg-red-900/20">
                     <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-red-500 dark:bg-red-400 rounded-full"></div>
                       <div>
-                        <p className="font-medium text-white">Downtown</p>
-                        <p className="text-sm text-red-600">High Risk</p>
+                        <p className="font-medium text-foreground dark:text-foreground">Downtown</p>
+                        <p className="text-sm text-red-600 dark:text-red-400">High Risk</p>
                       </div>
                     </div>
-                    <p className="font-bold text-white">85</p>
+                    <p className="font-bold text-foreground dark:text-foreground">85</p>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-yellow-50">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
                     <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-500 dark:bg-yellow-400 rounded-full"></div>
                       <div>
-                        <p className="font-medium text-white">
+                        <p className="font-medium text-foreground dark:text-foreground">
                           Tourist District
                         </p>
-                        <p className="text-sm text-yellow-600">Medium Risk</p>
+                        <p className="text-sm text-yellow-600 dark:text-yellow-400">Medium Risk</p>
                       </div>
                     </div>
-                    <p className="font-bold text-white">45</p>
+                    <p className="font-bold text-foreground dark:text-foreground">45</p>
                   </div>
                 </CardContent>
               </Card>

@@ -203,29 +203,29 @@ export default function Index() {
       name: "Downtown",
       level: "High Risk",
       score: 85,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
+      color: "text-red-600 dark:text-red-400",
+      bgColor: "bg-red-50 dark:bg-red-900/20",
     },
     {
       name: "Tourist District",
       level: "Medium Risk",
       score: 45,
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-50",
+      color: "text-yellow-600 dark:text-yellow-400",
+      bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
     },
     {
       name: "Business Center",
       level: "Medium Risk",
       score: 62,
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-50",
+      color: "text-yellow-600 dark:text-yellow-400",
+      bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
     },
     {
       name: "Airport Area",
       level: "Low Risk",
       score: 38,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
+      color: "text-green-600 dark:text-green-400",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
     },
   ];
 
@@ -235,7 +235,7 @@ export default function Index() {
       role: "Travel Blogger",
       rating: 5,
       comment:
-        "SafeZone AI helped me avoid a dangerous area during my trip to Bangkok. The real time alerts are incredibly accurate and potentially life-saving.",
+        "TrekSure helped me avoid a dangerous area during my trip to Bangkok. The real time alerts are incredibly accurate and potentially life-saving.",
       category: "Frequent Traveler",
     },
     {
@@ -243,7 +243,7 @@ export default function Index() {
       role: "Business Executive",
       rating: 5,
       comment:
-        "As a business traveler, I rely on SafeZone AI for every trip. The incident reporting feature has made me feel much more secure in unfamiliar cities.",
+        "As a business traveler, I rely on TrekSure for every trip. The incident reporting feature has made me feel much more secure in unfamiliar cities.",
       category: "Corporate Traveler",
     },
     {
@@ -293,7 +293,7 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative text-white overflow-hidden min-h-screen">
+      <section className="relative text-foreground overflow-hidden min-h-screen">
         <div
           className={cn(
             "absolute inset-0 bg-cover bg-center transition-transform duration-700 will-change-transform",
@@ -304,13 +304,13 @@ export default function Index() {
               "url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe5e854ef1b0446a786c54b8a4dfcc60d?format=webp&width=800')",
           }}
         />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-background/60" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
           <div className="grid grid-cols-1 gap-12 items-center">
             <MotionWrapper variant="slideUp" duration={0.8} className="space-y-8 max-w-2xl mr-auto text-left">
               <div className="space-y-4">
                 <motion.h1 
-                  className="text-4xl lg:text-5xl font-bold leading-tight"
+                  className="text-4xl lg:text-5xl font-bold leading-tight text-foreground"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
@@ -321,7 +321,7 @@ export default function Index() {
                   />
                 </motion.h1>
                 <motion.p 
-                  className="text-xl text-blue-100"
+                  className="text-xl text-muted-foreground"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 1.5 }}
@@ -341,7 +341,7 @@ export default function Index() {
               >
                 <Link to="/safety-map">
                   <HoverEffect scale={1.1}>
-                    <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
+                    <Button className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20">
                       Explore Safety Map
                     </Button>
                   </HoverEffect>
@@ -349,7 +349,7 @@ export default function Index() {
                 <HoverEffect scale={1.1}>
                   <Button
                     variant="outline"
-                    className="border-white text-white hover:bg-white hover:text-black"
+                    className="border-border text-foreground hover:bg-accent hover:text-accent-foreground"
                   >
                     Learn More
                   </Button>
@@ -368,10 +368,10 @@ export default function Index() {
             "linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-foreground">
           <MotionWrapper variant="fadeIn" className="text-center mb-16">
             <motion.h2 
-              className="text-3xl lg:text-4xl font-bold text-white mb-4"
+              className="text-3xl lg:text-4xl font-bold text-foreground mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -383,7 +383,7 @@ export default function Index() {
               />
             </motion.h2>
             <motion.p 
-              className="text-xl text-gray-200 max-w-3xl mx-auto"
+              className="text-xl text-muted-foreground max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -400,7 +400,7 @@ export default function Index() {
               return (
                 <MotionWrapper key={index} variant="slideUp" delay={index * 0.1}>
                   <HoverEffect scale={1.08} className="h-full">
-                    <Card className="border-0 shadow-lg hover:shadow-xl transition-all bg-white/5 text-white h-full">
+                    <Card className="border-0 shadow-lg hover:shadow-xl transition-all bg-card/80 text-card-foreground h-full">
                       <CardHeader className="text-center">
                         <FloatingElement duration={3} delay={index * 0.5} yOffset={5}>
                           <div className="w-full h-32 mb-4 rounded-lg overflow-hidden">
@@ -412,7 +412,7 @@ export default function Index() {
                           </div>
                         </FloatingElement>
                         <PulseEffect>
-                          <Icon className="w-8 h-8 text-safezone-blue mx-auto mb-2" />
+                          <Icon className="w-8 h-8 text-primary mx-auto mb-2" />
                         </PulseEffect>
                         <CardTitle className="text-lg">{feature.title}</CardTitle>
                       </CardHeader>
@@ -431,16 +431,16 @@ export default function Index() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-gray-900 via-black to-gray-900">
+      <section className="py-20 bg-gradient-to-r from-muted via-background to-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <MotionWrapper variant="fadeIn" className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
               <TypewriterText 
                 text="Trusted by millions worldwide"
                 speed={100}
               />
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-muted-foreground">
               Real numbers from our global safety network
             </p>
           </MotionWrapper>
@@ -490,15 +490,15 @@ export default function Index() {
             "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-foreground">
           <MotionWrapper variant="slideUp" className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
               <AnimatedText 
                 text="Interactive safety heatmap with live incident tracking"
                 variant="slideUp"
               />
             </h2>
-            <p className="text-xl text-gray-200">
+            <p className="text-xl text-muted-foreground">
               Click on any incident marker to view details and safety
               recommendations
             </p>
@@ -546,15 +546,15 @@ export default function Index() {
                           end={62}
                           duration={2}
                           delay={1}
-                          className="text-2xl font-bold text-white"
+                          className="text-2xl font-bold text-foreground"
                         />
                       </div>
                     </motion.div>
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-lg font-semibold text-foreground">
                       Risk Score
                     </h3>
-                    <p className="text-yellow-400 font-medium">Medium Risk</p>
-                    <p className="text-sm text-gray-300 mt-2">
+                    <p className="text-yellow-600 dark:text-yellow-400 font-medium">Medium Risk</p>
+                    <p className="text-sm text-muted-foreground mt-2">
                       Based on recent incidents, crowd density, and local
                       conditions
                     </p>
@@ -564,13 +564,13 @@ export default function Index() {
 
               <MotionWrapper variant="slideUp" delay={0.4}>
                 <div className="space-y-3">
-                  <h4 className="font-semibold text-gray-900">Risk by Area</h4>
+                  <h4 className="font-semibold text-foreground">Risk by Area</h4>
                   <MotionContainer staggerChildren={0.1}>
                     {riskAreas.map((area, index) => (
                       <MotionWrapper key={index} variant="slideLeft" delay={index * 0.1}>
                         <HoverEffect scale={1.02}>
                           <div
-                            className={`flex items-center justify-between p-3 rounded-lg ${area.bgColor}`}
+                            className={`flex items-center justify-between p-3 rounded-lg ${area.bgColor} border border-border`}
                           >
                             <div className="flex items-center space-x-3">
                               <PulseEffect>
@@ -579,7 +579,7 @@ export default function Index() {
                                 ></div>
                               </PulseEffect>
                               <div>
-                                <p className="font-medium text-white">{area.name}</p>
+                                <p className="font-medium text-foreground">{area.name}</p>
                                 <p className={`text-sm ${area.color}`}>{area.level}</p>
                               </div>
                             </div>
@@ -588,9 +588,9 @@ export default function Index() {
                                 end={area.score}
                                 duration={1.5}
                                 delay={0.5 + index * 0.1}
-                                className="font-bold text-white"
+                                className="font-bold text-foreground"
                               />
-                              <p className="text-xs text-gray-300">Risk</p>
+                              <p className="text-xs text-muted-foreground">Risk</p>
                             </div>
                           </div>
                         </HoverEffect>
@@ -604,7 +604,7 @@ export default function Index() {
             {/* Interactive Map */}
             <MotionWrapper variant="slideRight" delay={0.3} className="lg:col-span-2">
               <HoverEffect scale={1.02}>
-                <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-lg h-96 relative overflow-hidden">
+                <div className="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg h-96 relative overflow-hidden">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=800"
                     alt="Interactive Safety Heatmap"
@@ -613,32 +613,32 @@ export default function Index() {
 
                   {/* Incident Markers */}
                   <PulseEffect>
-                    <div className="absolute top-16 left-20 w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
+                    <div className="absolute top-16 left-20 w-4 h-4 bg-red-500 dark:bg-red-400 rounded-full shadow-lg"></div>
                   </PulseEffect>
                   <PulseEffect>
-                    <div className="absolute top-32 right-24 w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
+                    <div className="absolute top-32 right-24 w-4 h-4 bg-red-500 dark:bg-red-400 rounded-full shadow-lg"></div>
                   </PulseEffect>
                   <PulseEffect>
-                    <div className="absolute bottom-24 left-1/2 w-4 h-4 bg-yellow-500 rounded-full shadow-lg"></div>
+                    <div className="absolute bottom-24 left-1/2 w-4 h-4 bg-yellow-500 dark:bg-yellow-400 rounded-full shadow-lg"></div>
                   </PulseEffect>
                   <PulseEffect>
-                    <div className="absolute bottom-16 right-16 w-4 h-4 bg-green-500 rounded-full shadow-lg"></div>
+                    <div className="absolute bottom-16 right-16 w-4 h-4 bg-green-500 dark:bg-green-400 rounded-full shadow-lg"></div>
                   </PulseEffect>
 
                   {/* Legend */}
                   <MotionWrapper variant="slideUp" delay={0.8}>
-                    <div className="absolute bottom-4 left-4 bg-white rounded-lg p-3 shadow-lg">
-                      <div className="flex items-center space-x-4 text-xs">
+                    <div className="absolute bottom-4 left-4 bg-card rounded-lg p-3 shadow-lg border border-border">
+                      <div className="flex items-center space-x-4 text-xs text-card-foreground">
                         <div className="flex items-center space-x-1">
-                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                          <div className="w-3 h-3 bg-red-500 dark:bg-red-400 rounded-full"></div>
                           <span>High Risk</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                          <div className="w-3 h-3 bg-yellow-500 dark:bg-yellow-400 rounded-full"></div>
                           <span>Medium Risk</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                          <div className="w-3 h-3 bg-green-500 dark:bg-green-400 rounded-full"></div>
                           <span>Low Risk</span>
                         </div>
                       </div>
@@ -659,9 +659,9 @@ export default function Index() {
             "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F3f2ac2ddc7544ae1b748719e2dd93a11?format=webp&width=1600')",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-foreground">
           <MotionWrapper variant="slideUp" className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
               <TypewriterText 
                 text="Trusted by travelers worldwide"
                 speed={80}
@@ -682,20 +682,20 @@ export default function Index() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 2.2 + i * 0.1 }}
                 >
-                  <Star className="w-6 h-6 text-yellow-400 fill-current" />
+                  <Star className="w-6 h-6 text-yellow-500 dark:text-yellow-400 fill-current" />
                 </motion.div>
               ))}
               <motion.span 
-                className="text-lg font-semibold text-white ml-2"
+                className="text-lg font-semibold text-foreground ml-2"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 2.7 }}
               >
-                <CountingNumber end={4.9} decimals={1} duration={1.5} delay={2.8} />\5
+                <CountingNumber end={4.9} decimals={1} duration={1.5} delay={2.8} />/5
               </motion.span>
               <motion.span 
-                className="text-gray-300"
+                className="text-muted-foreground"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -705,7 +705,7 @@ export default function Index() {
               </motion.span>
             </motion.div>
             <motion.div 
-              className="flex justify-center space-x-4 text-sm text-gray-300"
+              className="flex justify-center space-x-4 text-sm text-muted-foreground"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -721,19 +721,19 @@ export default function Index() {
             {testimonials.map((testimonial, index) => (
               <MotionWrapper key={index} variant="slideUp" delay={index * 0.2}>
                 <HoverEffect scale={1.05} rotateY={5}>
-                  <Card className="border-0 shadow-lg bg-white/5 text-white h-full">
+                  <Card className="border-border shadow-lg bg-card/80 text-card-foreground h-full">
                     <CardHeader>
                       <div className="flex items-center space-x-4">
                         <FloatingElement duration={3} delay={index * 0.5} yOffset={3}>
-                          <div className="w-12 h-12 bg-safezone-blue rounded-full flex items-center justify-center text-white font-bold">
+                          <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
                             {testimonial.name.charAt(0)}
                           </div>
                         </FloatingElement>
                         <div>
-                          <CardTitle className="text-lg">
+                          <CardTitle className="text-lg text-card-foreground">
                             {testimonial.name}
                           </CardTitle>
-                          <CardDescription>{testimonial.role}</CardDescription>
+                          <CardDescription className="text-muted-foreground">{testimonial.role}</CardDescription>
                         </div>
                       </div>
                       <motion.div 
@@ -751,14 +751,14 @@ export default function Index() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.3, delay: index * 0.2 + 0.7 + i * 0.1 }}
                           >
-                            <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                            <Star className="w-4 h-4 text-yellow-500 dark:text-yellow-400 fill-current" />
                           </motion.div>
                         ))}
                       </motion.div>
                     </CardHeader>
                     <CardContent>
                       <motion.p 
-                        className="text-gray-300 mb-4"
+                        className="text-muted-foreground mb-4"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -772,7 +772,7 @@ export default function Index() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: index * 0.2 + 1 }}
                       >
-                        <Badge variant="secondary" className="bg-white/10 text-white">
+                        <Badge variant="secondary" className="bg-secondary/80 text-secondary-foreground">
                           {testimonial.category}
                         </Badge>
                       </motion.div>
@@ -787,7 +787,7 @@ export default function Index() {
 
       {/* CTA Section */}
       <section
-        className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal bg-cover bg-center"
+        className="py-20 bg-gradient-teal-blue text-foreground shadow-glow-teal bg-cover bg-center"
         style={{
           backgroundImage:
             "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fc64ff1e0b6934305a0e3bb64f3afbb95?format=webp&width=1600')",
@@ -796,7 +796,7 @@ export default function Index() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <MotionWrapper variant="slideUp">
             <motion.h2 
-              className="text-3xl lg:text-4xl font-bold mb-4"
+              className="text-3xl lg:text-4xl font-bold mb-4 text-foreground"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -808,13 +808,13 @@ export default function Index() {
               />
             </motion.h2>
             <motion.p 
-              className="text-xl text-blue-100 mb-8"
+              className="text-xl text-muted-foreground mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 2.5 }}
             >
-              Join <CountingNumber end={50000} suffix="+" duration={2} delay={3} /> travelers who trust SafeZone AI for real-time
+              Join <CountingNumber end={50000} suffix="+" duration={2} delay={3} /> travelers who trust TrekSure for real-time
               safety intelligence and peace of mind on every journey.
             </motion.p>
             <motion.div
@@ -825,8 +825,8 @@ export default function Index() {
             >
               <HoverEffect scale={1.1}>
                 <PulseEffect>
-                  <Button className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white font-semibold px-8 py-3 text-lg shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
-                    Start Using SafeZone AI
+                  <Button className="bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white dark:text-white font-semibold px-8 py-3 text-lg shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
+                    Start Using TrekSure
                   </Button>
                 </PulseEffect>
               </HoverEffect>
@@ -843,42 +843,42 @@ export default function Index() {
             "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F0dd2b8b949b441ef88427284d5703901?format=webp&width=1600')",
         }}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-foreground">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Get in touch</h2>
-            <p className="text-xl text-gray-300">
-              Have questions about SafeZone AI? We'd love to hear from you.
+            <h2 className="text-3xl font-bold text-foreground mb-4">Get in touch</h2>
+            <p className="text-xl text-muted-foreground">
+              Have questions about TrekSure? We'd love to hear from you.
             </p>
           </div>
 
-          <Card className="border-0 shadow-lg">
+          <Card className="border-border shadow-lg bg-card">
             <CardContent className="p-8">
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       Name
                     </label>
                     <Input placeholder="Your name" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       Email
                     </label>
                     <Input type="email" placeholder="your@email.com" />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">
                     Message
                   </label>
                   <textarea
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-safezone-blue focus:border-transparent"
+                    className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                     rows={4}
                     placeholder="Tell us about your travel safety needs..."
                   />
                 </div>
-                <Button className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
+                <Button className="w-full bg-gradient-teal-blue hover:bg-gradient-lime-cyan text-white dark:text-white shadow-glow-teal hover:shadow-glow-blue transition-all duration-300">
                   Send Message
                 </Button>
               </form>

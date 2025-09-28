@@ -27,20 +27,20 @@ const NotFound = () => {
       >
         <Card className="max-w-md w-full shadow-lg">
           <CardContent className="p-8 text-center">
-            <div className="w-16 h-16 bg-safezone-blue rounded-full flex items-center justify-center mx-auto mb-6">
-              <Shield className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 bg-treksure-blue rounded-full flex items-center justify-center mx-auto mb-6">
+              <Shield className="w-8 h-8 text-white dark:text-white" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">404</h1>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h1 className="text-4xl font-bold text-foreground mb-2">404</h1>
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Page Not Found
             </h2>
-            <p className="text-gray-600 mb-8">
+            <p className="text-muted-foreground mb-8">
               Sorry, we couldn't find the page you're looking for. The page may
               have been moved or doesn't exist.
             </p>
             <div className="space-y-3">
               <Link to="/">
-                <Button className="w-full bg-safezone-blue hover:bg-safezone-blue-dark">
+                <Button className="w-full bg-treksure-blue hover:bg-treksure-blue-dark">
                   <Home className="w-4 h-4 mr-2" />
                   Return to Home
                 </Button>
@@ -54,12 +54,12 @@ const NotFound = () => {
                 Go Back
               </Button>
             </div>
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <p className="text-sm text-gray-500">
+            <div className="mt-6 pt-6 border-t border-border">
+              <p className="text-sm text-muted-foreground">
                 Need help?{" "}
                 <Link
                   to="/contact"
-                  className="text-safezone-blue hover:underline"
+                  className="text-treksure-blue hover:underline"
                 >
                   Contact support
                 </Link>

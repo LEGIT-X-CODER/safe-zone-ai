@@ -65,16 +65,16 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 p-4">
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="flex justify-center items-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-gradient-teal-blue rounded-lg flex items-center justify-center">
-              <Shield className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <Shield className="w-6 h-6 text-primary-foreground" />
             </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              SafeZone AI
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              TrekSure
             </h1>
           </div>
           <p className="text-muted-foreground">
@@ -83,7 +83,7 @@ const Login = () => {
         </div>
 
         {/* Main Card */}
-        <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+        <Card className="border border-border shadow-xl bg-card/80 backdrop-blur-sm">
           <CardHeader className="space-y-1 pb-4">
             <CardTitle className="text-2xl font-semibold text-center">Sign In</CardTitle>
             <CardDescription className="text-center">
@@ -94,8 +94,8 @@ const Login = () => {
           <CardContent className="space-y-4">
             {/* Error Alert */}
             {error && (
-              <Alert className="border-red-200 bg-red-50">
-                <AlertDescription className="text-red-600">{error}</AlertDescription>
+              <Alert className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20">
+                <AlertDescription className="text-red-600 dark:text-red-400">{error}</AlertDescription>
               </Alert>
             )}
 
@@ -104,7 +104,7 @@ const Login = () => {
               variant="outline"
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full h-11 border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
+              className="w-full h-11 border-border hover:bg-accent hover:border-border transition-all duration-200"
             >
               <Chrome className="w-5 h-5 mr-2" />
               Continue with Google
@@ -113,7 +113,7 @@ const Login = () => {
             <div className="relative">
               <Separator />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="bg-white px-2 text-xs text-muted-foreground">or continue with email</span>
+                <span className="bg-card px-2 text-xs text-muted-foreground">or continue with email</span>
               </div>
             </div>
 
@@ -131,7 +131,7 @@ const Login = () => {
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="pl-10 h-11 border-border focus:border-primary focus:ring-primary"
                     required
                   />
                 </div>
@@ -149,7 +149,7 @@ const Login = () => {
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-12 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="pl-10 pr-12 h-11 border-border focus:border-primary focus:ring-primary"
                     required
                   />
                   <button
@@ -165,7 +165,7 @@ const Login = () => {
               <div className="flex items-center justify-between">
                 <Link
                   to="/forgot-password"
-                  className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                  className="text-sm text-primary hover:text-primary/80 hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -174,19 +174,19 @@ const Login = () => {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full h-11 bg-gradient-teal-blue hover:opacity-90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               >
                 {loading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
 
             {/* Sign Up Link */}
-            <div className="text-center pt-4 border-t">
+            <div className="text-center pt-4 border-t border-border">
               <p className="text-sm text-muted-foreground">
                 Don't have an account?{' '}
                 <Link
                   to="/signup"
-                  className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+                  className="text-primary hover:text-primary/80 font-medium hover:underline"
                 >
                   Sign up
                 </Link>

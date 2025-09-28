@@ -274,7 +274,7 @@ export default function Community() {
   return (
     <Layout>
       <div
-        className="min-h-screen text-white bg-cover bg-center"
+        className="min-h-screen text-foreground bg-cover bg-center"
         style={{
           backgroundImage:
             "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2F6d2ddf07b8c04a2fa506fad532ca9347?format=webp&width=1600')",
@@ -282,35 +282,36 @@ export default function Community() {
       >
         {/* Create Post Dialog */}
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px] bg-card border-border">
             <DialogHeader>
-              <DialogTitle>Create a New Post</DialogTitle>
+              <DialogTitle className="text-foreground">Create a New Post</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Title</label>
+                <label className="block text-sm font-medium mb-1 text-foreground">Title</label>
                 <Input 
                   placeholder="Enter post title" 
                   value={newPost.title}
                   onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+                  className="bg-background border-border text-foreground"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Content</label>
+                <label className="block text-sm font-medium mb-1 text-foreground">Content</label>
                 <Textarea 
                   placeholder="Share your experience or question..." 
-                  className="min-h-[120px]"
+                  className="min-h-[120px] bg-background border-border text-foreground"
                   value={newPost.content}
                   onChange={(e) => setNewPost({...newPost, content: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Category</label>
+                <label className="block text-sm font-medium mb-1 text-foreground">Category</label>
                 <Select 
                   value={newPost.category}
                   onValueChange={(value) => setNewPost({...newPost, category: value})}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-background border-border text-foreground">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -323,15 +324,16 @@ export default function Community() {
                 </Select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Tags</label>
+                <label className="block text-sm font-medium mb-1 text-foreground">Tags</label>
                 <div className="flex items-center space-x-2">
                   <Input 
                     placeholder="Add a tag" 
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddTag()}
+                    className="bg-background border-border text-foreground"
                   />
-                  <Button type="button" onClick={handleAddTag} size="sm">Add</Button>
+                  <Button type="button" onClick={handleAddTag} size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">Add</Button>
                 </div>
                 {newPost.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-2">
@@ -351,27 +353,27 @@ export default function Community() {
               </div>
             </div>
             <div className="flex justify-end space-x-2">
-              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>Cancel</Button>
-              <Button onClick={handleCreatePost}>Create Post</Button>
+              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)} className="border-border text-foreground">Cancel</Button>
+              <Button onClick={handleCreatePost} className="bg-primary text-primary-foreground hover:bg-primary/90">Create Post</Button>
             </div>
           </DialogContent>
         </Dialog>
         {/* Header */}
-        <div className="bg-black/50 backdrop-blur-md border-b border-white/10 text-white">
+        <div className="bg-card/50 backdrop-blur-md border-b border-border text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
               <div>
                 <h1 className="text-2xl lg:text-3xl font-bold text-white">
                   Travel Safety Community
                 </h1>
-                <p className="text-gray-300 mt-1">
+                <p className="text-white/70 mt-1">
                   Share experiences, stay informed, travel safely together
                 </p>
               </div>
 
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
-                  <Search className="w-5 h-5 text-gray-400" />
+                  <Search className="w-5 h-5 text-white/70" />
                   <Input
                     placeholder="Search posts..."
                     value={searchQuery}
@@ -380,7 +382,7 @@ export default function Community() {
                   />
                 </div>
                 <Link to="/report-incident">
-                  <Button className="bg-safezone-blue hover:bg-safezone-blue-dark">
+                  <Button className="bg-primary hover:bg-primary/90">
                     <PlusCircle className="w-4 h-4 mr-2" />
                     Share Incident
                   </Button>
@@ -406,8 +408,8 @@ export default function Community() {
                       onClick={() => setSelectedCategory(category.id)}
                       className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                         selectedCategory === category.id
-                          ? "bg-safezone-blue text-white"
-                          : "text-gray-600 hover:bg-gray-50"
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:bg-accent"
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -423,22 +425,20 @@ export default function Community() {
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg flex items-center">
-                    <TrendingUp className="w-5 h-5 mr-2 text-orange-500" />
+                    <TrendingUp className="w-5 h-5 mr-2 text-orange-500 dark:text-orange-400" />
                     Trending
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {trendingTopics.map((topic, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="cursor-pointer hover:bg-blue-50"
-                      >
-                        {topic}
-                      </Badge>
-                    ))}
-                  </div>
+                <CardContent className="space-y-3">
+                  {trendingTopics.map((topic, index) => (
+                    <div key={index} className="flex items-center space-x-3">
+                      <TrendingUp className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">{topic}</p>
+                        <p className="text-xs text-muted-foreground">{Math.floor(Math.random() * 50) + 10} posts</p>
+                      </div>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
 
@@ -450,28 +450,28 @@ export default function Community() {
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <Users className="w-4 h-4 text-safezone-blue" />
-                      <span className="text-sm text-gray-600">
+                      <Users className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-muted-foreground">
                         Active Members
                       </span>
                     </div>
-                    <span className="font-semibold">12,847</span>
+                    <span className="font-semibold text-primary">12,847</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <MessageCircle className="w-4 h-4 text-safezone-blue" />
-                      <span className="text-sm text-gray-600">Total Posts</span>
+                      <MessageCircle className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-muted-foreground">Total Posts</span>
                     </div>
-                    <span className="font-semibold">3,245</span>
+                    <span className="font-semibold text-primary">3,245</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <AlertTriangle className="w-4 h-4 text-safezone-blue" />
-                      <span className="text-sm text-gray-600">
+                      <AlertTriangle className="w-4 h-4 text-red-500 dark:text-red-400" />
+                      <span className="text-sm text-muted-foreground">
                         Reports Today
                       </span>
                     </div>
-                    <span className="font-semibold">18</span>
+                    <span className="font-semibold text-red-500 dark:text-red-400">18</span>
                   </div>
                 </CardContent>
               </Card>
@@ -480,35 +480,33 @@ export default function Community() {
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-6">
               {/* Filter Bar */}
-              <div className="flex items-center justify-between bg-white/5 text-white rounded-lg p-4 shadow-sm">
-                <div className="flex items-center space-x-4">
-                  <span className="text-sm text-gray-600">Sort by:</span>
-                  <select className="text-sm border-0 focus:ring-0 text-gray-900 font-medium">
-                    <option>Most Recent</option>
-                    <option>Most Helpful</option>
-                    <option>Most Viewed</option>
-                  </select>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button 
-                    onClick={() => {
-                      if (!currentUser) {
-                        alert('You must be logged in to create a post');
-                        return;
-                      }
-                      setIsCreateDialogOpen(true);
-                    }}
-                    variant="default"
-                    size="sm"
-                    className="bg-safezone-blue hover:bg-safezone-blue-dark"
-                  >
-                    <PlusCircle className="w-4 h-4 mr-2" />
-                    Create Post
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Filter className="w-4 h-4 mr-2" />
-                    Filters
-                  </Button>
+              <div className="bg-card/5 backdrop-blur-sm rounded-lg p-4 mb-6">
+                <div className="flex flex-wrap items-center gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Filter className="w-4 h-4 text-white/70" />
+                    <span className="text-sm font-medium text-white/70">Filter by:</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      onClick={() => {
+                        if (!currentUser) {
+                          alert('You must be logged in to create a post');
+                          return;
+                        }
+                        setIsCreateDialogOpen(true);
+                      }}
+                      variant="default"
+                      size="sm"
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <PlusCircle className="w-4 h-4 mr-2" />
+                      Create Post
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      <Filter className="w-4 h-4 mr-2" />
+                      Filters
+                    </Button>
+                  </div>
                 </div>
               </div>
 
@@ -516,11 +514,11 @@ export default function Community() {
               <div className="space-y-6">
                 {loading ? (
                   <div className="text-center py-10">
-                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
-                    <p>Loading posts...</p>
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-4"></div>
+                    <p className="text-white">Loading posts...</p>
                   </div>
                 ) : error ? (
-                  <div className="text-center py-10 text-red-500">
+                  <div className="text-center py-10 text-destructive">
                     <AlertTriangle className="mx-auto h-8 w-8 mb-2" />
                     <p>{error}</p>
                   </div>
@@ -558,7 +556,7 @@ export default function Community() {
                   filteredPosts.map((post, index) => (
                     <Card
                       key={post.id}
-                      className="shadow-sm hover:shadow-md transition-shadow animate-fade-up"
+                      className="border-white/10 bg-card/5 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow animate-fade-up"
                       style={{ animationDelay: `${index * 120}ms` }}
                       onClick={async () => {
                         // Increment view count when post is viewed
@@ -586,16 +584,16 @@ export default function Community() {
                             {post.authorAvatar ? (
                               <AvatarImage src={post.authorAvatar} alt={post.authorName || 'User'} />
                             ) : (
-                              <AvatarFallback className="bg-safezone-blue text-white">
+                              <AvatarFallback className="bg-primary text-primary-foreground">
                                 {post.authorName ? post.authorName.substring(0, 2).toUpperCase() : 'U'}
                               </AvatarFallback>
                             )}
                           </Avatar>
                           <div>
                             <div className="flex items-center gap-1">
-                              <h3 className="font-medium">{post.authorName || 'Anonymous User'}</h3>
+                              <h3 className="font-medium text-white">{post.authorName || 'Anonymous User'}</h3>
                             </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                            <div className="text-sm text-white/60">
                               {formatTimestamp(post.createdAt)}
                             </div>
                           </div>
@@ -620,10 +618,10 @@ export default function Community() {
 
                       {/* Post Content */}
                       <div className="mb-4">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-2">
+                        <h2 className="text-lg font-semibold text-white mb-2">
                           {post.title}
                         </h2>
-                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                        <p className="text-white/80 leading-relaxed whitespace-pre-line">
                           {post.content}
                         </p>
 
@@ -634,7 +632,7 @@ export default function Community() {
                               <Badge
                                 key={index}
                                 variant="secondary"
-                                className="text-xs"
+                                className="text-xs bg-white/10 text-white/70 border-white/20"
                               >
                                 #{tag}
                               </Badge>
@@ -644,10 +642,10 @@ export default function Community() {
                       </div>
 
                       {/* Engagement */}
-                      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                      <div className="flex items-center justify-between pt-4 border-t border-white/10">
                         <div className="flex items-center space-x-6">
                           <button
-                            className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors"
+                            className="flex items-center space-x-2 text-white/60 hover:text-blue-400 transition-colors"
                             onClick={async () => {
                               if (!currentUser) {
                                 alert('You must be logged in to vote');
@@ -670,14 +668,14 @@ export default function Community() {
                               {post.upvotes || 0}
                             </span>
                           </button>
-                          <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors">
+                          <button className="flex items-center space-x-2 text-white/60 hover:text-blue-400 transition-colors">
                             <MessageCircle className="w-5 h-5" />
                             <span className="text-sm">
                               {post.commentCount || 0}
                             </span>
                           </button>
                           <button 
-                            className="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors"
+                            className="flex items-center space-x-2 text-white/60 hover:text-red-400 transition-colors"
                             onClick={async () => {
                               if (!currentUser) {
                                 alert('You must be logged in to vote');
@@ -700,7 +698,7 @@ export default function Community() {
                               {post.downvotes || 0}
                             </span>
                           </button>
-                          <div className="flex items-center space-x-2 text-gray-500">
+                          <div className="flex items-center space-x-2 text-white/60">
                             <Eye className="w-5 h-5" />
                             <span className="text-sm">
                               {post.viewCount || 0}
@@ -722,7 +720,7 @@ export default function Community() {
                       <p className="text-gray-600">You need to be logged in to see or create posts</p>
                       <Button 
                         onClick={() => navigate('/login')}
-                        className="bg-safezone-blue hover:bg-blue-700 text-white"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground"
                       >
                         Login to Continue
                       </Button>
@@ -743,7 +741,7 @@ export default function Community() {
                           alert('Failed to create sample data. Please try again.');
                         }
                       }}
-                      className="bg-safezone-blue hover:bg-blue-700 text-white"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground"
                     >
                       Create Sample Data
                     </Button>

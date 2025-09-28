@@ -1,4 +1,4 @@
-# SafeZone AI 🛡️
+# TrekSure 🛡️
 
 A modern, AI-powered travel safety platform with **Firebase Authentication** that provides real-time risk assessment and community-driven safety intelligence for travelers worldwide.
 
@@ -29,10 +29,10 @@ A modern, AI-powered travel safety platform with **Firebase Authentication** tha
 
 ```bash
 # Clone the repository
-git clone https://github.com/aditii23/safezone.ai.git
+git clone https://github.com/aditii23/treksure.git
 
 # Navigate to project directory
-cd safezone-ai
+cd treksure
 
 # Install dependencies
 pnpm install
@@ -54,7 +54,7 @@ pnpm dev
 ## 📁 Project Structure
 
 ```
-safezone-ai/
+treksure/
 ├── client/                 # React frontend
 │   ├── pages/             # Route components
 │   ├── components/        # Reusable UI components
@@ -154,4 +154,4 @@ For questions and support, please reach out through the contact form in the appl
 
 ---
 
-**SafeZone AI** - Travel safely with real-time risk intelligence ..🌍✈️
+**TrekSure** - Travel safely with real-time risk intelligence 🌍✈️

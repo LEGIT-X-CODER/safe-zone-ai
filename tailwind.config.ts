@@ -57,7 +57,7 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        safezone: {
+        treksure: {
           blue: "#2563eb",
           "blue-dark": "#1d4ed8",
           "blue-light": "#3b82f6",

@@ -129,7 +129,7 @@ export default function Features() {
     {
       number: "2.5M+",
       label: "Active Users",
-      description: "Travelers trust SafeZone AI",
+      description: "Travelers trust TrekSure",
     },
     {
       number: "50K+",
@@ -190,7 +190,7 @@ export default function Features() {
   return (
     <Layout>
       <div
-        className="min-h-screen text-white bg-cover bg-center"
+        className="min-h-screen text-foreground bg-cover bg-center"
         style={{
           backgroundImage:
             "linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Fe75ca4bc41174c9585429f7e36dd82a1?format=webp&width=1600')",
@@ -199,27 +199,27 @@ export default function Features() {
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <Badge className="bg-blue-100 text-safezone-blue mb-4">
+            <Badge className="bg-primary/10 text-primary mb-4">
               <Shield className="w-4 h-4 mr-1" />
               Advanced Safety Intelligence
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white dark:text-white">
               Comprehensive Safety Features for Every Journey
             </h1>
-            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              Discover how SafeZone AI's cutting-edge technology and
+            <p className="text-xl text-white/80 dark:text-white/80 mb-8 max-w-3xl mx-auto">
+              Discover how TrekSure's cutting-edge technology and
               community-driven insights keep travelers safe worldwide.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/safety-map">
-                <Button className="bg-white text-safezone-blue hover:bg-gray-100 px-8 py-3">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3">
                   Explore Safety Map
                 </Button>
               </Link>
               <Link to="/report-incident">
                 <Button
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-safezone-blue px-8 py-3"
+                  className="border-white dark:border-white text-white dark:text-white hover:bg-white dark:hover:bg-white hover:text-foreground dark:hover:text-foreground px-8 py-3"
                 >
                   Report Incident
                 </Button>
@@ -229,20 +229,15 @@ export default function Features() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-12 bg-white/5 text-white">
+        <section className="py-16 bg-card/5 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-safezone-blue mb-2">
+                  <div className="text-3xl lg:text-4xl font-bold text-white dark:text-white mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-lg font-semibold text-white mb-1">
-                    {stat.label}
-                  </div>
-                  <div className="text-sm text-gray-300">
-                    {stat.description}
-                  </div>
+                  <div className="text-white/70 dark:text-white/70">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -250,64 +245,48 @@ export default function Features() {
         </section>
 
         {/* Main Features */}
-        <section className="py-20 bg-white/5 text-white">
+        <section className="py-20 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                Core Safety Intelligence Features
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Core Safety Features
               </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Our platform combines cutting-edge AI technology with community
-                insights to provide unparalleled travel safety intelligence.
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Our comprehensive suite of safety tools designed to protect
+                travelers at every step of their journey.
               </p>
             </div>
-
-            <div className="space-y-20">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {mainFeatures.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
-                  <div
+                  <Card
                     key={index}
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                      index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                    } animate-fade-up`}
-                    style={{ animationDelay: `${index * 120}ms` }}
+                    className="bg-card border border-border shadow-lg hover:shadow-xl transition-all duration-300 group"
                   >
-                    <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                      <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-12 h-12 bg-safezone-blue rounded-lg flex items-center justify-center">
-                          <Icon className="w-6 h-6 text-white" />
+                    <CardContent className="p-8">
+                      <div className="flex items-center mb-6">
+                        <div className="p-3 bg-primary rounded-lg mr-4">
+                          <Icon className="w-6 h-6 text-primary-foreground" />
                         </div>
-                        <h3 className="text-2xl font-bold text-white">
+                        <h3 className="text-xl font-semibold text-foreground">
                           {feature.title}
                         </h3>
                       </div>
-                      <p className="text-lg text-gray-300 mb-6">
-                        {feature.description}
-                      </p>
-                      <ul className="space-y-3 mb-8">
+                      <p className="text-muted-foreground mb-6">{feature.description}</p>
+                      <ul className="space-y-2">
                         {feature.features.map((item, itemIndex) => (
                           <li
                             key={itemIndex}
-                            className="flex items-center space-x-3"
+                            className="flex items-center text-sm text-muted-foreground"
                           >
-                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                            <span className="text-gray-200">{item}</span>
+                            <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400 mr-2 flex-shrink-0" />
+                            {item}
                           </li>
                         ))}
                       </ul>
-                      <Button className="bg-safezone-blue hover:bg-safezone-blue-dark">
-                        Learn More
-                      </Button>
-                    </div>
-                    <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                      <img
-                        src={feature.image}
-                        alt={feature.title}
-                        className="w-full h-80 object-cover rounded-lg shadow-lg"
-                      />
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
                 );
               })}
             </div>
@@ -315,15 +294,15 @@ export default function Features() {
         </section>
 
         {/* Additional Features Grid */}
-        <section className="py-20 bg-white/5 text-white">
+        <section className="py-20 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                Additional Capabilities
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Additional Safety Tools
               </h2>
-              <p className="text-xl text-gray-300">
-                Explore more features that make SafeZone AI the complete travel
-                safety solution.
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Comprehensive tools and resources to enhance your travel safety
+                experience.
               </p>
             </div>
 
@@ -333,20 +312,18 @@ export default function Features() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white/5 text-white animate-fade-up"
-                    style={{ animationDelay: `${index * 120}ms` }}
+                    className="bg-card border border-border shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="w-10 h-10 bg-safezone-blue rounded-lg flex items-center justify-center">
-                          <Icon className="w-5 h-5 text-white" />
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        <div className="p-2 bg-primary rounded-lg mr-3">
+                          <Icon className="w-5 h-5 text-primary-foreground" />
                         </div>
-                        <Badge variant="secondary">{feature.category}</Badge>
+                        <h3 className="text-lg font-semibold text-foreground">
+                          {feature.title}
+                        </h3>
                       </div>
-                      <CardTitle className="text-lg">{feature.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-gray-300">{feature.description}</p>
+                      <p className="text-muted-foreground">{feature.description}</p>
                     </CardContent>
                   </Card>
                 );
@@ -356,15 +333,15 @@ export default function Features() {
         </section>
 
         {/* Use Cases */}
-        <section className="py-20 bg-white/5 text-white">
+        <section className="py-20 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                Built for Every Type of Traveler
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Perfect for Every Traveler
               </h2>
-              <p className="text-xl text-gray-300">
-                Whether you're traveling for business, leisure, or managing
-                destinations, we have you covered.
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Whether you're a solo adventurer, family traveler, or business
+                professional, TrekSure adapts to your unique safety needs.
               </p>
             </div>
 
@@ -372,15 +349,15 @@ export default function Features() {
               {useCases.map((useCase, index) => {
                 const Icon = useCase.icon;
                 return (
-                  <Card key={index} className="border-0 shadow-lg">
+                  <Card key={index} className="bg-card border border-border shadow-lg hover:shadow-xl transition-all duration-300 group">
                     <CardHeader className="text-center">
-                      <div className="w-16 h-16 bg-safezone-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Icon className="w-8 h-8 text-white" />
+                      <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Icon className="w-8 h-8 text-primary-foreground" />
                       </div>
-                      <CardTitle className="text-xl">{useCase.title}</CardTitle>
+                      <CardTitle className="text-xl text-foreground">{useCase.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-300 text-center mb-6">
+                      <p className="text-muted-foreground text-center mb-6">
                         {useCase.description}
                       </p>
                       <ul className="space-y-2">
@@ -389,8 +366,8 @@ export default function Features() {
                             key={benefitIndex}
                             className="flex items-center space-x-2"
                           >
-                            <Star className="w-4 h-4 text-yellow-500 flex-shrink-0" />
-                            <span className="text-sm text-gray-200">
+                            <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400 flex-shrink-0" />
+                            <span className="text-sm text-muted-foreground">
                               {benefit}
                             </span>
                           </li>
@@ -405,25 +382,27 @@ export default function Features() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-teal-blue text-white shadow-glow-teal">
+        <section className="py-20 bg-primary text-primary-foreground">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Ready to Travel Safer?
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+              Ready to Travel with Confidence?
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Join thousands of travelers who trust SafeZone AI for real-time
-              safety intelligence and peace of mind.
+            <p className="text-xl text-primary-foreground/80 mb-8">
+              Join thousands of travelers who trust TrekSure for their safety
+              needs. Start your secure journey today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white text-safezone-blue hover:bg-gray-100 px-8 py-3">
-                Start Free Trial
-              </Button>
-              <Link to="/contact">
+              <Link to="/signup">
+                <Button className="bg-background text-foreground hover:bg-background/90 px-8 py-3">
+                  Get Started Free
+                </Button>
+              </Link>
+              <Link to="/safety-map">
                 <Button
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-safezone-blue px-8 py-3"
+                  className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8 py-3"
                 >
-                  Contact Sales
+                  Explore Safety Map
                 </Button>
               </Link>
             </div>

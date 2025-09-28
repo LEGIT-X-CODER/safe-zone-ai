@@ -171,8 +171,8 @@ export default function SafetyMap() {
       name: "Civil Lines",
       level: "High Risk",
       score: 75,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
+      color: "text-red-600 dark:text-red-400",
+      bgColor: "bg-red-50 dark:bg-red-900/20",
       incidents: 3,
       lastUpdate: "2 mins ago",
       center: [26.4499, 80.3319],
@@ -183,8 +183,8 @@ export default function SafetyMap() {
       name: "Kidwai Nagar",
       level: "Medium Risk",
       score: 55,
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-50",
+      color: "text-yellow-600 dark:text-yellow-400",
+      bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
       incidents: 2,
       lastUpdate: "15 mins ago",
       center: [26.4738, 80.3318],
@@ -195,8 +195,8 @@ export default function SafetyMap() {
       name: "Swaroop Nagar",
       level: "Medium Risk",
       score: 62,
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-50",
+      color: "text-yellow-600 dark:text-yellow-400",
+      bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
       incidents: 2,
       lastUpdate: "8 mins ago",
       center: [26.4667, 80.3498],
@@ -207,8 +207,8 @@ export default function SafetyMap() {
       name: "Chakeri (Airport Area)",
       level: "Low Risk",
       score: 35,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
+      color: "text-green-600 dark:text-green-400",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
       incidents: 1,
       lastUpdate: "1 hour ago",
       center: [26.4041, 80.4098],
@@ -219,8 +219,8 @@ export default function SafetyMap() {
       name: "Govind Nagar",
       level: "High Risk",
       score: 78,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
+      color: "text-red-600 dark:text-red-400",
+      bgColor: "bg-red-50 dark:bg-red-900/20",
       incidents: 2,
       lastUpdate: "5 mins ago",
       center: [26.4478, 80.3463],
@@ -392,26 +392,26 @@ export default function SafetyMap() {
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "high":
-        return "text-red-600 bg-red-50";
+        return "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20";
       case "medium":
-        return "text-yellow-600 bg-yellow-50";
+        return "text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20";
       case "low":
-        return "text-green-600 bg-green-50";
+        return "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20";
       default:
-        return "text-gray-600 bg-gray-50";
+        return "text-muted-foreground bg-muted";
     }
   };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
       case "high":
-        return <AlertTriangle className="w-4 h-4 text-red-600" />;
+        return <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />;
       case "medium":
-        return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+        return <AlertTriangle className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />;
       case "low":
-        return <Shield className="w-4 h-4 text-green-600" />;
+        return <Shield className="w-4 h-4 text-green-600 dark:text-green-400" />;
       default:
-        return <AlertTriangle className="w-4 h-4 text-gray-600" />;
+        return <AlertTriangle className="w-4 h-4 text-muted-foreground" />;
     }
   };
 
@@ -474,15 +474,15 @@ export default function SafetyMap() {
               <CardContent>
                 <div className="relative">
                   {mapError ? (
-                    <div className="w-full h-[600px] rounded-lg border flex items-center justify-center bg-red-50">
+                    <div className="w-full h-[600px] rounded-lg border flex items-center justify-center bg-red-50 dark:bg-red-900/20">
                       <div className="text-center">
-                        <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                        <h3 className="text-lg font-semibold text-red-700 mb-2">Map Loading Error</h3>
-                        <p className="text-red-600 mb-4">{mapError}</p>
+                        <AlertTriangle className="w-12 h-12 text-red-500 dark:text-red-400 mx-auto mb-4" />
+                        <h3 className="text-lg font-semibold text-red-700 dark:text-red-400 mb-2">Map Loading Error</h3>
+                        <p className="text-red-600 dark:text-red-400 mb-4">{mapError}</p>
                         <Button 
                           onClick={() => window.location.reload()}
                           variant="outline"
-                          className="border-red-300 text-red-700 hover:bg-red-100"
+                          className="border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/20"
                         >
                           <RefreshCw className="w-4 h-4 mr-2" />
                           Reload Page
@@ -497,19 +497,19 @@ export default function SafetyMap() {
                         style={{ zIndex: 1 }}
                       />
                       {isMapLoading && (
-                        <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center rounded-lg">
+                        <div className="absolute inset-0 bg-background/75 backdrop-blur-sm flex items-center justify-center rounded-lg">
                           <div className="text-center">
                             <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-2 text-primary" />
-                            <p className="text-gray-600">Loading map...</p>
+                            <p className="text-muted-foreground">Loading map...</p>
                           </div>
                         </div>
                       )}
                     </>
                   )}
                   <div className="absolute top-4 left-4 z-10">
-                    <div className="bg-white p-3 rounded-lg shadow-lg">
-                      <h4 className="font-semibold text-sm mb-2">Legend</h4>
-                      <div className="space-y-1 text-xs">
+                    <div className="bg-card p-3 rounded-lg shadow-lg border border-border">
+                      <h4 className="font-semibold text-sm mb-2 text-foreground">Legend</h4>
+                      <div className="space-y-1 text-xs text-foreground">
                         <div className="flex items-center gap-2">
                           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                           <span>Low Risk</span>
@@ -564,32 +564,36 @@ export default function SafetyMap() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  {safetyZones.map((area) => (
-                    <div
-                      key={area.id}
-                      className={`p-3 rounded-lg border cursor-pointer transition-colors ${
-                        selectedArea === area.id ? "ring-2 ring-primary" : ""
-                      }`}
-                      onClick={() => setSelectedArea(area.id)}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-semibold">{area.name}</h4>
-                          <p className={`text-sm ${area.color}`}>{area.level}</p>
+                {safetyZones.length === 0 ? (
+                  <p className="text-muted-foreground">No risk areas available</p>
+                ) : (
+                  <div className="space-y-3">
+                    {safetyZones.map((area) => (
+                      <div
+                        key={area.id}
+                        className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                          selectedArea === area.id ? "ring-2 ring-primary" : ""
+                        }`}
+                        onClick={() => setSelectedArea(area.id)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="font-semibold">{area.name}</h4>
+                            <p className={`text-sm ${area.color}`}>{area.level}</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold">{area.score}</div>
+                            <div className="text-xs text-muted-foreground">Safety Score</div>
+                          </div>
                         </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold">{area.score}</div>
-                          <div className="text-xs text-gray-500">Safety Score</div>
+                        <div className="flex items-center justify-between mt-2 text-sm text-muted-foreground">
+                          <span>{area.incidents} incidents</span>
+                          <span>{area.lastUpdate}</span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between mt-2 text-sm text-gray-600">
-                        <span>{area.incidents} incidents</span>
-                        <span>{area.lastUpdate}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -609,8 +613,8 @@ export default function SafetyMap() {
                         {getSeverityIcon(incident.severity)}
                         <div className="flex-1">
                           <h4 className="font-semibold text-sm">{incident.type}</h4>
-                          <p className="text-xs text-gray-600">{incident.location}</p>
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="text-xs text-muted-foreground">{incident.location}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
                             {incident.timestamp.toLocaleTimeString()}
                           </p>
                         </div>

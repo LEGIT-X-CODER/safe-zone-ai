@@ -22,6 +22,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Chatbot from "./Chatbot";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -29,6 +31,7 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const location = useLocation();
   const { currentUser, userProfile, logout } = useAuth();
 
@@ -55,6 +58,7 @@ export function Layout({ children }: LayoutProps) {
     { name: "Report Incident", href: "/report-incident", icon: AlertTriangle },
     { name: "Community", href: "/community", icon: Users },
     { name: "Features", href: "/features", icon: Shield },
+    { name: "Reviews", href: "/reviews", icon: Users },
     { name: "Contact", href: "/contact", icon: Phone },
   ];
 
@@ -66,14 +70,14 @@ export function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="min-h-screen dark bg-black">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Navigation Header */}
       <header
         className={cn(
           "z-50",
           location.pathname === "/"
             ? "absolute top-0 left-0 right-0 bg-transparent"
-            : "sticky top-0 backdrop-blur-md bg-black/60 shadow-lg",
+            : "sticky top-0 backdrop-blur-md bg-background/60 shadow-lg",
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,11 +87,11 @@ export function Layout({ children }: LayoutProps) {
               <div className="w-12 h-12 rounded-lg flex items-center justify-center">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=192"
-                  alt="SafeZone logo"
+                  alt="TrekSure logo"
                   className="w-12 h-12 object-contain"
                 />
               </div>
-              <span className="text-2xl font-bold text-white">SafeZone AI</span>
+              <span className="text-2xl font-bold text-foreground">TrekSure</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -101,8 +105,8 @@ export function Layout({ children }: LayoutProps) {
                     className={cn(
                       "flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
                       isActiveLink(item.href)
-                        ? "text-white"
-                        : "text-gray-300 hover:text-white",
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -112,8 +116,9 @@ export function Layout({ children }: LayoutProps) {
               })}
             </nav>
 
-            {/* CTA Button or User Menu */}
+            {/* Theme Toggle and CTA Button or User Menu */}
             <div className="hidden md:flex items-center space-x-4">
+              <ThemeToggle />
               {currentUser ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -185,7 +190,7 @@ export function Layout({ children }: LayoutProps) {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
+            <div className="md:hidden py-4 border-t border-border">
               <nav className="space-y-2">
                 {navigation.map((item) => {
                   const Icon = item.icon;
@@ -197,8 +202,8 @@ export function Layout({ children }: LayoutProps) {
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300",
                         isActiveLink(item.href)
-                          ? "text-white"
-                          : "text-gray-300 hover:text-white",
+                          ? "text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -206,7 +211,10 @@ export function Layout({ children }: LayoutProps) {
                     </Link>
                   );
                 })}
-                <div className="pt-4">
+                <div className="pt-4 space-y-2">
+                  <div className="flex justify-center">
+                    <ThemeToggle />
+                  </div>
                   {currentUser ? (
                     <div className="space-y-2">
                       <Link to="/profile">
@@ -258,11 +266,11 @@ export function Layout({ children }: LayoutProps) {
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2F5bd1553efac94655a6a311a554d81a53%2Feb3e34e99a9b4c59b134279ae535a885?format=webp&width=128"
-                    alt="SafeZone logo"
+                    alt="TrekSure logo"
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <span className="text-xl font-bold">SafeZone AI</span>
+                <span className="text-xl font-bold">TrekSure</span>
               </div>
               <p className="text-blue-100 mb-4">
                 Real-time travel safety intelligence powered by AI. Stay
@@ -367,7 +375,7 @@ export function Layout({ children }: LayoutProps) {
           <div className="border-t border-blue-400 pt-8 mt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-blue-100">
-                © 2025 SafeZone AI. All rights reserved.
+                © 2025 TrekSure. All rights reserved.
               </p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <a href="#" className="text-blue-100 hover:text-white text-sm">
@@ -384,6 +392,12 @@ export function Layout({ children }: LayoutProps) {
           </div>
         </div>
       </footer>
+      
+      {/* Chatbot */}
+      <Chatbot 
+        isOpen={isChatbotOpen} 
+        onToggle={() => setIsChatbotOpen(!isChatbotOpen)} 
+      />
     </div>
   );
 }
